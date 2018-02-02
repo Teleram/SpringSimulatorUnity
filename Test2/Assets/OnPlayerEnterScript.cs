@@ -17,11 +17,19 @@ public class OnPlayerEnterScript : NetworkBehaviour {
 
         Debug.Log("I spawned!");
 
-        Instantiate(mainUnitPrefab);
-	}
+        CmdSpawnMainUnit();
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    [Command]
+    void CmdSpawnMainUnit()
+    {
+        GameObject tmp = Instantiate(mainUnitPrefab);
+
+        NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
+    }
 }

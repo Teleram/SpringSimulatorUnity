@@ -23,8 +23,9 @@ GameObject:
   - component: {fileID: 65075191683722890}
   - component: {fileID: 23661544725015230}
   - component: {fileID: 114255237657370482}
+  - component: {fileID: 114989541361142512}
   m_Layer: 0
-  m_Name: Player1
+  m_Name: MainUnitPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,3 +113,36 @@ MonoBehaviour:
   counter: 0
   unittype: {fileID: 1762109997523074, guid: 55331da5eefde6744a8ee14281c70656, type: 2}
   spawnspeed: 10
+  spawnpos: {x: 0, y: 0, z: 0}
+--- !u!114 &114989541361142512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1479490218063430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 67
+    i1: 102
+    i2: 161
+    i3: 80
+    i4: 79
+    i5: 165
+    i6: 140
+    i7: 68
+    i8: 217
+    i9: 181
+    i10: 5
+    i11: 217
+    i12: 97
+    i13: 219
+    i14: 63
+    i15: 179
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
