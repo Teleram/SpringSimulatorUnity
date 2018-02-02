@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
-public class MoveScript : MonoBehaviour {
+public class MoveScript : NetworkBehaviour {
 
 	//public Transform pointer;
 	public SelectScript selectScript;
@@ -19,6 +20,9 @@ public class MoveScript : MonoBehaviour {
 
 	// Use this for initialization
     void Start () {
+        if (!hasAuthority)
+            return;
+
         agent = (NavMeshAgent)me.GetComponent("NavMeshAgent");
         myDestination = me.transform.position;
         agent.destination = myDestination;
@@ -27,7 +31,10 @@ public class MoveScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(Input.GetMouseButtonDown( 1 ) && selectScript.selected)
+        if (!hasAuthority)
+            return;
+
+        if (Input.GetMouseButtonDown( 1 ) && selectScript.selected)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;

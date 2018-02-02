@@ -108,12 +108,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4130b6e9fffa9042897348018f8037d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
+  hp: 1000
   me: {fileID: 1479490218063430}
   counter: 0
   unittype: {fileID: 1762109997523074, guid: 55331da5eefde6744a8ee14281c70656, type: 2}
-  spawnspeed: 10
-  spawnpos: {x: 0, y: 0, z: 0}
+  spawnspeed: 1
+  spawnpos: {x: 100, y: 5, z: 10}
+  centralSpawnScript: {fileID: 0}
 --- !u!114 &114989541361142512
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
-public class UnitBehavior : MonoBehaviour {
+public class UnitBehavior : NetworkBehaviour {
 
     public GameObject me;
     public int hp = 100;
@@ -21,6 +22,8 @@ public class UnitBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!hasAuthority)
+            return;
         if (me.transform.position[1] <= -100 || hp <= 0)
         {
            // Destroy(pointer);

@@ -7,17 +7,17 @@ public class OnPlayerEnterScript : NetworkBehaviour {
 
     public GameObject mainUnitPrefab;
 
-	// Use this for initialization
-	void Start () {
+    public CentralSpawnScript centralSpawnScript;
+
+    // Use this for initialization
+    void Start () {
         // is this me?
-        if(!isLocalPlayer)
-        {
+        if (!isLocalPlayer)
             return;
-        }
 
         Debug.Log("I spawned!");
 
-        CmdSpawnMainUnit();
+        centralSpawnScript.CmdSpawnMainUnit(mainUnitPrefab);
     }
 	
 	// Update is called once per frame
@@ -25,11 +25,4 @@ public class OnPlayerEnterScript : NetworkBehaviour {
 		
 	}
 
-    [Command]
-    void CmdSpawnMainUnit()
-    {
-        GameObject tmp = Instantiate(mainUnitPrefab);
-
-        NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
-    }
 }

@@ -282,6 +282,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CentralSpawnScript.cs" />
     <Compile Include="Assets\MoveScript.cs" />
     <Compile Include="Assets\OnPlayerEnterScript.cs" />
     <Compile Include="Assets\SelectScript.cs" />

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Spawn : MonoBehaviour {
+public class Spawn : NetworkBehaviour {
 
     public int hp;
     public GameObject me;
@@ -12,18 +13,23 @@ public class Spawn : MonoBehaviour {
     public Vector3 spawnpos;
     //public Transform[] spawnPoints;
 
+    public CentralSpawnScript centralSpawnScript;
+
 
 	// Use this for initialization
 	void Start () {
-        hp = 1000;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (!hasAuthority)
+            return;
+
         //float hp_temp = hp - (10 * Time.deltaTime);
         //hp = (int) hp_temp;
 
-        if(hp <= 0)
+        if (hp <= 0)
         {
             //me.active = false;
             Destroy(me);
@@ -31,10 +37,8 @@ public class Spawn : MonoBehaviour {
 
         if(counter >= 100 && spawnposisfree(spawnpos))
         {
-            //Vector3 pos = new Vector3(100, 100, 100);
-            Quaternion rot = new Quaternion();
-            Instantiate(unittype, spawnpos, rot);
             counter -= 100;
+            centralSpawnScript.CmdSpawnUnit(unittype, spawnpos);
         }
 
         counter += spawnspeed * Time.deltaTime;
@@ -44,4 +48,5 @@ public class Spawn : MonoBehaviour {
     {
         return true;
     }
+
 }

@@ -21,10 +21,10 @@ public class SelectScript : MonoBehaviour {
 	void Update () 
 	{
 
-		// If we press the left mouse button, 
+        // If we press the left mouse button, 
         // save mouse location and begin selection and
         // delete old selection
-        if( Input.GetMouseButtonDown( 0 ) )
+        if ( Input.GetMouseButtonDown( 0 ) )
         {
             isSelecting = true;
             mousePosition1 = Input.mousePosition;
