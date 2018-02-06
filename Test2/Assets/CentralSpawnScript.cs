@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class CentralSpawnScript : NetworkBehaviour {
 
+
 	// Use this for initialization
 	void Start () {
 		
@@ -27,8 +28,10 @@ public class CentralSpawnScript : NetworkBehaviour {
     public void CmdSpawnMainUnit(GameObject mainUnitPrefab)
     {
         GameObject tmp = Instantiate(mainUnitPrefab);
-        Spawn localSpawnScript = (Spawn) tmp.GetComponent("Spawn");
-        localSpawnScript.centralSpawnScript = this;
+
         NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
+
+        //Spawn localSpawnScript = (Spawn)tmp.GetComponent("Spawn");
+        //localSpawnScript.centralSpawnScript = this;
     }
 }

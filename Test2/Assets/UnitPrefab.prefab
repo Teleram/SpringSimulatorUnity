@@ -28,9 +28,9 @@ GameObject:
   - component: {fileID: 114053134814688618}
   - component: {fileID: 136941101218256220}
   - component: {fileID: 114561049371369668}
-  - component: {fileID: 114529211943833098}
+  - component: {fileID: 114166960059331216}
   m_Layer: 0
-  m_Name: Unit
+  m_Name: UnitPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   me: {fileID: 1762109997523074}
   selected: 0
---- !u!114 &114529211943833098
+--- !u!114 &114166960059331216
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

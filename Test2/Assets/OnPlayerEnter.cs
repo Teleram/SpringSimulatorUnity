@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class OnPlayerEnterScript : NetworkBehaviour {
+public class OnPlayerEnter : NetworkBehaviour {
 
     public GameObject mainUnitPrefab;
 
@@ -13,7 +13,9 @@ public class OnPlayerEnterScript : NetworkBehaviour {
     void Start () {
         // is this me?
         if (!isLocalPlayer)
+        {
             return;
+        }
 
         Debug.Log("I spawned!");
 

@@ -284,7 +284,7 @@
   <ItemGroup>
     <Compile Include="Assets\CentralSpawnScript.cs" />
     <Compile Include="Assets\MoveScript.cs" />
-    <Compile Include="Assets\OnPlayerEnterScript.cs" />
+    <Compile Include="Assets\OnPlayerEnter.cs" />
     <Compile Include="Assets\SelectScript.cs" />
     <Compile Include="Assets\Spawn.cs" />
     <Compile Include="Assets\UnitBehavior.cs" />

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
-public class SelectScript : MonoBehaviour {
+public class SelectScript : NetworkBehaviour {
 
     public GameObject me;
     public bool selected = false;
@@ -20,6 +21,8 @@ public class SelectScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+        if (!hasAuthority)
+            return;
 
         // If we press the left mouse button, 
         // save mouse location and begin selection and
