@@ -8,9 +8,9 @@ public class Spawn : NetworkBehaviour {
     public int hp;
     public GameObject me;
     public float counter;
-    public GameObject unittype;
+    //public GameObject unittype;
     public float spawnspeed;
-    public Vector3 spawnpos;
+    //public Vector3 spawnpos;
     //public Transform[] spawnPoints;
 
     public CentralSpawnScript centralSpawnScript;
@@ -35,18 +35,20 @@ public class Spawn : NetworkBehaviour {
             Destroy(me);
         }
 
-        if(counter >= 100 && spawnposisfree(spawnpos))
+        //if(counter >= 100 && spawnposisfree(spawnpos))
+        if (counter >= 100)
         {
             counter -= 100;
-            centralSpawnScript.CmdSpawnUnit(unittype, spawnpos);
+            centralSpawnScript.CmdSpawnUnit();
+            //CmdSpawnUnit();
         }
 
         counter += spawnspeed * Time.deltaTime;
 	}
 
-    private bool spawnposisfree(Vector3 spawnposLocal)
-    {
-        return true;
-    }
+    //private bool spawnposisfree(Vector3 spawnposLocal)
+    //{
+    //    return true;
+    //}
 
 }

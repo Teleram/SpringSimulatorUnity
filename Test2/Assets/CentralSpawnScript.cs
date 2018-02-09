@@ -5,33 +5,31 @@ using UnityEngine.Networking;
 
 public class CentralSpawnScript : NetworkBehaviour {
 
+    public GameObject mainUnit;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public GameObject unit1;
+    public Vector3 spawnpos1;
 
     [Command]
-    public void CmdSpawnUnit(GameObject unittype, Vector3 spawnpos)
+    public void CmdSpawnMainUnit()
     {
-        Quaternion rot = new Quaternion();
-        GameObject tmp = Instantiate(unittype, spawnpos, rot);
+        GameObject tmp = Instantiate(mainUnit);
+
         NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
+        //NetworkServer.Spawn(tmp);
+
+        Spawn localSpawnScript = (Spawn)tmp.GetComponent("Spawn");
+        localSpawnScript.centralSpawnScript = this;
     }
 
     [Command]
-    public void CmdSpawnMainUnit(GameObject mainUnitPrefab)
+    public void CmdSpawnUnit()
     {
-        GameObject tmp = Instantiate(mainUnitPrefab);
+        GameObject tmp = Instantiate(unit1);
 
         NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
+        //NetworkServer.Spawn(tmp);
 
-        //Spawn localSpawnScript = (Spawn)tmp.GetComponent("Spawn");
-        //localSpawnScript.centralSpawnScript = this;
+        tmp.transform.position = spawnpos1;
     }
 }

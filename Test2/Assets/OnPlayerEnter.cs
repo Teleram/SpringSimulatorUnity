@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class OnPlayerEnter : NetworkBehaviour {
 
-    public GameObject mainUnitPrefab;
+    //public GameObject mainUnitPrefab;
 
     public CentralSpawnScript centralSpawnScript;
 
@@ -19,12 +19,16 @@ public class OnPlayerEnter : NetworkBehaviour {
 
         Debug.Log("I spawned!");
 
-        centralSpawnScript.CmdSpawnMainUnit(mainUnitPrefab);
+        centralSpawnScript.CmdSpawnMainUnit();
+        //CmdSpawnMainUnit();
+        //Instantiate(mainUnitPrefab);
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    
 
 }

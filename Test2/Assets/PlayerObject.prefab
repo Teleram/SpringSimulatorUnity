@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4145199856405526}
   - component: {fileID: 114596445851249910}
   - component: {fileID: 114027845748293878}
-  - component: {fileID: 114769285951909500}
+  - component: {fileID: 114184476675688658}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -53,9 +53,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b816262d81547a449658d7d34f4c22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainUnitPrefab: {fileID: 1479490218063430, guid: 4366a1504fa58c44d9b505d961db3fb3,
-    type: 2}
-  centralSpawnScript: {fileID: 114769285951909500}
+  centralSpawnScript: {fileID: 114184476675688658}
+--- !u!114 &114184476675688658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391722212407998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe42203b23d531c4a94e0fa373213d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainUnit: {fileID: 1101817986467278, guid: 299a114ad68a3924f8791f66ae407e4c, type: 2}
+  unit1: {fileID: 1762109997523074, guid: 55331da5eefde6744a8ee14281c70656, type: 2}
+  spawnpos1: {x: 100, y: 0, z: 100}
 --- !u!114 &114596445851249910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -87,15 +99,4 @@ MonoBehaviour:
     i14: 253
     i15: 89
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &114769285951909500
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1391722212407998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe42203b23d531c4a94e0fa373213d16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_LocalPlayerAuthority: 0
