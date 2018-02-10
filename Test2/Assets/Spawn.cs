@@ -8,9 +8,9 @@ public class Spawn : NetworkBehaviour {
     public int hp;
     public GameObject me;
     public float counter;
-    //public GameObject unittype;
+    public GameObject unittype;
     public float spawnspeed;
-    //public Vector3 spawnpos;
+    public Vector3 spawnpos;
     //public Transform[] spawnPoints;
 
     public CentralSpawnScript centralSpawnScript;
@@ -39,7 +39,7 @@ public class Spawn : NetworkBehaviour {
         if (counter >= 100)
         {
             counter -= 100;
-            centralSpawnScript.CmdSpawnUnit();
+            centralSpawnScript.SpawnUnit(spawnpos, unittype);
             //CmdSpawnUnit();
         }
 

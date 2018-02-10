@@ -7,9 +7,13 @@ public class CentralSpawnScript : NetworkBehaviour {
 
     public GameObject mainUnit;
 
-    public GameObject unit1;
-    public Vector3 spawnpos1;
+    //public GameObject unit1;
+    //public Vector3 spawnpos1;
+    private GameObject nextUnit;
+    private Vector3 nextSpawnpos;
 
+
+    // Spawns the Main Unit
     [Command]
     public void CmdSpawnMainUnit()
     {
@@ -22,14 +26,23 @@ public class CentralSpawnScript : NetworkBehaviour {
         localSpawnScript.centralSpawnScript = this;
     }
 
-    [Command]
-    public void CmdSpawnUnit()
+    // Puts Parameters into Variables, because CmdSpawnUnit doesn´t take the Parameters directly
+    public void SpawnUnit(Vector3 spawnpos, GameObject unittype)
     {
-        GameObject tmp = Instantiate(unit1);
+        nextSpawnpos = spawnpos;
+        nextUnit = unittype;
+        CmdSpawnUnit();
+    }
+
+    // Spawns a normal Unit
+    [Command]
+    private void CmdSpawnUnit()
+    {
+        GameObject tmp = Instantiate(nextUnit);
 
         NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
         //NetworkServer.Spawn(tmp);
 
-        tmp.transform.position = spawnpos1;
+        tmp.transform.position = nextSpawnpos;
     }
 }

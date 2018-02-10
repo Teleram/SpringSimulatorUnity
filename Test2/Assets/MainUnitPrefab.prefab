@@ -175,3 +175,4 @@ MonoBehaviour:
   unittype: {fileID: 1762109997523074, guid: 55331da5eefde6744a8ee14281c70656, type: 2}
   spawnspeed: 0
   spawnpos: {x: 100, y: 0, z: 100}
+  centralSpawnScript: {fileID: 0}
