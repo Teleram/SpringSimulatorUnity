@@ -19,7 +19,7 @@ public class OnPlayerEnter : NetworkBehaviour {
 
         Debug.Log("I spawned!");
 
-        centralSpawnScript.CmdSpawnMainUnit();
+        centralSpawnScript.SpawnMainUnit();
         //CmdSpawnMainUnit();
         //Instantiate(mainUnitPrefab);
     }

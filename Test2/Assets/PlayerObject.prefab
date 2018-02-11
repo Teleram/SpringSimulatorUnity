@@ -65,9 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe42203b23d531c4a94e0fa373213d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainUnit: {fileID: 1101817986467278, guid: 299a114ad68a3924f8791f66ae407e4c, type: 2}
-  unit1: {fileID: 1762109997523074, guid: 55331da5eefde6744a8ee14281c70656, type: 2}
-  spawnpos1: {x: 100, y: 0, z: 100}
+  mainUnitPrefab: {fileID: 1101817986467278, guid: 299a114ad68a3924f8791f66ae407e4c,
+    type: 2}
 --- !u!114 &114596445851249910
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,26 +5,44 @@ using UnityEngine.Networking;
 
 public class CentralSpawnScript : NetworkBehaviour {
 
-    public GameObject mainUnit;
+    public GameObject mainUnitPrefab;
+    //private GameObject mainUnit;
 
     //public GameObject unit1;
     //public Vector3 spawnpos1;
     private GameObject nextUnit;
     private Vector3 nextSpawnpos;
 
+    private Spawn localSpawnScript;
+
+
+    public void SpawnMainUnit()
+    {
+        //mainUnit = Instantiate(mainUnitPrefab);
+
+        localSpawnScript = (Spawn)mainUnitPrefab.GetComponent("Spawn");
+        localSpawnScript.centralSpawnScript = this;
+
+        CmdSpawnMainUnit();
+        //Destroy(mainUnit);
+    }
 
     // Spawns the Main Unit
     [Command]
-    public void CmdSpawnMainUnit()
+    private void CmdSpawnMainUnit()
     {
-        GameObject tmp = Instantiate(mainUnit);
-
+        GameObject tmp = Instantiate(mainUnitPrefab);
         NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
         //NetworkServer.Spawn(tmp);
 
-        Spawn localSpawnScript = (Spawn)tmp.GetComponent("Spawn");
-        localSpawnScript.centralSpawnScript = this;
+        //RpcSyncSpawnScript();
     }
+
+    //[ClientRpc]
+    //private void RpcSyncSpawnScript()
+    //{
+    //    localSpawnScript.centralSpawnScript = this;
+    //}
 
     // Puts Parameters into Variables, because CmdSpawnUnit doesn´t take the Parameters directly
     public void SpawnUnit(Vector3 spawnpos, GameObject unittype)

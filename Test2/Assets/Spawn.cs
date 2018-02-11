@@ -13,6 +13,7 @@ public class Spawn : NetworkBehaviour {
     public Vector3 spawnpos;
     //public Transform[] spawnPoints;
 
+    //[SyncVar]
     public CentralSpawnScript centralSpawnScript;
 
 

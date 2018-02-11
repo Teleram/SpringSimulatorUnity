@@ -20,8 +20,8 @@ public class MoveScript : NetworkBehaviour {
 
 	// Use this for initialization
     void Start () {
-        if (!hasAuthority)
-            return;
+        //if (!hasAuthority)
+        //    return;
 
         agent = (NavMeshAgent)me.GetComponent("NavMeshAgent");
         myDestination = me.transform.position;
