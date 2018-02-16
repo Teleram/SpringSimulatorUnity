@@ -9,15 +9,18 @@ public class UnitBehavior : NetworkBehaviour {
     public GameObject me;
     public int hp = 100;
 
-    // public GameObject type;
-    // private GameObject pointer;
+    [SyncVar]
+    public int myPlayerId;
 
 	// Use this for initialization
 	void Start () 
     {
-        // Vector3 pos = new Vector3(100, 1, 100);
-        // Quaternion rot = new Quaternion();
-        // pointer = Instantiate(type, pos, rot);
+        GameObject gameMaster = GameObject.Find("GameMaster");
+        GameMasterScript gameMasterScript = (GameMasterScript)gameMaster.GetComponent("GameMasterScript");
+        Material myMaterial = gameMasterScript.materials[myPlayerId];
+
+        Renderer renderer = me.GetComponent<Renderer>();
+        renderer.material = myMaterial;
     }
 	
 	// Update is called once per frame

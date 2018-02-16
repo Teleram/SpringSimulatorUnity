@@ -87,7 +87,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9b2326206e1c7ff4aad91eddcc68d011, type: 2}
+  - {fileID: 2100000, guid: 24f89dc08b98dec4484a88bc4f0f59d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -171,8 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 1000
   me: {fileID: 1101817986467278}
+  myPlayerId: 1
   counter: 100
-  unittype: {fileID: 1762109997523074, guid: 55331da5eefde6744a8ee14281c70656, type: 2}
   spawnspeed: 0
-  spawnpos: {x: 100, y: 0, z: 100}
+  spawnpos: {x: 100, y: 5, z: 100}
   centralSpawnScript: {fileID: 0}

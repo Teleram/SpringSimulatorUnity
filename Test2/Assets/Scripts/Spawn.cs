@@ -7,20 +7,28 @@ public class Spawn : NetworkBehaviour {
 
     public int hp;
     public GameObject me;
+
+    [SyncVar]
+    public int myPlayerId;
+
     public float counter;
-    public GameObject unittype;
     public float spawnspeed;
     public Vector3 spawnpos;
-    //public Transform[] spawnPoints;
 
-    //[SyncVar]
+    private int indexOfNextUnit = 1;
     public CentralSpawnScript centralSpawnScript;
 
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        GameObject gameMaster = GameObject.Find("GameMaster");
+        GameMasterScript gameMasterScript = (GameMasterScript)gameMaster.GetComponent("GameMasterScript");
+        Material myMaterial = gameMasterScript.materials[myPlayerId];
 
-	}
+        Renderer renderer = me.GetComponentInChildren<Renderer>();
+        renderer.material = myMaterial;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,7 +48,7 @@ public class Spawn : NetworkBehaviour {
         if (counter >= 100)
         {
             counter -= 100;
-            centralSpawnScript.SpawnUnit(spawnpos, unittype);
+            centralSpawnScript.SpawnUnit(spawnpos, indexOfNextUnit, myPlayerId);
             //CmdSpawnUnit();
         }
 
