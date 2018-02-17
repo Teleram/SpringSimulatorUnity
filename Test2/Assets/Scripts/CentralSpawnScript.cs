@@ -38,6 +38,9 @@ public class CentralSpawnScript : NetworkBehaviour {
 
         GameObject tmp = Instantiate(mainUnitPrefab);
 
+        Vector3 spawnpos = gameMasterScript.spawnpositions[playerId];
+        tmp.transform.position = spawnpos;
+
         NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
     }
     

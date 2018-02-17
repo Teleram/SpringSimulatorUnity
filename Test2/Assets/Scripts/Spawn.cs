@@ -13,7 +13,8 @@ public class Spawn : NetworkBehaviour {
 
     public float counter;
     public float spawnspeed;
-    public Vector3 spawnpos;
+    public Vector3 relativeSpawnpos;
+    private Vector3 absoluteSpawnpos;
 
     private int indexOfNextUnit = 1;
     public CentralSpawnScript centralSpawnScript;
@@ -28,6 +29,16 @@ public class Spawn : NetworkBehaviour {
 
         Renderer renderer = me.GetComponentInChildren<Renderer>();
         renderer.material = myMaterial;
+
+        absoluteSpawnpos = relativeSpawnpos;
+        if(me.transform.position.x > 250)
+        {
+            absoluteSpawnpos.x = 500 - relativeSpawnpos.x;
+        }
+        if(me.transform.position.z > 250)
+        {
+            absoluteSpawnpos.z = 500 - relativeSpawnpos.z;
+        }
     }
 	
 	// Update is called once per frame
@@ -48,7 +59,7 @@ public class Spawn : NetworkBehaviour {
         if (counter >= 100)
         {
             counter -= 100;
-            centralSpawnScript.SpawnUnit(spawnpos, indexOfNextUnit, myPlayerId);
+            centralSpawnScript.SpawnUnit(absoluteSpawnpos, indexOfNextUnit, myPlayerId);
             //CmdSpawnUnit();
         }
 

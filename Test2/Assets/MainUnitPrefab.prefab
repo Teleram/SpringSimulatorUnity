@@ -171,8 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 1000
   me: {fileID: 1101817986467278}
-  myPlayerId: 1
+  myPlayerId: 0
   counter: 100
   spawnspeed: 0
-  spawnpos: {x: 100, y: 5, z: 100}
+  relativeSpawnpos: {x: 20, y: 0, z: 20}
   centralSpawnScript: {fileID: 0}
