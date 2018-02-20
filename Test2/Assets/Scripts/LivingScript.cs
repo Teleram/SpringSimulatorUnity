@@ -1,37 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Networking;
 
-public class UnitBehavior : NetworkBehaviour {
+public class LivingScript : NetworkBehaviour {
 
     public GameObject me;
-    public int hp = 100;
+
+    [SyncVar]
+    public int hp;
 
     [SyncVar]
     public int myPlayerId;
 
-	// Use this for initialization
-	void Start () 
+    void Start()
     {
         GameObject gameMaster = GameObject.Find("GameMaster");
         GameMasterScript gameMasterScript = (GameMasterScript)gameMaster.GetComponent("GameMasterScript");
         Material myMaterial = gameMasterScript.materials[myPlayerId];
 
-        Renderer renderer = me.GetComponent<Renderer>();
+        Renderer renderer = me.GetComponentInChildren<Renderer>();
         renderer.material = myMaterial;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (!hasAuthority)
-            return;
-        if (me.transform.position[1] <= -100 || hp <= 0)
+
+    void Update()
+    {
+        if(hp <= 0)
         {
-           // Destroy(pointer);
             Destroy(me);
         }
-        
-	}
+    }
+
+    public void takeDamage(int damage)
+    {
+        if(hasAuthority)
+        {
+            CmdTakeDamage(damage);
+        }
+    }
+
+    [Command]
+    private void CmdTakeDamage(int damage)
+    {
+        hp -= damage;
+    }
 }

@@ -282,13 +282,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AttackScript.cs" />
+    <Compile Include="Assets\Scripts\BulletScript.cs" />
     <Compile Include="Assets\Scripts\CentralSpawnScript.cs" />
     <Compile Include="Assets\Scripts\GameMasterScript.cs" />
+    <Compile Include="Assets\Scripts\LivingScript.cs" />
     <Compile Include="Assets\Scripts\MoveScript.cs" />
     <Compile Include="Assets\Scripts\OnPlayerEnter.cs" />
     <Compile Include="Assets\Scripts\SelectScript.cs" />
     <Compile Include="Assets\Scripts\Spawn.cs" />
-    <Compile Include="Assets\Scripts\UnitBehavior.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

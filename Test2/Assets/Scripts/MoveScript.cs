@@ -6,12 +6,11 @@ using UnityEngine.Networking;
 
 public class MoveScript : NetworkBehaviour {
 
-	//public Transform pointer;
-	public SelectScript selectScript;
-    //public SpriteRenderer cursor;
+    public SelectScript selectScript;
 
     public GameObject me;
     private NavMeshAgent agent;
+    private AttackScript attackScript;
 
     public Vector3 myDestination;
 
@@ -19,6 +18,7 @@ public class MoveScript : NetworkBehaviour {
     void Start ()
     {
         agent = (NavMeshAgent)me.GetComponent("NavMeshAgent");
+        attackScript = (AttackScript)me.GetComponent("AttackScript");
     }
 	
 	// Update is called once per frame
@@ -26,6 +26,21 @@ public class MoveScript : NetworkBehaviour {
 	{
         if (hasAuthority)
         {
+
+            if (attackScript.hasTarget())
+            {
+                agent.stoppingDistance = attackScript.attackRange;
+                if (attackScript.target.transform.position != myDestination)
+                {
+                    myDestination = attackScript.target.transform.position;
+                    agent.destination = myDestination;
+                    CmdUpdateDestination(myDestination);
+                }
+            }
+            else
+            {
+                agent.stoppingDistance = 1.0f;
+            }
 
             if (Input.GetMouseButtonDown(1) && selectScript.selected)
             {
@@ -46,6 +61,8 @@ public class MoveScript : NetworkBehaviour {
             agent.isStopped = true;
         }
 	}
+
+
 
     [Command]
     private void CmdUpdateDestination(Vector3 newDestination)

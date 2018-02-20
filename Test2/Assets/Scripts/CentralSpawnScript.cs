@@ -21,7 +21,9 @@ public class CentralSpawnScript : NetworkBehaviour {
 
         Spawn localSpawnScript = (Spawn)mainUnitPrefab.GetComponent("Spawn");
         localSpawnScript.centralSpawnScript = this;
-        localSpawnScript.myPlayerId = playerId;
+
+        LivingScript livingScript = (LivingScript)mainUnitPrefab.GetComponent("LivingScript");
+        livingScript.myPlayerId = playerId;
 
         CmdSpawnMainUnit(playerId);
     }
@@ -34,7 +36,9 @@ public class CentralSpawnScript : NetworkBehaviour {
 
         Spawn localSpawnScript = (Spawn)mainUnitPrefab.GetComponent("Spawn");
         localSpawnScript.centralSpawnScript = this;
-        localSpawnScript.myPlayerId = playerId;
+
+        LivingScript livingScript = (LivingScript)mainUnitPrefab.GetComponent("LivingScript");
+        livingScript.myPlayerId = playerId;
 
         GameObject tmp = Instantiate(mainUnitPrefab);
 
@@ -60,8 +64,8 @@ public class CentralSpawnScript : NetworkBehaviour {
 
         tmp.transform.position = spawnpos;
 
-        UnitBehavior unitScript = (UnitBehavior) tmp.GetComponent("UnitBehavior");
-        unitScript.myPlayerId = playerId;
+        LivingScript livingScript = (LivingScript)tmp.GetComponent("LivingScript");
+        livingScript.myPlayerId = playerId;
 
         NetworkServer.SpawnWithClientAuthority(tmp, connectionToClient);
     }
