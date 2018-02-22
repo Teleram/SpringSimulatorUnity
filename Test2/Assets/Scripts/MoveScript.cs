@@ -34,7 +34,7 @@ public class MoveScript : NetworkBehaviour {
                 {
                     myDestination = attackScript.target.transform.position;
                     agent.destination = myDestination;
-                    CmdUpdateDestination(myDestination);
+                    //CmdUpdateDestination(myDestination);
                 }
             }
             else
@@ -51,32 +51,27 @@ public class MoveScript : NetworkBehaviour {
                 {
                     myDestination = hit.point;
                     agent.destination = myDestination;
-                    CmdUpdateDestination(myDestination);
+                    //CmdUpdateDestination(myDestination);
                 }
             }
-        }
-
-        if(myDestination == me.transform.position)
-        {
-            agent.isStopped = true;
         }
 	}
 
 
 
-    [Command]
-    private void CmdUpdateDestination(Vector3 newDestination)
-    {
-        myDestination = newDestination;
-        agent.destination = myDestination;
+    //[Command]
+    //private void CmdUpdateDestination(Vector3 newDestination)
+    //{
+    //    myDestination = newDestination;
+    //    agent.destination = myDestination;
 
-        RpcUpdateDestination(myDestination);
-    }
+    //    RpcUpdateDestination(myDestination);
+    //}
 
-    [ClientRpc]
-    private void RpcUpdateDestination(Vector3 newDestination)
-    {
-        myDestination = newDestination;
-        agent.destination = myDestination;
-    }
+    //[ClientRpc]
+    //private void RpcUpdateDestination(Vector3 newDestination)
+    //{
+    //    myDestination = newDestination;
+    //    agent.destination = myDestination;
+    //}
 }

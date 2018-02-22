@@ -53,7 +53,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b816262d81547a449658d7d34f4c22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPlayerId: -1
   centralSpawnScript: {fileID: 114184476675688658}
 --- !u!114 &114184476675688658
 MonoBehaviour:
@@ -67,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitArray:
-  - {fileID: 1101817986467278, guid: 299a114ad68a3924f8791f66ae407e4c, type: 2}
+  - {fileID: 1450106935682424, guid: ab094391e0051414eb1d6253da5e79c2, type: 2}
   - {fileID: 1762109997523074, guid: 55331da5eefde6744a8ee14281c70656, type: 2}
   gameMasterScript: {fileID: 0}
 --- !u!114 &114596445851249910

@@ -20,7 +20,7 @@ public class Spawn : NetworkBehaviour {
 	void Start ()
     {
         //livingScript = this.GetComponentInParent<LivingScript>();
-        livingScript = (LivingScript)this.GetComponent("LivingScript");
+        livingScript = (LivingScript)GetComponent("LivingScript");
 
         absoluteSpawnpos = relativeSpawnpos;
         if(this.transform.position.x > 250)

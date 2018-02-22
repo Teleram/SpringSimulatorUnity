@@ -19,7 +19,7 @@ public class LivingScript : NetworkBehaviour {
         GameMasterScript gameMasterScript = (GameMasterScript)gameMaster.GetComponent("GameMasterScript");
         Material myMaterial = gameMasterScript.materials[myPlayerId];
 
-        Renderer renderer = me.GetComponentInChildren<Renderer>();
+        Renderer renderer = me.GetComponent<Renderer>();
         renderer.material = myMaterial;
     }
 

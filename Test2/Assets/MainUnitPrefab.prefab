@@ -9,19 +9,22 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1101817986467278}
+  m_RootGameObject: {fileID: 1450106935682424}
   m_IsPrefabParent: 1
---- !u!1 &1101817986467278
+--- !u!1 &1450106935682424
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4320863043679704}
-  - component: {fileID: 114225357605044732}
-  - component: {fileID: 114589473707833712}
-  - component: {fileID: 114196781257885656}
+  - component: {fileID: 4079074630344436}
+  - component: {fileID: 33485862566059062}
+  - component: {fileID: 65548608123357874}
+  - component: {fileID: 23569542094642364}
+  - component: {fileID: 114441240728753734}
+  - component: {fileID: 114480277365299960}
+  - component: {fileID: 114707531129330766}
   m_Layer: 0
   m_Name: MainUnitPrefab
   m_TagString: Player
@@ -29,57 +32,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1491672063449414
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4060801573443268}
-  - component: {fileID: 33680712185531364}
-  - component: {fileID: 65582382936548896}
-  - component: {fileID: 23146752967761100}
-  m_Layer: 0
-  m_Name: MainUnitPrefabGrafik
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4060801573443268
+--- !u!4 &4079074630344436
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491672063449414}
+  m_GameObject: {fileID: 1450106935682424}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4320863043679704}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4320863043679704
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1101817986467278}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 156.53474, y: 94.64874, z: 162.95776}
   m_LocalScale: {x: 10, y: 10, z: 10}
-  m_Children:
-  - {fileID: 4060801573443268}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23146752967761100
+--- !u!23 &23569542094642364
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491672063449414}
+  m_GameObject: {fileID: 1450106935682424}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -108,77 +79,45 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33680712185531364
+--- !u!33 &33485862566059062
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491672063449414}
+  m_GameObject: {fileID: 1450106935682424}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65582382936548896
+--- !u!65 &65548608123357874
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491672063449414}
+  m_GameObject: {fileID: 1450106935682424}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114196781257885656
+--- !u!114 &114441240728753734
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1101817986467278}
+  m_GameObject: {fileID: 1450106935682424}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faafa7c84e669b64eaaa4e3b7b8e59ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  me: {fileID: 1101817986467278}
+  me: {fileID: 1450106935682424}
   hp: 1000
-  myPlayerId: -1
---- !u!114 &114225357605044732
+  myPlayerId: 0
+--- !u!114 &114480277365299960
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1101817986467278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 41
-    i1: 154
-    i2: 17
-    i3: 74
-    i4: 214
-    i5: 138
-    i6: 57
-    i7: 36
-    i8: 248
-    i9: 121
-    i10: 31
-    i11: 102
-    i12: 174
-    i13: 64
-    i14: 126
-    i15: 76
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &114589473707833712
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1101817986467278}
+  m_GameObject: {fileID: 1450106935682424}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4130b6e9fffa9042897348018f8037d, type: 3}
@@ -188,3 +127,35 @@ MonoBehaviour:
   spawnspeed: 0
   relativeSpawnpos: {x: 20, y: 0, z: 20}
   centralSpawnScript: {fileID: 0}
+--- !u!114 &114707531129330766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450106935682424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 171
+    i1: 9
+    i2: 67
+    i3: 145
+    i4: 224
+    i5: 5
+    i6: 20
+    i7: 20
+    i8: 235
+    i9: 29
+    i10: 98
+    i11: 83
+    i12: 218
+    i13: 94
+    i14: 121
+    i15: 194
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1

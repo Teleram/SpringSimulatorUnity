@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33983762722376912}
   - component: {fileID: 135204378116363184}
   - component: {fileID: 23195381325845744}
-  - component: {fileID: 114241579566891404}
   - component: {fileID: 114545191504954704}
+  - component: {fileID: 114850100458155282}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -85,7 +85,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149239529633730}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114241579566891404
+--- !u!114 &114545191504954704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1149239529633730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84a10ae351b4d1478892e7852abded2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25
+--- !u!114 &114850100458155282
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -117,18 +129,6 @@ MonoBehaviour:
     i15: 166
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114545191504954704
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149239529633730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a84a10ae351b4d1478892e7852abded2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
 --- !u!135 &135204378116363184
 SphereCollider:
   m_ObjectHideFlags: 1

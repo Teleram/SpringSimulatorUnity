@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4081926286455548}
   - component: {fileID: 33362408187334648}
   - component: {fileID: 23382484664490200}
-  - component: {fileID: 54377872523698092}
   - component: {fileID: 114735593250038038}
   - component: {fileID: 195615196188860286}
   - component: {fileID: 114867577080295338}
@@ -29,6 +28,7 @@ GameObject:
   - component: {fileID: 136941101218256220}
   - component: {fileID: 114561049371369668}
   - component: {fileID: 114419525355166004}
+  - component: {fileID: 114626958655348088}
   m_Layer: 0
   m_Name: UnitPrefab
   m_TagString: Player
@@ -44,7 +44,7 @@ Transform:
   m_GameObject: {fileID: 1762109997523074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: 5, z: 5}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -90,21 +90,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1762109997523074}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54377872523698092
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762109997523074}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &114053134814688618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,6 +149,27 @@ MonoBehaviour:
     i15: 86
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114626958655348088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1762109997523074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114735593250038038
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,11 +8,35 @@ public class BulletScript : NetworkBehaviour {
     [SyncVar]
     public int damage;
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         GameObject target = other.transform.gameObject;
         LivingScript targetLive = target.GetComponent<LivingScript>();
         targetLive.takeDamage(damage);
-        Destroy(this.transform.gameObject);
+        Destroy(transform.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject target = other.transform.gameObject;
+        LivingScript targetLive = target.GetComponent<LivingScript>();
+        targetLive.takeDamage(damage);
+        Destroy(transform.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject target = collision.transform.gameObject;
+        LivingScript targetLive = target.GetComponent<LivingScript>();
+        targetLive.takeDamage(damage);
+        Destroy(transform.gameObject);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        GameObject target = collision.transform.gameObject;
+        LivingScript targetLive = target.GetComponent<LivingScript>();
+        targetLive.takeDamage(damage);
+        Destroy(transform.gameObject);
     }
 }

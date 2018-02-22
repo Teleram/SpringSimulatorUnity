@@ -36,14 +36,7 @@ public class AttackScript : NetworkBehaviour {
 
                 if (Physics.Raycast(ray, out hit, 1000) && hit.collider.tag == "Player")
                 {
-                    if (hit.collider.transform.parent == null)
-                    {
-                        target = hit.collider.transform.gameObject;
-                    }
-                    else
-                    {
-                        target = hit.collider.transform.parent.gameObject;
-                    }
+                    target = hit.collider.transform.gameObject;                    
                 }
                 else
                 {
@@ -102,6 +95,7 @@ public class AttackScript : NetworkBehaviour {
     {
         Quaternion rot = new Quaternion();
         GameObject newBullet = Instantiate(bullet, position, rot);
+        
         newBullet.GetComponent<BulletScript>().damage = damage;
 
         NetworkServer.Spawn(newBullet);
