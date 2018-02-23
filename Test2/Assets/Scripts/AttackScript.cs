@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,21 +13,25 @@ public class AttackScript : NetworkBehaviour {
     
     public GameObject target;
 
-    public GameObject bullet;
     public float attackRange;
     public float attackCooldown;
     public int attackDamage;
     public float remainingAttackCooldown;
 
+    private GameMasterScript gameMasterScript;
+
 	// Use this for initialization
 	void Start () 
     {
+        GameObject gameMaster = GameObject.Find("GameMaster");
+        gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
+
         remainingAttackCooldown = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (hasAuthority)
+        if (hasAuthority && gameMasterScript.gameIsRunning())
         {
 
             if (Input.GetMouseButtonDown(1) && selectScript.selected)
@@ -47,12 +52,14 @@ public class AttackScript : NetworkBehaviour {
 
         if (hasTarget() && !targetIsFriendly())
         {
-            float distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
             if ((remainingAttackCooldown <= 0) && (distanceToTarget <= attackRange))
             {
                 remainingAttackCooldown = attackCooldown;
-                CmdSpawnBullet(target.transform.position, attackDamage);
+
+                int targetId = target.GetComponent<LivingScript>().myObjectId;
+                CmdAttack(attackDamage, targetId);
             }
         }
 
@@ -77,7 +84,7 @@ public class AttackScript : NetworkBehaviour {
     {
         if (hasTarget())
         {
-            LivingScript targetScript = (LivingScript)target.GetComponent("LivingScript");
+            LivingScript targetScript = target.GetComponent<LivingScript>();
 
             if (livingScript.myPlayerId == targetScript.myPlayerId)
             {
@@ -90,14 +97,17 @@ public class AttackScript : NetworkBehaviour {
         return true;
     }
 
+    
     [Command]
-    private void CmdSpawnBullet(Vector3 position, int damage)
+    private void CmdAttack(int damage, int targetId)
     {
-        Quaternion rot = new Quaternion();
-        GameObject newBullet = Instantiate(bullet, position, rot);
-        
-        newBullet.GetComponent<BulletScript>().damage = damage;
+        RpcAttack(damage, targetId);
+    }
 
-        NetworkServer.Spawn(newBullet);
+    [ClientRpc]
+    private void RpcAttack(int damage, int targetId)
+    {
+        GameObject myTarget = gameMasterScript.getObjectById(targetId);
+        myTarget.GetComponent<LivingScript>().takeDamage(damage);
     }
 }

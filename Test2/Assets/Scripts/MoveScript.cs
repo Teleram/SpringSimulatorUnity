@@ -7,24 +7,28 @@ using UnityEngine.Networking;
 public class MoveScript : NetworkBehaviour {
 
     public SelectScript selectScript;
-
-    public GameObject me;
+    
     private NavMeshAgent agent;
     private AttackScript attackScript;
 
     public Vector3 myDestination;
 
+    private GameMasterScript gameMasterScript;
+
 	// Use this for initialization
     void Start ()
     {
-        agent = (NavMeshAgent)me.GetComponent("NavMeshAgent");
-        attackScript = (AttackScript)me.GetComponent("AttackScript");
+        agent = gameObject.GetComponent<NavMeshAgent>();
+        attackScript = gameObject.GetComponent<AttackScript>();
+
+        GameObject gameMaster = GameObject.Find("GameMaster");
+        gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
     }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-        if (hasAuthority)
+        if (hasAuthority && gameMasterScript.gameIsRunning())
         {
 
             if (attackScript.hasTarget())
@@ -54,6 +58,11 @@ public class MoveScript : NetworkBehaviour {
                     //CmdUpdateDestination(myDestination);
                 }
             }
+        }
+
+        if(gameMasterScript.gameTimerOver())
+        {
+            agent.isStopped = true;
         }
 	}
 

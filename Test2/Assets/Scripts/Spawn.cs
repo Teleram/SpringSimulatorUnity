@@ -15,12 +15,15 @@ public class Spawn : NetworkBehaviour {
     private int indexOfNextUnit = 1;
     public CentralSpawnScript centralSpawnScript;
 
+    private GameMasterScript gameMasterScript;
 
 	// Use this for initialization
 	void Start ()
     {
-        //livingScript = this.GetComponentInParent<LivingScript>();
-        livingScript = (LivingScript)GetComponent("LivingScript");
+        GameObject gameMaster = GameObject.Find("GameMaster");
+        gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
+
+        livingScript = GetComponent<LivingScript>();
 
         absoluteSpawnpos = relativeSpawnpos;
         if(this.transform.position.x > 250)
@@ -35,7 +38,7 @@ public class Spawn : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (hasAuthority)
+        if (hasAuthority && gameMasterScript.gameIsRunning())
         {
             //if(counter >= 100 && spawnposisfree(spawnpos))
             if (counter >= 100)
