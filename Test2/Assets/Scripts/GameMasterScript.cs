@@ -12,6 +12,8 @@ public class GameMasterScript : NetworkBehaviour {
     //[SyncVar]
     private int idForNextPlayer;
 
+    public bool[] allDecidedOnAi;
+
     //public for debug
     public float gameTimer;
 
@@ -69,7 +71,7 @@ public class GameMasterScript : NetworkBehaviour {
 
     public bool gameIsRunning()
     {
-        return gameHasStarted() && !gameTimerOver();
+        return gameHasStarted() && !gameTimerOver() && haveAllDecidedOnAi();
     }
 
     public bool gameHasStarted()
@@ -80,5 +82,15 @@ public class GameMasterScript : NetworkBehaviour {
     public bool gameTimerOver()
     {
         return gameTimer <= 0.0f;
+    }
+
+    public bool haveAllDecidedOnAi()
+    {
+        bool allDecided = true;
+        foreach(bool decided in allDecidedOnAi)
+        {
+            allDecided = allDecided && decided;
+        }
+        return allDecided;
     }
 }

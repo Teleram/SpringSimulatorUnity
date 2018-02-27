@@ -7,8 +7,8 @@ public class Spawn : NetworkBehaviour {
 
     private LivingScript livingScript;
 
-    public float counter;
-    public float spawnspeed;
+    public float remainingSpawntime;
+    public float spawntime;
     public Vector3 relativeSpawnpos;
     private Vector3 absoluteSpawnpos;
 
@@ -26,11 +26,11 @@ public class Spawn : NetworkBehaviour {
         livingScript = GetComponent<LivingScript>();
 
         absoluteSpawnpos = relativeSpawnpos;
-        if(this.transform.position.x > 250)
+        if(transform.position.x > 250)
         {
             absoluteSpawnpos.x = 500 - relativeSpawnpos.x;
         }
-        if(this.transform.position.z > 250)
+        if(transform.position.z > 250)
         {
             absoluteSpawnpos.z = 500 - relativeSpawnpos.z;
         }
@@ -41,13 +41,13 @@ public class Spawn : NetworkBehaviour {
         if (hasAuthority && gameMasterScript.gameIsRunning())
         {
             //if(counter >= 100 && spawnposisfree(spawnpos))
-            if (counter >= 100)
+            if (remainingSpawntime <= 0)
             {
-                counter -= 100;
+                remainingSpawntime += spawntime;
                 centralSpawnScript.SpawnUnit(absoluteSpawnpos, indexOfNextUnit, livingScript.myPlayerId);
             }
 
-            counter += spawnspeed * Time.deltaTime;
+            remainingSpawntime -= Time.deltaTime;
         }
 	}
 

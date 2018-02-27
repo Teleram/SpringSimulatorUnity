@@ -29,9 +29,10 @@ GameObject:
   - component: {fileID: 114561049371369668}
   - component: {fileID: 114419525355166004}
   - component: {fileID: 114626958655348088}
+  - component: {fileID: 114214158646732088}
   m_Layer: 0
   m_Name: UnitPrefab
-  m_TagString: Player
+  m_TagString: PlayerControlled
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +104,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   me: {fileID: 1762109997523074}
   selected: 0
+--- !u!114 &114214158646732088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1762109997523074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddd9cc1cc34dea42bb73738e04886cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  myDestination: {x: 0, y: 0, z: 0}
+  destinationHasChanged: 0
 --- !u!114 &114419525355166004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,9 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faafa7c84e669b64eaaa4e3b7b8e59ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  me: {fileID: 1762109997523074}
   hp: 100
   myPlayerId: -1
+  myObjectId: 0
 --- !u!114 &114561049371369668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,14 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc3bde280d74984fbac3c225a33f1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectScript: {fileID: 114053134814688618}
-  livingScript: {fileID: 114419525355166004}
-  target: {fileID: 0}
-  bullet: {fileID: 1149239529633730, guid: c927811ec086f70488763bdf0f1573a6, type: 2}
   attackRange: 100
   attackCooldown: 10
   attackDamage: 25
-  remainingAttackCooldown: 0
 --- !u!114 &114867577080295338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,9 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856078528ab203c4599e5a9d638b8438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectScript: {fileID: 114053134814688618}
-  me: {fileID: 1762109997523074}
-  myDestination: {x: 0, y: 0, z: 0}
 --- !u!136 &136941101218256220
 CapsuleCollider:
   m_ObjectHideFlags: 1

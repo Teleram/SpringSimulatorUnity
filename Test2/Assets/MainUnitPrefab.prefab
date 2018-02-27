@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114707531129330766}
   m_Layer: 0
   m_Name: MainUnitPrefab
-  m_TagString: Player
+  m_TagString: PlayerControlled
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,9 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faafa7c84e669b64eaaa4e3b7b8e59ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  me: {fileID: 1450106935682424}
   hp: 1000
-  myPlayerId: 0
+  myPlayerId: 1
+  myObjectId: -1
 --- !u!114 &114480277365299960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4130b6e9fffa9042897348018f8037d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  counter: 100
-  spawnspeed: 0
+  remainingSpawntime: 0
+  spawntime: 60
   relativeSpawnpos: {x: 20, y: 0, z: 20}
   centralSpawnScript: {fileID: 0}
 --- !u!114 &114707531129330766

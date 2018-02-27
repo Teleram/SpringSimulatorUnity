@@ -5,21 +5,19 @@ using UnityEngine.AI;
 using UnityEngine.Networking;
 
 public class MoveScript : NetworkBehaviour {
-
-    public SelectScript selectScript;
-    
-    private NavMeshAgent agent;
+    private TargetingScript targetingScript;
     private AttackScript attackScript;
 
-    public Vector3 myDestination;
-
+    private NavMeshAgent agent;
+    
     private GameMasterScript gameMasterScript;
 
 	// Use this for initialization
     void Start ()
     {
-        agent = gameObject.GetComponent<NavMeshAgent>();
-        attackScript = gameObject.GetComponent<AttackScript>();
+        agent = GetComponent<NavMeshAgent>();
+        targetingScript = GetComponent<TargetingScript>();
+        attackScript = GetComponent<AttackScript>();
 
         GameObject gameMaster = GameObject.Find("GameMaster");
         gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
@@ -30,32 +28,20 @@ public class MoveScript : NetworkBehaviour {
 	{
         if (hasAuthority && gameMasterScript.gameIsRunning())
         {
-
-            if (attackScript.hasTarget())
+            if (targetingScript.destinationHasChanged)
             {
-                agent.stoppingDistance = attackScript.attackRange;
-                if (attackScript.target.transform.position != myDestination)
+                targetingScript.destinationHasChanged = false;
+                agent.destination = targetingScript.myDestination;
+                if (targetingScript.hasTarget())
                 {
-                    myDestination = attackScript.target.transform.position;
-                    agent.destination = myDestination;
-                    //CmdUpdateDestination(myDestination);
+                    if (attackScript != null)
+                    {
+                        agent.stoppingDistance = attackScript.attackRange;
+                    }
                 }
-            }
-            else
-            {
-                agent.stoppingDistance = 1.0f;
-            }
-
-            if (Input.GetMouseButtonDown(1) && selectScript.selected)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, 1000) && hit.collider.tag == "Terrain")
+                else
                 {
-                    myDestination = hit.point;
-                    agent.destination = myDestination;
-                    //CmdUpdateDestination(myDestination);
+                    agent.stoppingDistance = 1.0f;
                 }
             }
         }

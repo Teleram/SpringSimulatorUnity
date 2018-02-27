@@ -11,18 +11,21 @@ public class CentralSpawnScript : NetworkBehaviour {
     
     public GameMasterScript gameMasterScript;
 
-    private Material myMaterial;
-    private Vector3 mySpawnpos;
+    void Start()
+    {
+        //GameObject gameMaster = GameObject.Find("GameMaster");
+        //gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
+    }
 
     // SpawnScript must be set locally and on server
     public void SpawnMainUnit(int playerId)
     {
         GameObject mainUnitPrefab = unitArray[0];
 
-        Spawn localSpawnScript = (Spawn)mainUnitPrefab.GetComponent("Spawn");
+        Spawn localSpawnScript = mainUnitPrefab.GetComponent<Spawn>();
         localSpawnScript.centralSpawnScript = this;
 
-        LivingScript livingScript = (LivingScript)mainUnitPrefab.GetComponent("LivingScript");
+        LivingScript livingScript = mainUnitPrefab.GetComponent<LivingScript>();
         livingScript.myPlayerId = playerId;
 
         CmdSpawnMainUnit(playerId);

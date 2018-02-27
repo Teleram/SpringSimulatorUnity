@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 1005933799}
   - component: {fileID: 1005933800}
   - component: {fileID: 1005933801}
+  - component: {fileID: 1005933803}
   - component: {fileID: 1005933802}
   m_Layer: 0
   m_Name: GameMaster
@@ -349,6 +350,7 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 9b2326206e1c7ff4aad91eddcc68d011, type: 2}
   - {fileID: 2100000, guid: 429395578619f684bbb4b0a716790097, type: 2}
+  allDecidedOnAi: 0000
   gameTimer: 0
   maxGameTime: 600
   allObjects: []
@@ -393,6 +395,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6548368c00432a34fb2bc44e1faa28da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringArray: []
+--- !u!114 &1005933803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1005933798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c70e721f4acc1428ec8bc7e486e2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2116352199

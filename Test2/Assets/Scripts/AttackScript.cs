@@ -7,22 +7,20 @@ using UnityEngine.Networking;
 
 public class AttackScript : NetworkBehaviour {
 
-    public SelectScript selectScript;
-
-    public LivingScript livingScript;
-    
-    public GameObject target;
+    private TargetingScript targetingScript;
 
     public float attackRange;
     public float attackCooldown;
     public int attackDamage;
-    public float remainingAttackCooldown;
+    private float remainingAttackCooldown;
 
     private GameMasterScript gameMasterScript;
 
 	// Use this for initialization
 	void Start () 
     {
+        targetingScript = GetComponent<TargetingScript>();
+
         GameObject gameMaster = GameObject.Find("GameMaster");
         gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
 
@@ -31,73 +29,29 @@ public class AttackScript : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (hasAuthority && gameMasterScript.gameIsRunning())
+        if (gameMasterScript.gameIsRunning())
         {
-
-            if (Input.GetMouseButtonDown(1) && selectScript.selected)
+            if (targetingScript.hasTarget() && !targetingScript.targetIsFriendly())
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+                float distanceToTarget = targetingScript.distanceToTarget();
 
-                if (Physics.Raycast(ray, out hit, 1000) && hit.collider.tag == "Player")
+                if ((remainingAttackCooldown <= 0) && (distanceToTarget <= attackRange))
                 {
-                    target = hit.collider.transform.gameObject;                    
+                    remainingAttackCooldown = attackCooldown;
+
+                    int targetId = targetingScript.target.GetComponent<LivingScript>().myObjectId;
+                    CmdAttack(attackDamage, targetId);
                 }
-                else
-                {
-                    target = null;
-                }               
             }
-        }
 
-        if (hasTarget() && !targetIsFriendly())
-        {
-            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-
-            if ((remainingAttackCooldown <= 0) && (distanceToTarget <= attackRange))
+            if (remainingAttackCooldown > 0)
             {
-                remainingAttackCooldown = attackCooldown;
-
-                int targetId = target.GetComponent<LivingScript>().myObjectId;
-                CmdAttack(attackDamage, targetId);
+                remainingAttackCooldown -= Time.deltaTime;
             }
-        }
-
-        if(remainingAttackCooldown > 0)
-        {
-            remainingAttackCooldown -= Time.deltaTime;
         }
 	}
 
-    // check if target is null
-    public bool hasTarget()
-    {
-        if(target == null)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    // if there is no target, the target is friendly
-    public bool targetIsFriendly()
-    {
-        if (hasTarget())
-        {
-            LivingScript targetScript = target.GetComponent<LivingScript>();
-
-            if (livingScript.myPlayerId == targetScript.myPlayerId)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        return true;
-    }
-
-    
+        
     [Command]
     private void CmdAttack(int damage, int targetId)
     {

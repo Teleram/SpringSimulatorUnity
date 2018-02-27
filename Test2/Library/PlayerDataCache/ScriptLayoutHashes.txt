@@ -46,7 +46,7 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-1d972830c0423466205a0647f94fd696 Assembly-CSharp.dll:.MoveScript
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MoveScript
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -79,8 +79,8 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-feff09d86142015f46a000f2966f75d8 Assembly-CSharp.dll:.OnPlayerEnter
-6ec233825d424cd73d35dbee480da076 Assembly-CSharp.dll:.AttackScript
+97349f11d579941e5da1b155edcb3308 Assembly-CSharp.dll:.OnPlayerEnter
+8399752da925620ea21b6e7fd7c81c91 Assembly-CSharp.dll:.AttackScript
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 970a95104359198fe1a98ef48655de8c UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -135,7 +135,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
-d7610f4f3fafd5e797095b9ea274306d Assembly-CSharp.dll:.GameMasterScript
+502e838ab617814c99acc8ead6d7d95d Assembly-CSharp.dll:.GameMasterScript
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 6969d22e0eff90719ab15213f7328b97 Assembly-CSharp.dll:.CentralSpawnScript
@@ -145,5 +145,8 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-f6976f023717e252cf2bfcf5ba0b152b Assembly-CSharp.dll:.Spawn
+3b41ef32d030e3d4844bfade5e614c6d Assembly-CSharp.dll:.Access
+68c6221d48da3035a7847c2ba01d7df7 Assembly-CSharp.dll:.Spawn
 b48b92b35409f561d4bf84775e4add45 Assembly-CSharp.dll:.SelectScript
+73254fa98aabe4dea17c6364bb9788d7 Assembly-CSharp.dll:.TargetingScript
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AIBrain
