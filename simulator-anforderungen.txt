@@ -1,0 +1,9 @@
+rts
+1 hauptgebäude
+2 einheitentypen (wert =^ anzahl) (+ wert =^ bauzeit)
+karte (plain) (+ labyrinth)
+kein einheitencap (+ verstecktes einheitencap)
+werte (lp, dmg, movespeed, aspeed, arange)
+genau 2 spieler (+ min. 1 spieler bis n)
+ai einbinden
+https://forum.unity.com/threads/collection-of-unity-tutorials.234490/

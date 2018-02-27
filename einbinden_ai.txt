@@ -1,0 +1,20 @@
+wie flaggen wir, dass wir eine ai nutzen wollen?
+buttonpress at start?
+
+
+
+
+was kann die ai?
+annahme: ai kann unendlich schnell die auswahl ändern
+=> wir müssen nicht prüfen, ob die unit selected ist
+
+mensch kann für ausgewählte einheiten ein ziel oder eine zielposition setzen
+-> update auf funktionen runterbrechen, die auch von der ai gecallt werden können
+
+
+
+wo liegt die ai (in unity oder außerhalb)?
+script in unity, konstruktor bekommt gewichte
+
+
+weitere werte, unabhängig von fitness, zur auswertung, weil durschnittsfitness immer 0
