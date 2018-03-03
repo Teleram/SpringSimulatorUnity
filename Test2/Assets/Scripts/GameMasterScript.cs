@@ -93,4 +93,52 @@ public class GameMasterScript : NetworkBehaviour {
         }
         return allDecided;
     }
+
+    // returns all Gameobjects that are in range to the Gameobject me
+    // but me is NOT included in the return array
+    public GameObject[] gameObjectsInRange(GameObject me, float range)
+    {
+        GameObject[] gos = new GameObject[0];
+        foreach (GameObject go in allObjects)
+        {
+            if (go != null)
+            {
+                float distance = Vector3.Distance(me.transform.position, go.transform.position);
+                if ((distance <= range) && (go != me))
+                {
+                    int oldLength = gos.Length;
+                    GameObject[] tmp = gos;
+                    gos = new GameObject[oldLength + 1];
+                    for (int i = 0; i < oldLength; i++)
+                    {
+                        gos[i] = tmp[i];
+                    }
+                    gos[oldLength] = go;
+                }
+            }
+        }
+        return gos;
+    }
+
+    // returns all Gameobjects that are in range to the position
+    public GameObject[] gameObjectsInRange(Vector3 position, float range)
+    {
+        GameObject[] gos = new GameObject[0];
+        foreach(GameObject go in allObjects)
+        {
+            float distance = Vector3.Distance(position, go.transform.position);
+            if (distance <= range)
+            {
+                int oldLength = gos.Length;
+                GameObject[] tmp = gos;
+                gos = new GameObject[oldLength + 1];
+                for(int i = 0; i < oldLength; i++)
+                {
+                    gos[i] = tmp[i];
+                }
+                gos[oldLength] = go;
+            }
+        }
+        return gos;
+    }
 }

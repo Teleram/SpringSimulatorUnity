@@ -118,6 +118,7 @@ MonoBehaviour:
   target: {fileID: 0}
   myDestination: {x: 0, y: 0, z: 0}
   destinationHasChanged: 0
+  viewRange: 100
 --- !u!114 &114419525355166004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc3bde280d74984fbac3c225a33f1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 100
+  attackRange: 50
   attackCooldown: 10
   attackDamage: 25
 --- !u!114 &114867577080295338

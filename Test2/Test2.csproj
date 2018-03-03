@@ -280,8 +280,17 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/User/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="NeuralNetwork">
+      <HintPath>Assets/NN_libary/bin/NeuralNetwork.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\NN_libary\src\ActivationFunctions.cs" />
+    <Compile Include="Assets\NN_libary\src\AssemblyInfo.cs" />
+    <Compile Include="Assets\NN_libary\src\Layer.cs" />
+    <Compile Include="Assets\NN_libary\src\LearningAlgorithms.cs" />
+    <Compile Include="Assets\NN_libary\src\NeuralNetwork.cs" />
+    <Compile Include="Assets\NN_libary\src\Neuron.cs" />
     <Compile Include="Assets\Scripts\Access.cs" />
     <Compile Include="Assets\Scripts\AIBrain.cs" />
     <Compile Include="Assets\Scripts\AttackScript.cs" />

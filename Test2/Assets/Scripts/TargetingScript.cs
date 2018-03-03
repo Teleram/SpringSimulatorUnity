@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using NeuralNetwork;
 
 public class TargetingScript : NetworkBehaviour {
 
     private SelectScript selectScript;
-
     private LivingScript livingScript;
 
     private GameMasterScript gameMasterScript;
@@ -16,6 +16,8 @@ public class TargetingScript : NetworkBehaviour {
     public Vector3 myDestination;
     public bool destinationHasChanged;
 
+    public float viewRange;
+
     private bool amIAi;
     private AIBrain aiBrain;
 
@@ -23,9 +25,8 @@ public class TargetingScript : NetworkBehaviour {
 	void Start ()
     {
         selectScript = GetComponent<SelectScript>();
-
         livingScript = GetComponent<LivingScript>();
-
+        
         GameObject gameMaster = GameObject.Find("GameMaster");
         gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
         aiBrain = gameMaster.GetComponent<AIBrain>();
@@ -51,8 +52,8 @@ public class TargetingScript : NetworkBehaviour {
         {
             if (amIAi)
             {
-                GameObject[] dummyArray = new GameObject[0];
-                DecisionObject myNextDecision = aiBrain.getDecisionForTargetscript(transform.position, dummyArray);
+                GameObject[] objectsInViewRange = gameMasterScript.gameObjectsInRange(gameObject, viewRange);
+                DecisionObject myNextDecision = aiBrain.getDecisionForTargetscript(transform.position, objectsInViewRange);
                 switch(myNextDecision.getFunctionName())
                 {
                     case "setDestination":
