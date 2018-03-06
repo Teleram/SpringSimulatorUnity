@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using NeuralNetwork;
 
-public class TargetingScript : NetworkBehaviour {
+public class TargetingScript : NetworkBehaviour
+{
 
     private SelectScript selectScript;
     private LivingScript livingScript;
@@ -21,12 +22,12 @@ public class TargetingScript : NetworkBehaviour {
     private bool amIAi;
     private AIBrain aiBrain;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         selectScript = GetComponent<SelectScript>();
         livingScript = GetComponent<LivingScript>();
-        
+
         GameObject gameMaster = GameObject.Find("GameMaster");
         gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
         aiBrain = gameMaster.GetComponent<AIBrain>();
@@ -44,17 +45,24 @@ public class TargetingScript : NetworkBehaviour {
 
         amIAi = myPlayerObject.amIAi;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (hasAuthority && gameMasterScript.gameIsRunning())
         {
             if (amIAi)
             {
-                GameObject[] objectsInViewRange = gameMasterScript.gameObjectsInRange(gameObject, viewRange);
-                DecisionObject myNextDecision = aiBrain.getDecisionForTargetscript(transform.position, objectsInViewRange);
-                switch(myNextDecision.getFunctionName())
+                List<GameObject> objectsInViewRange = gameMasterScript.gameObjectsInRange(gameObject, viewRange);
+
+                List<GameObject> friendsInViewRange = getSortedFriends(objectsInViewRange);
+                List<GameObject> enemiesInViewRange = getSortedEnemies(objectsInViewRange);
+
+                int myMainUnitIndex = findMainUnit(friendsInViewRange);
+                int enemyMainUnitIndex = findMainUnit(enemiesInViewRange);
+
+                DecisionObject myNextDecision = aiBrain.getDecisionForTargetscript(transform.position, friendsInViewRange, enemiesInViewRange, myMainUnitIndex, enemyMainUnitIndex);
+                switch (myNextDecision.getFunctionName())
                 {
                     case "setDestination":
                         setDestination(myNextDecision.getDestination());
@@ -62,7 +70,7 @@ public class TargetingScript : NetworkBehaviour {
                     case "setTarget":
                         setTarget(myNextDecision.getTarget());
                         break;
-                    default :
+                    default:
                         Debug.Log("We messed up!");
                         break;
                 }
@@ -127,7 +135,7 @@ public class TargetingScript : NetworkBehaviour {
 
     public float distanceToTarget()
     {
-        if(!hasTarget())
+        if (!hasTarget())
         {
             return 0.0f;
         }
@@ -145,5 +153,51 @@ public class TargetingScript : NetworkBehaviour {
         myDestination = destination;
         destinationHasChanged = true;
         target = null;
+    }
+
+    private List<GameObject> getSortedFriends(List<GameObject> allObjects)
+    {
+        allObjects.Sort(new SortByDistance(transform.position));
+        List<GameObject> sortedFriends = new List<GameObject>();
+        foreach (GameObject go in allObjects)
+        {
+            int otherPlayerId = go.GetComponent<LivingScript>().myPlayerId;
+            if (livingScript.myPlayerId == otherPlayerId)
+            {
+                sortedFriends.Add(go);
+            }
+
+        }
+        return sortedFriends;
+    }
+
+    private List<GameObject> getSortedEnemies(List<GameObject> allObjects)
+    {
+        allObjects.Sort(new SortByDistance(transform.position));
+        List<GameObject> sortedEnemies = new List<GameObject>();
+        foreach (GameObject go in allObjects)
+        {
+            int otherPlayerId = go.GetComponent<LivingScript>().myPlayerId;
+            if (livingScript.myPlayerId != otherPlayerId)
+            {
+                sortedEnemies.Add(go);
+            }
+
+        }
+        return sortedEnemies;
+    }
+
+    private int findMainUnit(List<GameObject> units)
+    {
+        int i;
+        for (i = 0; i < units.Count; i++)
+        {
+            GameObject currentUnit = (GameObject)units[i];
+            if (currentUnit.GetComponent<Spawn>() != null)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

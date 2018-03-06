@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
+using System.IO;
 
 public class GameMasterScript : NetworkBehaviour {
 
@@ -35,7 +37,33 @@ public class GameMasterScript : NetworkBehaviour {
         {
             gameTimer -= Time.deltaTime;
         }
+
+        if (gameTimerOver() && isServer)
+        {
+            WriteResults();
+        }
 	}
+
+    private void WriteResults()
+    {
+        StreamWriter writer = new StreamWriter("Results.txt");
+        int unitsOfPlayer0 = 0;
+        int unitsOfPlayer1 = 0;
+        foreach(GameObject go in allObjects)
+        {
+            if(go.GetComponent<LivingScript>().myPlayerId == 0)
+            {
+                unitsOfPlayer0++;
+            }
+            else
+            {
+                unitsOfPlayer1++;
+            }
+        }
+        writer.WriteLine(unitsOfPlayer0);
+        writer.WriteLine(unitsOfPlayer1);
+        writer.Close();
+    }
 
     public int getIdForNewPlayer()
     {
@@ -96,9 +124,9 @@ public class GameMasterScript : NetworkBehaviour {
 
     // returns all Gameobjects that are in range to the Gameobject me
     // but me is NOT included in the return array
-    public GameObject[] gameObjectsInRange(GameObject me, float range)
+    public List<GameObject> gameObjectsInRange(GameObject me, float range)
     {
-        GameObject[] gos = new GameObject[0];
+        List<GameObject> gos = new List<GameObject>();
         foreach (GameObject go in allObjects)
         {
             if (go != null)
@@ -106,14 +134,7 @@ public class GameMasterScript : NetworkBehaviour {
                 float distance = Vector3.Distance(me.transform.position, go.transform.position);
                 if ((distance <= range) && (go != me))
                 {
-                    int oldLength = gos.Length;
-                    GameObject[] tmp = gos;
-                    gos = new GameObject[oldLength + 1];
-                    for (int i = 0; i < oldLength; i++)
-                    {
-                        gos[i] = tmp[i];
-                    }
-                    gos[oldLength] = go;
+                    gos.Add(go);
                 }
             }
         }
@@ -121,22 +142,15 @@ public class GameMasterScript : NetworkBehaviour {
     }
 
     // returns all Gameobjects that are in range to the position
-    public GameObject[] gameObjectsInRange(Vector3 position, float range)
+    public List<GameObject> gameObjectsInRange(Vector3 position, float range)
     {
-        GameObject[] gos = new GameObject[0];
+        List<GameObject> gos = new List<GameObject>();
         foreach(GameObject go in allObjects)
         {
             float distance = Vector3.Distance(position, go.transform.position);
             if (distance <= range)
             {
-                int oldLength = gos.Length;
-                GameObject[] tmp = gos;
-                gos = new GameObject[oldLength + 1];
-                for(int i = 0; i < oldLength; i++)
-                {
-                    gos[i] = tmp[i];
-                }
-                gos[oldLength] = go;
+                gos.Add(go);
             }
         }
         return gos;
