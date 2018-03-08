@@ -73,9 +73,27 @@ namespace NeuralNetwork
         }
 
 
-        public DecisionObject getDecisionForTargetscript(Vector3 position, List<GameObject> friendsInRange, List<GameObject> enemiesInRange, int myMainUnitIndex, int enemyMainUnitIndex)
+        public DecisionObject getDecisionForTargetscript(Vector3 position, Vector3 referenceLocation, List<GameObject> friendsInRange, List<GameObject> enemiesInRange, int myMainUnitIndex, int enemyMainUnitIndex)
         {
-            float[] inputs = CalculateInputFloats(position, friendsInRange, enemiesInRange, myMainUnitIndex, enemyMainUnitIndex);
+            Vector3 relativePosition;
+            if(referenceLocation.x > 250)
+            {
+                relativePosition.x = 500 - position.x;
+            }
+            else
+            {
+                relativePosition.x = position.x;
+            }
+            relativePosition.y = position.y;
+            if (referenceLocation.z > 250)
+            {
+                relativePosition.z = 500 - position.z;
+            }
+            else
+            {
+                relativePosition.z = position.z;
+            }
+            float[] inputs = CalculateInputFloats(relativePosition, friendsInRange, enemiesInRange, myMainUnitIndex, enemyMainUnitIndex);
 
             float[] outputs = myNN.Output(inputs);
             foreach (float output in outputs)
@@ -146,9 +164,23 @@ namespace NeuralNetwork
             }            
 
             Vector3 newPosition;
-            newPosition.x = outputs[4] * 500;
+            if (referenceLocation.x > 250)
+            {
+                newPosition.x = 500 - (outputs[4] * 500);
+            }
+            else
+            {
+                newPosition.x = outputs[4] * 500;
+            }
             newPosition.y = 0;
-            newPosition.z = outputs[5] * 500;
+            if (referenceLocation.z > 250)
+            {
+                newPosition.z = 500 - (outputs[5] * 500);
+            }
+            else
+            {
+                newPosition.z = outputs[5] * 500;
+            }
 
 
             return new DecisionObject(functionName, newPosition, target);

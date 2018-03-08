@@ -22,6 +22,8 @@ public class TargetingScript : NetworkBehaviour
     private bool amIAi;
     private AIBrain aiBrain;
 
+    private Vector3 referenceLocation;
+
     // Use this for initialization
     void Start()
     {
@@ -31,6 +33,8 @@ public class TargetingScript : NetworkBehaviour
         GameObject gameMaster = GameObject.Find("GameMaster");
         gameMasterScript = gameMaster.GetComponent<GameMasterScript>();
         aiBrain = gameMaster.GetComponent<AIBrain>();
+
+        referenceLocation = gameMasterScript.spawnpositions[livingScript.myPlayerId];
 
         GameObject[] allPlayerObjects = GameObject.FindGameObjectsWithTag("PlayerObject");
         OnPlayerEnter myPlayerObject = null;
@@ -42,7 +46,6 @@ public class TargetingScript : NetworkBehaviour
                 myPlayerObject = playerEnterScript;
             }
         }
-
         amIAi = myPlayerObject.amIAi;
     }
 
@@ -61,7 +64,7 @@ public class TargetingScript : NetworkBehaviour
                 int myMainUnitIndex = findMainUnit(friendsInViewRange);
                 int enemyMainUnitIndex = findMainUnit(enemiesInViewRange);
 
-                DecisionObject myNextDecision = aiBrain.getDecisionForTargetscript(transform.position, friendsInViewRange, enemiesInViewRange, myMainUnitIndex, enemyMainUnitIndex);
+                DecisionObject myNextDecision = aiBrain.getDecisionForTargetscript(transform.position, referenceLocation, friendsInViewRange, enemiesInViewRange, myMainUnitIndex, enemyMainUnitIndex);
                 switch (myNextDecision.getFunctionName())
                 {
                     case "setDestination":
