@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B34A7350-6FE7-4A75-BFD4-D71E4F02BB91}"
+	ProjectSection(SolutionItems) = preProject
+		Chromosome.cs = Chromosome.cs
+		CompareByFitness.cs = CompareByFitness.cs
+		Gene.cs = Gene.cs
+		Individual.cs = Individual.cs
+		PopulationManager.cs = PopulationManager.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {291B3120-287A-4E6D-B537-11DF8821FC36}
+	EndGlobalSection
+EndGlobal

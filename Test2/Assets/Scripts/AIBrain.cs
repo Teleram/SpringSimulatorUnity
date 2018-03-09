@@ -93,6 +93,7 @@ namespace NeuralNetwork
             {
                 relativePosition.z = position.z;
             }
+
             float[] inputs = CalculateInputFloats(relativePosition, friendsInRange, enemiesInRange, myMainUnitIndex, enemyMainUnitIndex);
 
             float[] outputs = myNN.Output(inputs);
