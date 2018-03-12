@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class Individual
 {
@@ -32,7 +33,7 @@ public class Individual
         return fitness;
     }
 
-    public void setFitness(int newFitness)
+    public void SetFitness(int newFitness)
     {
         fitness = newFitness;
     }

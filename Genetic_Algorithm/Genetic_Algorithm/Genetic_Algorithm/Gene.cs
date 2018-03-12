@@ -7,10 +7,10 @@ public class Gene
 	public Gene()
 	{
         Random random = new Random();
-        value = (float)(random.nextDouble() * 2) - 1;
+        value = (float)(random.NextDouble() * 2) - 1;
 	}
 
-    public float getValue()
+    public float GetValue()
     {
         return value;
     }

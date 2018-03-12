@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class Chromosome
 {
@@ -12,28 +13,28 @@ public class Chromosome
 	public Chromosome(int numberOfGenes)
 	{
         genes = new List<Gene>(numberOfGenes);
-        randomInitilisation();
+        RandomInitilisation();
     }
 
-    private void randomInitilisation()
+    private void RandomInitilisation()
     {
-        for (int i = 0; i < numberOfGenes; i++)
+        for (int i = 0; i < genes.Capacity; i++)
         {
             genes[i] = new Gene();
         }
     }
 
-    public int getNumberOfGenes()
+    public int GetNumberOfGenes()
     {
         return genes.Count;
     }
 
-    public Gene getGene(int index)
+    public Gene GetGene(int index)
     {
         return genes[index];
     }
 
-    public List<Gene> getGenes()
+    public List<Gene> GetGenes()
     {
         return genes;
     }
@@ -41,11 +42,11 @@ public class Chromosome
     public override string ToString()
     {
         string s = "";
-        s += genes[0].ToString;
+        s += genes[0].ToString();
         for(int i = 1; i < genes.Count; i++)
         {
             s += "\n";
-            s += genes[i].ToString;
+            s += genes[i].ToString();
         }
         return s;
     }

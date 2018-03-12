@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 public class PopulationManager
 {
@@ -25,7 +27,7 @@ public class PopulationManager
 
     private void Survival()
     {
-        sortPopulation();
+        SortPopulation();
         population = population.GetRange(0, popSize);
     }
 
@@ -36,31 +38,32 @@ public class PopulationManager
         for(int i = 1; i <= generationSize; i ++)
         {
             Random randomDouble = new Random();
-            double probParent1 = randomDouble.nextDouble();
-            double probParent2 = randomDouble.nextDouble();
+            double probParent1 = randomDouble.NextDouble();
+            double probParent2 = randomDouble.NextDouble();
 
             Individual parent1 = GetIndividualFormDictionary(probParent1, indToProbability);
             Individual parent2 = GetIndividualFormDictionary(probParent2, indToProbability);
             while(parent1 == parent2)
             {
-                probParent2 = randomDouble.nextDouble();
+                probParent2 = randomDouble.NextDouble();
                 parent2 = GetIndividualFormDictionary(probParent2, indToProbability);
             }
 
-            int cut = new Random().NextInt(1, chromosomeSize);
-            List<Gene> partOfParent1 = parent1.getGenes().GetRange(0, cut);
-            List<Gene> partOfParent2 = parent2.getGenes().GetRange(cut, (chromosomeSize - cut));
-            List<Gene> child = partOfParent1.Concat(partOfParent2);
+            int cut = new Random().Next(1, chromosomeSize);
+            List<Gene> partOfParent1 = parent1.GetGenes().GetRange(0, cut);
+            List<Gene> partOfParent2 = parent2.GetGenes().GetRange(cut, (chromosomeSize - cut));
+            List<Gene> child = partOfParent1;
+            child.AddRange(partOfParent2);
 
-            double mutation = new Random().nextDouble();
+            double mutation = new Random().NextDouble();
             if(mutation <= mutationRate)
             {
-                int mutatedGene = new Random().NextInt(chromosomeSize);
+                int mutatedGene = new Random().Next(chromosomeSize);
                 child[mutatedGene] = new Gene();
             }
             Chromosome newChromosome = new Chromosome(child);
             Individual newChild = new Individual(newChromosome);
-            population.add(newChild);
+            population.Add(newChild);
         }
     }
 
@@ -76,7 +79,7 @@ public class PopulationManager
         foreach (Individual ind in population)
         {
             double probability = ind.GetFitness() / sumFit;
-            indToProbability.add(ind, probability);
+            indToProbability.Add(ind, probability);
         }
 
         return indToProbability;
@@ -96,18 +99,33 @@ public class PopulationManager
         return null;
     }
 
-    private void writeWeights(Individual ind0, Individual ind1)
+    private void WriteWeights(Individual ind0, Individual ind1)
     {
-        Streamwriter writer0 = new Streamwriter("spring-simulator/Test2/Weights0.txt");
+        StreamWriter writer0 = new StreamWriter("spring-simulator/Test2/Weights0.txt");
         writer0.Write(ind0.ToString());
         writer0.Close();
-        Streamwriter writer1 = new Streamwriter("spring-simulator/Test2/Weights1.txt");
+        StreamWriter writer1 = new StreamWriter("spring-simulator/Test2/Weights1.txt");
         writer1.Write(ind1.ToString());
         writer1.Close();
     }
 
-    private void sortPopulation()
+    private void ReadFitness(Individual ind0, Individual ind1)
     {
-        population.sort(comparer);
+        StreamReader reader = new StreamReader("spring-simulator/Test2/Results.txt");
+        string fitnessString0 = reader.ReadLine();
+        string fitnessString1 = reader.ReadLine();
+        reader.Close();
+
+        int fit0 = int.Parse(fitnessString0);
+        ind0.SetFitness(fit0);
+
+        int fit1 = int.Parse(fitnessString1);
+        ind1.SetFitness(fit1);
+    }
+
+    private void SortPopulation()
+    {
+        population.Sort(comparer);
+        population.Reverse();
     }
 }
