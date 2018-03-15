@@ -20,6 +20,7 @@ public class PopulationManager
 
     private readonly double mutationRate;
 
+    // the offset is used because we want to have only positive values for fitness
     private readonly int offsetForFitness;
 
     public PopulationManager(int popSize, int generationSize, int chromosomeSize, double mutationRate)
@@ -146,12 +147,19 @@ public class PopulationManager
             for (int j = (i + 1); j < population.Count; j++)
             {
                 WriteWeights(population[i], population[j]);
-                GameStarter host = new GameStarter(true);
-                //GameStarter client = new GameStarter(false);
-                host.StartGame();
-                //client.StartGame();
+                MatchStarter.StartMatch();
                 ReadIntermediateFitness(i, j);
             }
+        }
+
+        for (int i = 0; i < population.Count; i++)
+        {
+            int fitness = 0;
+            for (int j = 0; j < population.Count; j++)
+            {
+                fitness += intermediateFitnessResults[i, j];
+            }
+            population[i].SetFitness(fitness);
         }
     }
 

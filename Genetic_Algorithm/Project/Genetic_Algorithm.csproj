@@ -34,7 +34,7 @@
     <Compile Include="Genetic_Algorithm\Agent.cs" />
     <Compile Include="Genetic_Algorithm\Chromosome.cs" />
     <Compile Include="Genetic_Algorithm\CompareByFitness.cs" />
-    <Compile Include="Genetic_Algorithm\GameStarter.cs" />
+    <Compile Include="Genetic_Algorithm\MatchStarter.cs" />
     <Compile Include="Genetic_Algorithm\Gene.cs" />
     <Compile Include="Genetic_Algorithm\Individual.cs" />
     <Compile Include="Genetic_Algorithm\PopulationManager.cs" />

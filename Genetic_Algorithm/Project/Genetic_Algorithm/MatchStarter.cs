@@ -2,16 +2,9 @@
 using System.Diagnostics;
 using System.ComponentModel;
 
-public class GameStarter
+public class MatchStarter
 {
-    private bool amIHost;
-
-    public GameStarter(bool amIHost)
-    {
-        this.amIHost = amIHost;
-    }
-
-    public void StartGame()
+    public static void StartMatch()
     {
         //Process myProcess = new Process();
 
