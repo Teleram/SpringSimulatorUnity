@@ -352,8 +352,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 429395578619f684bbb4b0a716790097, type: 2}
   allDecidedOnAi: 0000
   gameTimer: 0
-  maxGameTime: 600
+  maxGameTime: 602
   allObjects: []
+  resultsLogged: 0
 --- !u!114 &1005933801
 MonoBehaviour:
   m_ObjectHideFlags: 0

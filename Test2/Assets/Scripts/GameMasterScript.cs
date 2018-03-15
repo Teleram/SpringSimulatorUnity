@@ -5,7 +5,8 @@ using UnityEngine.Networking;
 using System;
 using System.IO;
 
-public class GameMasterScript : NetworkBehaviour {
+public class GameMasterScript : NetworkBehaviour
+{
 
     public Vector3[] spawnpositions;
 
@@ -24,40 +25,64 @@ public class GameMasterScript : NetworkBehaviour {
     // saves all objects to reference them by id
     public GameObject[] allObjects;
 
+    public bool resultsLogged;
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         idForNextPlayer = 0;
         allObjects = new GameObject[1];
         gameTimer = maxGameTime;
+        resultsLogged = false;
+
+        // for ai training, deactivate if you want to play
+        Time.timeScale = 10.0f;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		if(gameIsRunning())
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (gameIsRunning())
         {
             gameTimer -= Time.deltaTime;
         }
 
-        if (gameTimerOver() && isServer)
+        if (gameTimerOver() && isServer && !resultsLogged)
         {
+            resultsLogged = true;
+            RpcSetResultsLogged();
             WriteResults();
         }
-	}
+
+        if (resultsLogged)
+        {
+            Application.Quit();
+        }
+    }
+
+    [ClientRpc]
+    private void RpcSetResultsLogged()
+    {
+        resultsLogged = true;
+    }
 
     private void WriteResults()
     {
         StreamWriter writer = new StreamWriter("Results.txt");
         int unitsOfPlayer0 = 0;
         int unitsOfPlayer1 = 0;
-        foreach(GameObject go in allObjects)
+        foreach (GameObject go in allObjects)
         {
-            if(go.GetComponent<LivingScript>().myPlayerId == 0)
+            if (go != null)
             {
-                unitsOfPlayer0++;
-            }
-            else
-            {
-                unitsOfPlayer1++;
+                if (go.GetComponent<LivingScript>().myPlayerId == 0)
+                {
+                    unitsOfPlayer0++;
+                }
+                else
+                {
+                    unitsOfPlayer1++;
+                }
             }
         }
         writer.WriteLine(unitsOfPlayer0);
@@ -115,7 +140,7 @@ public class GameMasterScript : NetworkBehaviour {
     public bool haveAllDecidedOnAi()
     {
         bool allDecided = true;
-        foreach(bool decided in allDecidedOnAi)
+        foreach (bool decided in allDecidedOnAi)
         {
             allDecided = allDecided && decided;
         }
@@ -145,7 +170,7 @@ public class GameMasterScript : NetworkBehaviour {
     public List<GameObject> gameObjectsInRange(Vector3 position, float range)
     {
         List<GameObject> gos = new List<GameObject>();
-        foreach(GameObject go in allObjects)
+        foreach (GameObject go in allObjects)
         {
             float distance = Vector3.Distance(position, go.transform.position);
             if (distance <= range)

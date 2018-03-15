@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class OnPlayerEnter : NetworkBehaviour {
-    
+public class OnPlayerEnter : NetworkBehaviour
+{
+
     public int myPlayerId;
 
     private CentralSpawnScript centralSpawnScript;
@@ -14,6 +15,9 @@ public class OnPlayerEnter : NetworkBehaviour {
     public bool amIAi;
     [SyncVar]
     private bool decidedIfAi;
+
+    // for ai training
+    private float timer;
 
     void Start()
     {
@@ -31,14 +35,31 @@ public class OnPlayerEnter : NetworkBehaviour {
         if (isLocalPlayer)
         {
             centralSpawnScript.SpawnMainUnit(myPlayerId);
+            // for ai training
+            timer = 10.0f;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer && !decidedIfAi && gameMasterScript.gameHasStarted())
+        // TimerReady exists just for ai training, disable all functionality related to it, if you want to play the game
+        if (!TimerReady() && gameMasterScript.gameHasStarted())
         {
+            timer -= Time.deltaTime;
+        }
+        //if (isLocalPlayer && !decidedIfAi && gameMasterScript.gameHasStarted())
+        if (isLocalPlayer && !decidedIfAi && gameMasterScript.gameHasStarted() && TimerReady())
+        {
+            // the ai plays for you, activated for ai training
+            decidedIfAi = true;
+            gameMasterScript.allDecidedOnAi[myPlayerId] = true;
+            amIAi = true;
+            CmdCommunicateDecided();
+
+            // if you want to play this game, this allows you to choose whether you want to play yourself or if you want the ai to play for you
+            // disabled for ai training
+            /*
             if(Input.GetKeyDown(KeyCode.Y))
             {
                 decidedIfAi = true;
@@ -54,8 +75,14 @@ public class OnPlayerEnter : NetworkBehaviour {
                 amIAi = false;
                 CmdCommunicateDecided();
             }
+            */
         }
+    }
 
+    // TimerReady exists just for ai training, disable all functionality related to it, if you want to play the game
+    private bool TimerReady()
+    {
+        return timer <= 0.0f;
     }
 
     [Command]

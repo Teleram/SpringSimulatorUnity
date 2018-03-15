@@ -1,12 +1,6 @@
 C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Genetic_Algorithm\Project\bin\Debug\Project1.exe
 C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Genetic_Algorithm\Project\bin\Debug\Project1.pdb
+C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Genetic_Algorithm\Project\obj\Debug\Genetic_Algorithm.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Genetic_Algorithm\Project\obj\Debug\Genetic_Algorithm.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Genetic_Algorithm\Project\obj\Debug\Project1.exe
 C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Genetic_Algorithm\Project\obj\Debug\Project1.pdb
-C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Genetic_Algorithm\Project\obj\Debug\Genetic_Algorithm.csprojResolveAssemblyReference.cache
-C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Test2\Genetic_Algorithm\Project\bin\Debug\Project1.exe
-C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Test2\Genetic_Algorithm\Project\bin\Debug\Project1.pdb
-C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Test2\Genetic_Algorithm\Project\obj\Debug\Genetic_Algorithm.csprojResolveAssemblyReference.cache
-C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Test2\Genetic_Algorithm\Project\obj\Debug\Genetic_Algorithm.csproj.CoreCompileInputs.cache
-C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Test2\Genetic_Algorithm\Project\obj\Debug\Project1.exe
-C:\Users\User\Documents\Studium\Projekt Big Data\spring-simulator\Test2\Genetic_Algorithm\Project\obj\Debug\Project1.pdb

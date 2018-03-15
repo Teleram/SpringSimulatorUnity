@@ -165,7 +165,7 @@ public class PopulationManager
 
     private void WriteWeights(Individual ind0, Individual ind1)
     {
-        StreamWriter writer0 = new StreamWriter("../../../../Test2/Weights0.txt");
+        StreamWriter writer0 = new StreamWriter("Weights0.txt");
         List<string> weigths0 = ind0.GetWeightsAsStrings();
         foreach(string weight in weigths0)
         {
@@ -173,7 +173,7 @@ public class PopulationManager
         }
         writer0.Close();
 
-        StreamWriter writer1 = new StreamWriter("../../../../Test2/Weights1.txt");
+        StreamWriter writer1 = new StreamWriter("Weights1.txt");
         List<string> weigths1 = ind1.GetWeightsAsStrings();
         foreach (string weight in weigths1)
         {
@@ -184,7 +184,7 @@ public class PopulationManager
 
     private void ReadIntermediateFitness(int ind0, int ind1)
     {
-        StreamReader reader = new StreamReader("../../../../Test2/Results.txt");
+        StreamReader reader = new StreamReader("Results.txt");
         string fitnessString0 = reader.ReadLine();
         string fitnessString1 = reader.ReadLine();
         reader.Close();
@@ -203,5 +203,10 @@ public class PopulationManager
     {
         population.Sort(comparer);
         population.Reverse();
+    }
+
+    public List<Individual> GetPopulation()
+    {
+        return population;
     }
 }

@@ -15,5 +15,6 @@
         {
             popMan.IterateGeneration();
         }
+        agent.WriteWeightsOfCurrentGeneration();
     }
 }
