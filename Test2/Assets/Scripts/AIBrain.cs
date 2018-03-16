@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.IO;
+using System.Globalization;
 
 
 namespace NeuralNetwork
@@ -64,9 +65,11 @@ namespace NeuralNetwork
                 weightsAsStrings.Add(reader.ReadLine());
             }
 
+            // because Unity is different
+            CultureInfo cultureInfo = new CultureInfo("de-DE");
             foreach(string weightString in weightsAsStrings)
             {
-                float weight = float.Parse(weightString);
+                float weight = float.Parse(weightString, cultureInfo);
                 weights.Add(weight);
             }
             reader.Close();
