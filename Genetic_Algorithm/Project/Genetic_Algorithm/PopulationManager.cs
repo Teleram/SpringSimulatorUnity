@@ -23,6 +23,8 @@ public class PopulationManager
     // the offset is used because we want to have only positive values for fitness
     private readonly int offsetForFitness;
 
+    private int generation;
+
     public PopulationManager(int popSize, int generationSize, int chromosomeSize, double mutationRate)
     {
         this.popSize = popSize;
@@ -30,6 +32,7 @@ public class PopulationManager
         this.chromosomeSize = chromosomeSize;
         this.mutationRate = mutationRate;
 
+        generation = 0;
         population = new List<Individual>();
 
         offsetForFitness = 13;
@@ -64,6 +67,7 @@ public class PopulationManager
         GenerateNewGeneration();
         EvaluateFitness();
         Survival();
+        generation++;
     }
 
     private void Survival()
@@ -208,5 +212,10 @@ public class PopulationManager
     public List<Individual> GetPopulation()
     {
         return population;
+    }
+
+    public int GetGeneration()
+    {
+        return generation;
     }
 }

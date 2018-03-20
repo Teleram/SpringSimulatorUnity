@@ -33,8 +33,9 @@ public class Agent
     //}
 
     public void WriteWeightsOfCurrentGeneration()
-    {
-        string file = "resultWeights";
+    {        
+        int generation = popMan.GetGeneration();
+        string file = "resultWeights_Gen" + generation + "_ind";
         List<Individual> population = popMan.GetPopulation();
         int popSize = population.Count;
         for(int i = 0; i < popSize; i++)

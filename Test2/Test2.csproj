@@ -285,26 +285,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GeneticAlgorithm_Libary\AIBrain_Simulator.cs" />
+    <Compile Include="Assets\GeneticAlgorithm_Libary\Chromosome.cs" />
+    <Compile Include="Assets\GeneticAlgorithm_Libary\CompareByFitness.cs" />
+    <Compile Include="Assets\GeneticAlgorithm_Libary\Gene.cs" />
+    <Compile Include="Assets\GeneticAlgorithm_Libary\GenticAlgorithm.cs" />
+    <Compile Include="Assets\GeneticAlgorithm_Libary\Individual.cs" />
+    <Compile Include="Assets\GeneticAlgorithm_Libary\PopulationManager.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\AIBrain.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\AttackScript.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\CentralSpawnScript.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\DecisionObject.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\GameMasterScript.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\LivingScript.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\MoveScript.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\OnPlayerEnter.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\SelectScript.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\SortByDistance.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\Spawn.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\TargetingScript.cs" />
+    <Compile Include="Assets\Multiplayer\Scripts\Utils.cs" />
     <Compile Include="Assets\NN_libary\src\ActivationFunctions.cs" />
     <Compile Include="Assets\NN_libary\src\AssemblyInfo.cs" />
     <Compile Include="Assets\NN_libary\src\Layer.cs" />
     <Compile Include="Assets\NN_libary\src\LearningAlgorithms.cs" />
     <Compile Include="Assets\NN_libary\src\NeuralNetwork.cs" />
     <Compile Include="Assets\NN_libary\src\Neuron.cs" />
-    <Compile Include="Assets\Scripts\Access.cs" />
-    <Compile Include="Assets\Scripts\AIBrain.cs" />
-    <Compile Include="Assets\Scripts\AttackScript.cs" />
-    <Compile Include="Assets\Scripts\CentralSpawnScript.cs" />
-    <Compile Include="Assets\Scripts\DecisionObject.cs" />
-    <Compile Include="Assets\Scripts\GameMasterScript.cs" />
-    <Compile Include="Assets\Scripts\LivingScript.cs" />
-    <Compile Include="Assets\Scripts\MoveScript.cs" />
-    <Compile Include="Assets\Scripts\OnPlayerEnter.cs" />
-    <Compile Include="Assets\Scripts\SelectScript.cs" />
-    <Compile Include="Assets\Scripts\SortByDistance.cs" />
-    <Compile Include="Assets\Scripts\Spawn.cs" />
-    <Compile Include="Assets\Scripts\TargetingScript.cs" />
-    <Compile Include="Assets\Scripts\Utils.cs" />
+    <Compile Include="Assets\Simulation\Scripts\AttackScript_Singleplayer.cs" />
+    <Compile Include="Assets\Simulation\Scripts\CentralSpawnScript_Singleplayer.cs" />
+    <Compile Include="Assets\Simulation\Scripts\GameMasterScript_Singleplayer.cs" />
+    <Compile Include="Assets\Simulation\Scripts\LivingScript_Singleplayer.cs" />
+    <Compile Include="Assets\Simulation\Scripts\LocalSpawnScript_Singleplayer.cs" />
+    <Compile Include="Assets\Simulation\Scripts\MoveScript_Singleplayer.cs" />
+    <Compile Include="Assets\Simulation\Scripts\OnPlayerEnter_Singleplayer.cs" />
+    <Compile Include="Assets\Simulation\Scripts\SpeedChangerScript.cs" />
+    <Compile Include="Assets\Simulation\Scripts\TargetingScript_Singleplayer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
