@@ -17,10 +17,13 @@ public class GenticAlgorithm : MonoBehaviour
     private GameObject playerObject0;
     private GameObject playerObject1;
 
+    private bool newSetUp;
+
     // Use this for initialization
     void Start()
     {
         popMan = new PopulationManager(16, 32, 140, 0.05);
+        newSetUp = false;
         SetUp();
     }
 
@@ -37,14 +40,20 @@ public class GenticAlgorithm : MonoBehaviour
 
     void Update()
     {
-        if(gameMaster.GameTimerOver())
+        if (newSetUp)
+        {
+            newSetUp = false;
+            SetUp();
+        }
+
+        if (gameMaster.GameTimerOver())
         {
             int unitsOfPlayer0 = gameMaster.UnitsOfPlayer(0);
             int unitsOfPlayer1 = gameMaster.UnitsOfPlayer(1);
 
             popMan.NextMatch(unitsOfPlayer0, unitsOfPlayer1);
             CleanUp();
-            SetUp();
+            newSetUp = true;
         }
     }
 
@@ -57,7 +66,7 @@ public class GenticAlgorithm : MonoBehaviour
 
     public AIBrain_Simulator GetAIBrain(int playerID)
     {
-        if(playerID == 0)
+        if (playerID == 0)
         {
             return aIBrain0;
         }

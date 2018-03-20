@@ -85,7 +85,7 @@ public class PopulationManager
         if(ind1 == population.Count)
         {
             ind0++;
-            if(ind0 == population.Count)
+            if(ind0 == (population.Count - 1))
             {
                 EvaluateFitness();
                 Survival();

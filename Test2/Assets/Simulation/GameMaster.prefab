@@ -57,7 +57,8 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 9b2326206e1c7ff4aad91eddcc68d011, type: 2}
   - {fileID: 2100000, guid: 429395578619f684bbb4b0a716790097, type: 2}
+  idForNextPlayer: 0
   allDecidedOnAi: 0000
-  gameTimer: 0
+  gameTimer: 602
   maxGameTime: 602
   allObjects: []

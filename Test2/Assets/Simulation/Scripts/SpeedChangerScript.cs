@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SpeedChangerScript : MonoBehaviour
 {
+    void Start()
+    {
+        Time.timeScale = 10.0f;
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -8,7 +8,7 @@ public class GameMasterScript_Singleplayer : MonoBehaviour {
 
     public Material[] materials;
 
-    private int idForNextPlayer;
+    public int idForNextPlayer;
 
     public bool[] allDecidedOnAi;
 
@@ -137,7 +137,7 @@ public class GameMasterScript_Singleplayer : MonoBehaviour {
         {
             if (go != null)
             {
-                if (go.GetComponent<LivingScript>().myPlayerId == id)
+                if (go.GetComponent<LivingScript_Singleplayer>().myPlayerId == id)
                 {
                     unitsOfPlayer++;
                 }
