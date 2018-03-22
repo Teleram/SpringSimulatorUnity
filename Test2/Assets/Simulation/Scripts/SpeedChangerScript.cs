@@ -6,14 +6,14 @@ public class SpeedChangerScript : MonoBehaviour
 {
     void Start()
     {
-        Time.timeScale = 10.0f;
+        Time.timeScale = 100.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         float oldScale = Time.timeScale;
-        if(Input.GetKeyDown(KeyCode.KeypadPlus) && (oldScale < 10))
+        if(Input.GetKeyDown(KeyCode.KeypadPlus) && (oldScale < 100))
         {
             Time.timeScale = oldScale + 1;
         }
