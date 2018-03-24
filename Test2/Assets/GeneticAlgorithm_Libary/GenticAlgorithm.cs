@@ -38,7 +38,7 @@ public class GenticAlgorithm : MonoBehaviour
         aIBrain1 = new AIBrain_Simulator(popMan.GetWeightsForInd(1));
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (newSetUp)
         {

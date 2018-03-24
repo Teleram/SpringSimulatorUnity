@@ -36,7 +36,7 @@ public class LocalSpawnScript_Singleplayer : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (gameMasterScript.GameIsRunning())
         {
@@ -50,10 +50,5 @@ public class LocalSpawnScript_Singleplayer : MonoBehaviour {
             remainingSpawntime -= Time.deltaTime;
         }
     }
-
-    //private bool spawnposisfree(Vector3 spawnposLocal)
-    //{
-    //    return true;
-    //}
 
 }

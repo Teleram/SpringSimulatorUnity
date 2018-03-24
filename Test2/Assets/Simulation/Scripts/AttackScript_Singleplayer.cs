@@ -26,7 +26,7 @@ public class AttackScript_Singleplayer : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (gameMasterScript.GameIsRunning())
         {

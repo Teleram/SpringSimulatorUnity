@@ -61,4 +61,5 @@ MonoBehaviour:
   allDecidedOnAi: 0000
   gameTimer: 602
   maxGameTime: 602
-  allObjects: []
+  allObjects:
+  - {fileID: 0}

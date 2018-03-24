@@ -40,7 +40,7 @@ public class PopulationManager
         ind0 = 0;
         ind1 = 1;
 
-        offsetForFitness = 13;
+        offsetForFitness = 25;
 
         int maxPop = popSize + generationSize;
         intermediateFitnessResults = new int[maxPop, maxPop];
@@ -75,8 +75,8 @@ public class PopulationManager
 
     public void NextMatch(int strength0, int strength1)
     {
-        int fit0 = (offsetForFitness + strength0) - strength1;
-        int fit1 = (offsetForFitness + strength1) - strength0;
+        int fit0 = (offsetForFitness + strength0) - (2 * strength1);
+        int fit1 = (offsetForFitness + strength1) - (2 * strength0);
 
         intermediateFitnessResults[ind0, ind1] = fit0;
         intermediateFitnessResults[ind1, ind0] = fit1;

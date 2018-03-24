@@ -26,7 +26,7 @@ public class LivingScript_Singleplayer : MonoBehaviour {
         myObjectId = -1;
     }
 
-    void Update()
+   void FixedUpdate()
     {
         if (myObjectId == -1)
         {

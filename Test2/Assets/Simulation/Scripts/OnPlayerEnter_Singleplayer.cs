@@ -37,7 +37,7 @@ public class OnPlayerEnter_Singleplayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // TimerReady exists just for ai training, disable all functionality related to it, if you want to play the game
         //if (!TimerReady() && gameMasterScript.GameHasStarted())

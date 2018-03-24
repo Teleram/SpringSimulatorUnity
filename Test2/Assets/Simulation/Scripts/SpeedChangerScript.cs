@@ -22,4 +22,9 @@ public class SpeedChangerScript : MonoBehaviour
             Time.timeScale = oldScale - 1;
         }
     }
+
+    //void FixedUpdate()
+    //{
+    //    Debug.Log(Time.deltaTime);
+    //}
 }

@@ -21,17 +21,17 @@ public class GameMasterScript_Singleplayer : MonoBehaviour {
     public GameObject[] allObjects;
 
     // Use this for initialization
-    void Start()
-    {
-        idForNextPlayer = 0;
-        allObjects = new GameObject[1];
-        gameTimer = maxGameTime;
+    //void Start()
+    //{
+    //    idForNextPlayer = 0;
+    //    allObjects = new GameObject[1];
+    //    gameTimer = maxGameTime;
 
-        // for ai training, deactivate if you want to play
-    }
+    //    // for ai training, deactivate if you want to play
+    //}
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (GameIsRunning())
         {
