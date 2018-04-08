@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Simulation/Simulation.unity
+- path: Assets/Evalution/Evaluation.unity
   isLoaded: 1
   isActive: 1

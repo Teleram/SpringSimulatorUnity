@@ -41,7 +41,7 @@ public class AttackScript_Singleplayer : MonoBehaviour {
                     int targetId = targetingScript.target.GetComponent<LivingScript_Singleplayer>().myObjectId;
 
                     GameObject myTarget = gameMasterScript.GetObjectById(targetId);
-                    myTarget.GetComponent<LivingScript_Singleplayer>().takeDamage(attackDamage);
+                    myTarget.GetComponent<LivingScript_Singleplayer>().TakeDamage(attackDamage);
                 }
             }
 

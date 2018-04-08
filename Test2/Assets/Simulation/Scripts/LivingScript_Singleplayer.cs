@@ -30,7 +30,7 @@ public class LivingScript_Singleplayer : MonoBehaviour {
     {
         if (myObjectId == -1)
         {
-            assignMyObjectId();
+            AssignMyObjectId();
         }
         if (hp <= 0)
         {
@@ -38,12 +38,12 @@ public class LivingScript_Singleplayer : MonoBehaviour {
         }
     }
 
-    private void assignMyObjectId()
+    private void AssignMyObjectId()
     {
         myObjectId = gameMasterScript.GetIdForObject(gameObject);
     }
 
-    public void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         hp -= damage;
     }

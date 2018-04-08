@@ -11,12 +11,13 @@
 \contentsline {chapter}{\numberline {4}Umsetzung}{8}{chapter.4}
 \contentsline {section}{\numberline {4.1}Umsetzung der Simulation}{8}{section.4.1}
 \contentsline {section}{\numberline {4.2}Umsetzung der AI}{8}{section.4.2}
-\contentsline {chapter}{\numberline {5}Conclusion}{10}{chapter.5}
-\contentsline {chapter}{Appendices}{11}{section*.3}
-\contentsline {chapter}{\numberline {A}Chapter}{13}{appendix.A}
-\contentsline {chapter}{\nonumberline List of Figures}{14}{chapter*.4}
-\contentsline {chapter}{\nonumberline List of Listings}{15}{chapter*.5}
-\contentsline {chapter}{\nonumberline List of Tables}{16}{chapter*.6}
+\contentsline {section}{\numberline {4.3}Umsetzung des Trainingsalgorithmus}{9}{section.4.3}
+\contentsline {chapter}{\numberline {5}Conclusion}{11}{chapter.5}
+\contentsline {chapter}{Appendices}{12}{section*.3}
+\contentsline {chapter}{\numberline {A}Chapter}{14}{appendix.A}
+\contentsline {chapter}{\nonumberline List of Figures}{15}{chapter*.4}
+\contentsline {chapter}{\nonumberline List of Listings}{16}{chapter*.5}
+\contentsline {chapter}{\nonumberline List of Tables}{17}{chapter*.6}
 \babel@toc {ngerman}{}
 \babel@toc {english}{}
 \babel@toc {ngerman}{}
