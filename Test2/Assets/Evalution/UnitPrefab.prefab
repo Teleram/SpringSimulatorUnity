@@ -141,7 +141,7 @@ MonoBehaviour:
   target: {fileID: 0}
   myDestination: {x: 0, y: 0, z: 0}
   destinationHasChanged: 0
-  viewRange: 0
+  viewRange: 100
 --- !u!136 &136764638631486248
 CapsuleCollider:
   m_ObjectHideFlags: 1
