@@ -11,9 +11,13 @@
 \BOOKMARK [1][-]{section.4.1}{Umsetzung der Simulation}{chapter.4}% 11
 \BOOKMARK [1][-]{section.4.2}{Umsetzung der AI}{chapter.4}% 12
 \BOOKMARK [1][-]{section.4.3}{Umsetzung des Trainingsalgorithmus}{chapter.4}% 13
-\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 14
-\BOOKMARK [0][-]{section*.3}{Appendices}{}% 15
-\BOOKMARK [0][-]{appendix.A}{Chapter}{}% 16
-\BOOKMARK [0][-]{chapter*.4}{List of Figures}{}% 17
-\BOOKMARK [0][-]{chapter*.5}{List of Listings}{}% 18
-\BOOKMARK [0][-]{chapter*.6}{List of Tables}{}% 19
+\BOOKMARK [0][-]{chapter.5}{Auswertung}{}% 14
+\BOOKMARK [1][-]{section.5.1}{Variante1: 1zu1}{chapter.5}% 15
+\BOOKMARK [1][-]{section.5.2}{Variante2: 1zu2}{chapter.5}% 16
+\BOOKMARK [1][-]{section.5.3}{Variante3: 0zu1}{chapter.5}% 17
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 18
+\BOOKMARK [0][-]{section*.7}{Appendices}{}% 19
+\BOOKMARK [0][-]{appendix.A}{Chapter}{}% 20
+\BOOKMARK [0][-]{chapter*.8}{List of Figures}{}% 21
+\BOOKMARK [0][-]{chapter*.9}{List of Listings}{}% 22
+\BOOKMARK [0][-]{chapter*.10}{List of Tables}{}% 23

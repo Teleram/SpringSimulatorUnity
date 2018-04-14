@@ -242,6 +242,49 @@ Startet man nun das Trainingsprogramm, so wird ein neuer PopulationManager erzeu
 Jeweils vor der Erzeugung neuer Individuen wird die aktuelle Population in Textdateien rausgeschrieben. Danach werden zweiunddreißig neue Individuen, wie oben beschrieben, erzeugt. Damit sind wir bis zur Selektion bei einer Populationsgröße von achtundvierzig Individuen. Dann erfolgen die Auswertung nach dem Fitnesswert sowie die Selektion.\\
 Zu beachten ist hierbei, dass von außen nur die Matches aufgerufen werden, will heißen: Das Ergebnis des letzten Matches wird an den PopulationManager übergeben und die Gewichten des nächsten Matches werden ausgelesen. Der PopulationManager achtet dabei selber auf die korrekte Zuordnung der Matches, sowie darauf, dass nach spielen aller Matches einer Generation der Generationschritt vollzogen wird.
 
+\chapter{Auswertung}
+\label{Auswertung}
+Für die Evaluation standen wir vor einem großen Problem: Die Fitness-Funktion bezieht sich nur auf die direkte Konkurrenz und hat keinerlei Abhängigkeit zur einer objektiven, statischen Größe. Somit ist ein ansteigen der Fitnessfunktion kein eindeutiges Zeichen für einen Fortschritt, was uns dazu zwingt eine andere Form der Evaluierung anzuwenden. Deswegen ließen wir das jeweils beste Individuum jeder Generation (null bis zehn) gegen jedes Individuum der nullten Generation antreten, um dann diese Matches nach Kills und Verlusten auszuwerten.\\
+Insgesammt testeten wir drei Varianten der Fitnessfunktion, um einen Eindruck davon zu erhalten, welche sich am besten eignet. Wie erwartet bevorzugen die drei Varianten jeweils ein unterschiedliches Verhalten. Im Folgenden werden nun die drei Varianten vorgestellt und ausgewertet.
+
+\section{Variante1: 1zu1}
+Diese Variante bewertet verlorene eigene Einheiten genauso schwer wie verwehrte \footnote{Es ist möglich das Hauptgebäude zu zerstören, wodurch keine neuen Einheiten entstehen. Gezählt werden die Einheiten bei Spielende, anstatt der getöteten bzw. verlorenen Einheiten, wodurch dieser Effekt den Punktestand beeinflusst.} gegnerische Einheiten. Die Motivation dieser Variante war, dass dies uns als natürlichste Bewertung einer KI in diesem Spiel erschien.
+\begin{figure}[h]
+	\includegraphics[width = \textwidth]{Durchschnittskills1zu1.png}
+	\caption{figure1}
+	\label{figure1}
+\end{figure}\\
+Diese Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation. Dabei ist die x-Achse die Generation, aus der das jeweilige Individuum stammt, und die y-Achse der Durchschnittswert, der gegen die nullte Generation erzielten Kills. Die Punkte sind dabei die Einzelwerte, während die Gerade eine lineare Regression aller Werte ist, also den Trend anzeigt.\\
+Die Stagnation von der nullten bis zur zweiten Generation liegt höchstwahrscheinlich daran, dass das Abschießen von Gegnereinheiten erst durch eine Mutation erlernt werden musste. Ab der dritten Generation zeichnet sich ein Aufwärtstrend ab. Die Einbrüche innerhalb dessen sind der Fitnessfunktion geschuldet: Ein Individuum kann innerhalb einer Population besser sein als in einer anderen; schließlich muss man sich begegnen, um sich bekämpfen zu können. Trotzdem gehen wir davon aus, dass sich auf längere Sicht, sprich mehr Generationen, der Aufwärtstrend fortsetzen würde.\\
+Wir sind bisher nicht auf Verluste eingegangen, da in dieser Variante die nullte Generation keinem Individuum Verluste zufügen konnte.
+
+\section{Variante2: 1zu2}
+Diese Variante bewertet verwehrte gegnerische Einheiten doppelt so schwer wie verlorene eigene Einheiten. Die Motivation dieser Variante war einen aggressiveren Spielstil zu bevorzugen, damit aktive Strategien extrinsisch motiviert werden.
+\begin{figure}[h]
+	\includegraphics[width = \textwidth]{Durchschnittskills1zu2.png}
+	\caption{figure2}
+	\label{figure2}
+\end{figure}\\
+\begin{figure}[h]
+	\includegraphics[width = \textwidth]{Durchschnittsverluste1zu2.png}
+	\caption{figure3}
+	\label{figure3}
+\end{figure}\\
+Die obere Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation, die untere zeigt die durchschnittlichen Verluste. Die Achsen entsprechen der ersten Abbildung (\ref{figure1}).\\
+Beide Graphiken haben gemeinsam, dass sich kein klarer Gesammttrend herauslesen lässt. Allerdings ist klar zu erkennen, dass bei dieser Variante die nullte Generation zufälligerweise wesentlich aggressiver als andere nullte Generationen ist. Diese Aggressivität bleibt bis zur siebten Generation deutlich sichtbar. Wahrscheinlich ringt diese Variante um eine Balance zwischen aggressiver Vernichtung des Gegners und Minimierung eigener Verluste. Dies hängt natürlich eng mit der generell aggressiven Grundstimmung der Population zusammen. Da Kills, in dieser Variante, mehr zählen als Verluste geht diese aggressive Grundstimmung auch nicht verloren. Ab der achten Generation scheint die Vermeidung von Verlusten überhand über das Erzielen von Kills zu gewinnen, wodurch sich die Aggressivität senkt. Dies hat zur Folge, dass zwar die Kills zurückgehen jedoch die Verluste deutlich stärker abnehmen.
+
+\section{Variante3: 0zu1}
+Diese Variante bewertet nur verwehrte gegnerische Einheiten und ignoriert verlorene eigene Einheiten. Die Motivation dieser Variante war einen aggressiven Spielstil zu forcieren, um damit eine hohe Aktivität zu schaffen.
+\begin{figure}[h]
+	\includegraphics[width = \textwidth]{Durchschnittskills0zu1.png}
+	\caption{figure4}
+	\label{figure4}
+\end{figure}\\
+Die obere Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation. Die Achsen entsprechen der ersten Abbildung (\ref{figure1}).\\
+Wieder haben wir keine Grafik zu Verlusten, weil es keine gab.\\
+Das erste, was an dieser Grafik auffällt, ist der starke Abfall nach der ersten Generation. Dies ist ein Indikator dafür, dass sich zuerst ein passiver Spielstil durchsetzen konnte. Da für uns auch am Fitnesswert nicht abzusehen ist, ob dies tatsächlich zur Vermeidung von Verlusten geführt hat, ist diese Entwicklung schwer einzuschätzen. Jedenfalls sind passive Individuen auch schwieriger anzugreifen.\\
+Ab der neunten Generation setzt dann ein Aufwärtstrend ein. Bei dieser Variante ist klar zu erkennen, dass ohne Abstrafung von Verlusten sich passive Individuen unerwartet gut in der Population halten können.
+
 \chapter{Conclusion}
 \label{Conclusion}
 

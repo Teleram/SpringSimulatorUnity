@@ -12,12 +12,16 @@
 \contentsline {section}{\numberline {4.1}Umsetzung der Simulation}{8}{section.4.1}
 \contentsline {section}{\numberline {4.2}Umsetzung der AI}{8}{section.4.2}
 \contentsline {section}{\numberline {4.3}Umsetzung des Trainingsalgorithmus}{9}{section.4.3}
-\contentsline {chapter}{\numberline {5}Conclusion}{11}{chapter.5}
-\contentsline {chapter}{Appendices}{12}{section*.3}
-\contentsline {chapter}{\numberline {A}Chapter}{14}{appendix.A}
-\contentsline {chapter}{\nonumberline List of Figures}{15}{chapter*.4}
-\contentsline {chapter}{\nonumberline List of Listings}{16}{chapter*.5}
-\contentsline {chapter}{\nonumberline List of Tables}{17}{chapter*.6}
+\contentsline {chapter}{\numberline {5}Auswertung}{11}{chapter.5}
+\contentsline {section}{\numberline {5.1}Variante1: 1zu1}{11}{section.5.1}
+\contentsline {section}{\numberline {5.2}Variante2: 1zu2}{12}{section.5.2}
+\contentsline {section}{\numberline {5.3}Variante3: 0zu1}{13}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusion}{15}{chapter.6}
+\contentsline {chapter}{Appendices}{16}{section*.7}
+\contentsline {chapter}{\numberline {A}Chapter}{18}{appendix.A}
+\contentsline {chapter}{\nonumberline List of Figures}{19}{chapter*.8}
+\contentsline {chapter}{\nonumberline List of Listings}{20}{chapter*.9}
+\contentsline {chapter}{\nonumberline List of Tables}{21}{chapter*.10}
 \babel@toc {ngerman}{}
 \babel@toc {english}{}
 \babel@toc {ngerman}{}
