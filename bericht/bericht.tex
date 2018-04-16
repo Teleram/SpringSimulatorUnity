@@ -43,6 +43,16 @@
 
 \definecolor{uhhred}{cmyk}{0,1,1,0}
 
+
+\usepackage{todonotes}
+\usepackage{silence}
+\WarningFilter{latex}{Marginpar} 
+\WarningFilter{latexfont}{Font shape}
+\WarningFilter{latexfont}{Some font}
+\usepackage{changes}
+\usepackage{lmodern}
+
+
 \lstset{
 	basicstyle=\ttfamily,
 	frame=single,
@@ -153,12 +163,12 @@ At vero eos et accusam et justo duo dolores et ea rebum.
 
 \medskip
 
-Reference example: For more information, see
-\begin{itemize}
-	\item Chapter~\ref{Assignment},
-	\item \cref{Assignment},
-	\item \vref{Assignment}.
-\end{itemize}
+%Reference example: For more information, see
+%\begin{itemize}
+%  \item Chapter~\ref{Assignment},
+%  \item \cref{Assignment},
+%  \item \vref{Assignment}.
+%\end{itemize}
 
 \chapter{Projektziel}
 \label{Projektziel}
