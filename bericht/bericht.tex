@@ -19,7 +19,11 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
+\usepackage{todonotes}
+\usepackage{silence}
+\WarningFilter{latex}{Marginpar} 
 \usepackage{lmodern}
+\usepackage{changes}
 
 \usepackage[ngerman,english]{babel}
 
@@ -123,12 +127,7 @@
 
 \thispagestyle{empty}
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Dieser Text stellt einen Projektbericht dar. Innerhalb des Projektes bauten wir ein sehr vereinfachtes RTS und eine AI, die erlernen sollte dieses gut zu spielen. Der AI liegt ein neuronales Netz zugrunde; das Training erfolgte über einen genetischen Algorithmus.
 
 \tableofcontents
 
@@ -136,6 +135,7 @@ Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit ame
 \label{Einleitung}
 
 \textit{%
+<<<<<<< HEAD
 In this chapter, ...
 }
 
@@ -179,6 +179,8 @@ In diesem Kapitel gehen wir auf das Projektziel näher ein und erläutern warum 
 
 \bigskip
 
+Zurzeit sind die meisten AI für beliebige Computerspiele noch fest einprogrammierte Skripte. Diese AI's können somit nicht lernen und verlieren damit auf Dauer gegen menschliche Spieler. Um dies aufzufangen, also dem Menschen immer eine Herausforderung bieten zu können, werden die stärksten AI's mit unfairen Vorteilen versehen. Unser Projekt zielte nun auf einen anderen Ansatz: Die AI soll lernfähig sein und dadurch dem Menschen überlegen bleiben.
+
 \section{Ursprüngliches Projektziel}
 
 Unser ursprüngliches Projektziel bestand darin eine AI zu entwickeln und diese mit Hilfe eines genetischen Algorithmus zu trainieren. Diese AI sollte auf die Spring-RTS-Engine [Spring] angewandt werden. Die Absicht bestand darin zu zeigen, dass eine AI auf diese Weise lernen kann RTS-Spiele gut, eventuell sogar besser als menschliche Spieler, zu spielen.\\
@@ -204,6 +206,12 @@ In diesem Kapitel beschreiben wir kurz den Aufbau der wichtigsten Bausteine des 
 Die Simulation ist ein sehr einfaches RTS. Sie ist ausgelegt auf genau zwei Spieler. Jeder der Spieler hat ein Hauptgebäude, dass in regelmäßigen Zeitabständen Einheiten erstellt. Diese Einheiten können zu Positionen auf dem Spielfeld laufen und, wenn sie dicht genug dran sind, Schaden an gegnerischen Einheiten verursachen. Fallen die Lebenspunkte einer Einheit auf null, so wird diese gelöscht.\\
 Es gibt genau einen Einheitentyp. Die Simulation beinhaltet keinerlei Mechaniken, die Ressourcen in irgendeiner Form verwenden.\\
 Ein Match dauert zehn Minuten.
+\begin{figure}[h]
+	\includegraphics[width = 0.5\textwidth]{Spielfeld.png}
+	\caption{Spielfeld}
+	\label{Spielfeld}
+\end{figure}\\
+Dies ist ein Screenshot vom Spielfeld. Es besteht nur aus einer planen Ebene. Die beiden Gegner starten in gegenüberliegenden Ecken.
 
 \section{Aufbau der AI}
 Da bei einem RTS die Anzahl der Einheiten, und damit die Anzahl der Möglichkeiten, variabel ist, entschieden wir uns, auch durch Anraten der Betreuer, dafür, die AI als Schwarmintelligenz zu designen.\\
@@ -261,8 +269,8 @@ Insgesammt testeten wir drei Varianten der Fitnessfunktion, um einen Eindruck da
 Diese Variante bewertet verlorene eigene Einheiten genauso schwer wie verwehrte \footnote{Es ist möglich das Hauptgebäude zu zerstören, wodurch keine neuen Einheiten entstehen. Gezählt werden die Einheiten bei Spielende, anstatt der getöteten bzw. verlorenen Einheiten, wodurch dieser Effekt den Punktestand beeinflusst.} gegnerische Einheiten. Die Motivation dieser Variante war, dass dies uns als natürlichste Bewertung einer KI in diesem Spiel erschien.
 \begin{figure}[h]
 	\includegraphics[width = \textwidth]{Durchschnittskills1zu1.png}
-	\caption{figure1}
-	\label{figure1}
+	\caption{Durchschnittskills1zu1}
+	\label{Durchschnittskills1zu1}
 \end{figure}\\
 Diese Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation. Dabei ist die x-Achse die Generation, aus der das jeweilige Individuum stammt, und die y-Achse der Durchschnittswert, der gegen die nullte Generation erzielten Kills. Die Punkte sind dabei die Einzelwerte, während die Gerade eine lineare Regression aller Werte ist, also den Trend anzeigt.\\
 Die Stagnation von der nullten bis zur zweiten Generation liegt höchstwahrscheinlich daran, dass das Abschießen von Gegnereinheiten erst durch eine Mutation erlernt werden musste. Ab der dritten Generation zeichnet sich ein Aufwärtstrend ab. Die Einbrüche innerhalb dessen sind der Fitnessfunktion geschuldet: Ein Individuum kann innerhalb einer Population besser sein als in einer anderen; schließlich muss man sich begegnen, um sich bekämpfen zu können. Trotzdem gehen wir davon aus, dass sich auf längere Sicht, sprich mehr Generationen, der Aufwärtstrend fortsetzen würde.\\
@@ -272,35 +280,37 @@ Wir sind bisher nicht auf Verluste eingegangen, da in dieser Variante die nullte
 Diese Variante bewertet verwehrte gegnerische Einheiten doppelt so schwer wie verlorene eigene Einheiten. Die Motivation dieser Variante war einen aggressiveren Spielstil zu bevorzugen, damit aktive Strategien extrinsisch motiviert werden.
 \begin{figure}[h]
 	\includegraphics[width = \textwidth]{Durchschnittskills1zu2.png}
-	\caption{figure2}
-	\label{figure2}
+	\caption{Durchschnittskills1zu2}
+	\label{Durchschnittskills1zu2}
 \end{figure}\\
 \begin{figure}[h]
 	\includegraphics[width = \textwidth]{Durchschnittsverluste1zu2.png}
-	\caption{figure3}
-	\label{figure3}
+	\caption{Durchschnittsverluste1zu2}
+	\label{Durchschnittsverluste1zu2}
 \end{figure}\\
-Die obere Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation, die untere zeigt die durchschnittlichen Verluste. Die Achsen entsprechen der ersten Abbildung (\ref{figure1}).\\
+Die obere Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation, die untere zeigt die durchschnittlichen Verluste. Die Achsen entsprechen der ersten Abbildung (\ref{Durchschnittskills1zu1}).\\
 Beide Graphiken haben gemeinsam, dass sich kein klarer Gesammttrend herauslesen lässt. Allerdings ist klar zu erkennen, dass bei dieser Variante die nullte Generation zufälligerweise wesentlich aggressiver als andere nullte Generationen ist. Diese Aggressivität bleibt bis zur siebten Generation deutlich sichtbar. Wahrscheinlich ringt diese Variante um eine Balance zwischen aggressiver Vernichtung des Gegners und Minimierung eigener Verluste. Dies hängt natürlich eng mit der generell aggressiven Grundstimmung der Population zusammen. Da Kills, in dieser Variante, mehr zählen als Verluste geht diese aggressive Grundstimmung auch nicht verloren. Ab der achten Generation scheint die Vermeidung von Verlusten überhand über das Erzielen von Kills zu gewinnen, wodurch sich die Aggressivität senkt. Dies hat zur Folge, dass zwar die Kills zurückgehen jedoch die Verluste deutlich stärker abnehmen.
 
 \section{Variante3: 0zu1}
 Diese Variante bewertet nur verwehrte gegnerische Einheiten und ignoriert verlorene eigene Einheiten. Die Motivation dieser Variante war einen aggressiven Spielstil zu forcieren, um damit eine hohe Aktivität zu schaffen.
 \begin{figure}[h]
 	\includegraphics[width = \textwidth]{Durchschnittskills0zu1.png}
-	\caption{figure4}
-	\label{figure4}
+	\caption{Durchschnittskills0zu1}
+	\label{Durchschnittskills0zu1}
 \end{figure}\\
-Die obere Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation. Die Achsen entsprechen der ersten Abbildung (\ref{figure1}).\\
+Die obere Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation. Die Achsen entsprechen der ersten Abbildung (\ref{Durchschnittskills1zu1}).\\
 Wieder haben wir keine Grafik zu Verlusten, weil es keine gab.\\
 Das erste, was an dieser Grafik auffällt, ist der starke Abfall nach der ersten Generation. Dies ist ein Indikator dafür, dass sich zuerst ein passiver Spielstil durchsetzen konnte. Da für uns auch am Fitnesswert nicht abzusehen ist, ob dies tatsächlich zur Vermeidung von Verlusten geführt hat, ist diese Entwicklung schwer einzuschätzen. Jedenfalls sind passive Individuen auch schwieriger anzugreifen.\\
 Ab der neunten Generation setzt dann ein Aufwärtstrend ein. Bei dieser Variante ist klar zu erkennen, dass ohne Abstrafung von Verlusten sich passive Individuen unerwartet gut in der Population halten können.
 
-\chapter{Conclusion}
-\label{Conclusion}
+\section{Fazit}
+Während sich bei der 1zu1-Variante eine stetige Verbesserung abzuzeichnen scheint, ist dies bei den anderen Varianten nicht der Fall. An dieser Stelle fehlen leider weitere Trainingsdaten, also mehr Generationen und Wiederholungen, die auf Grund des Erstellungsaufwands nicht zu bewerkstelligen waren. Zudem ist die Generationsgröße eher klein. Trotzdem ist ein gewisser Trainingserfolg zu erkennen. Bei 1zu1 steigt die Zahl der durchschnittlichen Kills, bei 1zu2 balancieren sich Kills und Verluste über die Generationen aus.\\
+Die 1zu1-Variante zeigte, trotz schlechtem Start, gute Fortschritte. Sie entspricht auch unserem intuitiven Verständnis von einer guten Strategie. Somit empfehlen wir, dass bei Weiterführung der Arbeit diese Variante weiter fortgesetzt wird.\\
+Die 2zu1-Variante bringt eine gewisse Diversität mit. Bei einer Weiterführung der Arbeit empfehlen wir diese Variante zumindest als Vergleich zur 1zu1-Variante weiter zu verfolgen.\\
+Die 0zu1-Variante konnte keine nennenswerten Ergebnisse erzielen. Dies könnte sich aber mit weiterem Training ändern. Daher empfehlen wir bei Weiterführung der Arbeit diese Variante zu Vergleichszwecken, zumindest vorerst, beizubehalten.\\
+Desweiteren empfehlen wir die Erweiterung des Spiels um etwas, dass die AI intrinsisch motiviert und um das sie mit dem Gegner kämpfen kann. Zudem könnte ein höherer Detailgrad beim Input für das neuronale Netz für bessere Einzelfallunterscheidungen und damit -entscheidungen sorgen.\\
+Wir gehen, nach Auswertung unserer Tests, davon aus, dass sich eine schwarmintelligenzbasierte Gaming-AI für ein RTS durch einen genetischen Algorithmus trainieren und optimieren lässt. Sogar unsere, doch sehr schlichte, AI war in der Lage reaktives Verhalten zu erlernen. Damit könnte sie, unter der Voraussetzung, dass sie ausreichend trainiert wird, gegen jede statisch vorprogrammierte AI gewinnen. Zudem macht ja gerade der Aspekt der Schwarmintelligenz die AI skalierbar. Damit ist sie prinzipiell auch auf kompliziertere RTS übertragbar.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 \bibliographystyle{alpha}
 \bibliography{literatur}
@@ -308,58 +318,15 @@ Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit ame
 \appendix
 \appendixpage
 
-[Spring] https://springrts.com/
-[Unity] https://unity3d.com/
-[NN-Bib] http://franck.fleurey.free.fr/NeuralNetwork/
+\chapter{Quellen}
 
-\chapter{Chapter}
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-At vero eos et accusam et justo duo dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+\begin{itemize}
+	\item[Spring] https://springrts.com/
+	\item[Unity] https://unity3d.com/
+	\item[NN-Bib] http://franck.fleurey.free.fr/NeuralNetwork/
+\end{itemize}
 
 \listoffigures
 
-\lstlistoflistings
-
-\listoftables
-
-\chapter*{}
-
-\thispagestyle{empty}
-
-\section*{Eidesstattliche Versicherung}
-
-\begin{otherlanguage}{ngerman}
-Hiermit versichere ich an Eides statt, dass ich die vorliegende Arbeit im Studiengang XXX selbstständig verfasst und keine anderen als die angegebenen Hilfsmittel -- insbesondere keine im Quellenverzeichnis nicht benannten Internet-Quellen -- benutzt habe.
-Alle Stellen, die wörtlich oder sinngemäß aus Veröffentlichungen entnommen wurden, sind als solche kenntlich gemacht.
-Ich versichere weiterhin, dass ich die Arbeit vorher nicht in einem anderen Prüfungsverfahren eingereicht habe und die eingereichte schriftliche Fassung der auf dem elektronischen Speichermedium entspricht.
-\end{otherlanguage}
-
-\vspace{1cm}
-
-\begin{center}
-\begin{tabular}{ll}
-	\rule{0.35\textwidth}{0.4pt} & \rule{0.55\textwidth}{0.4pt} \\
-	Ort, Datum & Unterschrift
-\end{tabular}
-\end{center}
-
-\vfill
-
-\section*{Veröffentlichung}
-
-\begin{otherlanguage}{ngerman}
-Ich bin damit einverstanden, dass meine Arbeit in den Bestand der Bibliothek des Fachbereichs Informatik eingestellt wird.
-\end{otherlanguage}
-
-\vspace{1cm}
-
-\begin{center}
-\begin{tabular}{ll}
-	\rule{0.35\textwidth}{0.4pt} & \rule{0.55\textwidth}{0.4pt} \\
-	Ort, Datum & Unterschrift
-\end{tabular}
-\end{center}
 
 \end{document}
