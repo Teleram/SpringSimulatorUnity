@@ -20,8 +20,8 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{lmodern}
-
-\usepackage[ngerman,english]{babel}
+%\usepackage[ngerman,english]{babel}
+\usepackage[ngerman]{babel}
 
 \usepackage[toc]{appendix}
 \usepackage{color}
@@ -33,13 +33,16 @@
 \usepackage{listings}
 \usepackage{lstautogobble}
 \usepackage{microtype}
+\usepackage{caption}
 \usepackage[list=true,hypcap=true]{subcaption}
 \usepackage{textcomp}
 \usepackage{units}
 
+\usepackage{amsmath}
 \usepackage{varioref}
 \usepackage[hidelinks]{hyperref}
-\usepackage[capitalise,noabbrev]{cleveref}
+\usepackage[capitalise,noabbrev,ngerman]{cleveref}
+
 
 \usepackage{todonotes}
 \usepackage{silence}
@@ -48,6 +51,8 @@
 \WarningFilter{latexfont}{Some font}
 \usepackage{changes}
 \usepackage{lmodern}
+
+
 
 \definecolor{uhhred}{cmyk}{0,1,1,0}
 
@@ -70,6 +75,7 @@
 \makeatletter
 \renewcommand*{\lstlistlistingname}{List of Listings}
 \makeatother
+
 
 \begin{document}
 
@@ -152,8 +158,7 @@ Unser ursprüngliches Projektziel bestand darin eine AI zu entwickeln und diese 
 \section{Gründe Für die Änderung des Projektziels}
 \deleted{Bei der Realisierung dieser Zielsetzung trafen wir allerdings auf unlösbare Probleme.}
 \added{
-	Das Projektziel musste im Laufe des Projekt geaendert werden.
-Bewegt uns dazu haben vor allem zwei folgende Probleme.}
+	Das Projektziel wurde im Laufe des Projekts angepasst aus den folgendne Gruenden.}
 \begin{enumerate}
 	\item Eines der Probleme lag im unübersichtlichen Aufbau der Spring-Engine [Spring] selbst. 
 		Zwar bietet die Spring-Engine eine Lobby an, jedoch lassen sich nur wenige Spiele tatsächlich starten und selbst bei diesen lassen sich keine externen AI's einbinden. 
@@ -176,6 +181,16 @@ Deshalb haben wir haben den Konzept, das wir umsetzen wollten, aus dem ursprueng
 \deleted{Da eine AI für die Spring-Engine selber nicht möglich war, beschlossen wir eine Simulation, also eine vereinfachte Version eines Spiels auf Basis der Spring-Engine, zu bauen. 
 Wichtig ist bei unserem neuen Ziel vor allem ein ''proof-of-concept'', sprich: Wir wollen zeigen, dass es möglich ist eine AI für ein RTS zu bauen und diese mit Hilfe eines genetischen Algorithmus zu trainieren.}
 
+\chapter{Grundlagen}
+\label{basics}
+
+\added{Dieses Kapitel beschreibt die Entwicklungsumgebung "Unitity" und die in der Arbeit verwendeten Algorithmen.}
+
+\todo[inline]{Unity}
+\todo[inline]{Biologiesches Vorbild der Gene. Chomosome und Gene etwas beschreiben.}
+\todo[inline]{Neuronale Netze, typischer Trainingsalgorithmen}
+\todo[inline]{Genetischer Algorithm. Was unterscheidet ihn von konventionellen Algorithmen. Wie funktioniert das?}
+
 \chapter{Aufbau}
 \label{Aufbau}
 
@@ -185,23 +200,35 @@ In diesem Kapitel beschreiben wir kurz den Aufbau der wichtigsten Bausteine des 
 
 \bigskip
 
+
+
 \section{Aufbau der Simulation}
 Die Simulation ist ein sehr einfaches RTS. 
 Sie ist ausgelegt auf genau zwei Spieler. 
-Jeder der Spieler hat ein Hauptgebäude, dass in regelmäßigen Zeitabständen Einheiten erstellt. 
+Jeder der Spieler hat ein Hauptgebäude \added{(repraesentiert durch grosse, farbige Quadrate in den Spielfeldecken)}, dass in regelmäßigen Zeitabständen Einheiten \added{(kleine, farbige Quadrate)} erstellt \added{(\Cref{Spielfeld})}. 
 Diese Einheiten können zu Positionen auf dem Spielfeld laufen und, wenn sie dicht genug dran sind, Schaden an gegnerischen Einheiten verursachen. 
+\todo[inline]{Was heisst dicht genug?}
 Fallen die Lebenspunkte einer Einheit auf null, so wird diese gelöscht.
 
 Es gibt genau einen Einheitentyp. Die Simulation beinhaltet keinerlei Mechaniken, die Ressourcen in irgendeiner Form verwenden.
 
 Ein Match dauert zehn Minuten.
+\todo[inline]{Warum zehn Minuten? Denkt and die Leute, die eure Arbeit evtl. fortsetzen wollen.
+Die wuerden gerne wissen warum ausgerechnet diese Zeit.}
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width = 0.5\textwidth]{Spielfeld.png}
-	\caption{Spielfeld}
+	\caption{Ein Screenshot vom Spielfeld. Es besteht nur aus einer planen Ebene. Die beiden Gegner starten in gegenüberliegenden Ecken. Die grossen Rechteecke repreasentieren Gebaeude, und die kleinen, die Einheiten.}
 	\label{Spielfeld}
-\end{figure}\\
-Dies ist ein Screenshot vom Spielfeld. Es besteht nur aus einer planen Ebene. Die beiden Gegner starten in gegenüberliegenden Ecken.
+\end{figure}
+
+\added{Die Einheiten haben eine Sichtweite ($r_{\text{view}}$) in der sie sowohl die gegnerische als auch freundliche Einheiten sehenn koennen.
+Ein kleinerer Radius ($r_{\text{kill}}$)} legt den Bereich fest, indem die Einheiten einander auslöschen können.
+\todo[inline]{Wenn alle Einheiten den gleichen kill-Radius haben, wer toetet zuerst?}
+\todo[inline]{Bewegung der Einheiten}
+
+\todo[inline]{Visualisierung der Radien}
 
 \section{Aufbau der AI}
 Da bei einem RTS die Anzahl der Einheiten, und damit die Anzahl der Möglichkeiten, variabel ist, entschieden wir uns, auch durch Anraten der Betreuer, dafür, die AI als Schwarmintelligenz zu designen.
@@ -233,13 +260,16 @@ In diesem Kapitel beschreiben wir kurz die Umsetzung der wichtigsten Bausteine d
 \bigskip
 
 \section{Umsetzung der Simulation}
+\todo[inline]{Unity wuerde ich oben beschreiben. Hier geht es eher um die Umsetzung des Konzeptes. 
+Dass es in Unity gemacht wurde, spielt eher keine Rolle.}
+
 Die Simulation entwickelten wir in Unity [Unity].
-Wir entschieden uns für Unity, da wir Unity für unser Projekt kostenlos nutzen können und da Unity allgemein sehr bekannt ist, weswegen es viele Onlinetutorials gibt.
+\deleted{Wir entschieden uns für Unity, da wir Unity für unser Projekt kostenlos nutzen können und da Unity allgemein sehr bekannt ist, weswegen es viele Onlinetutorials gibt.}
 
 Unity lässt für seine Skripte nur C\# oder Javascpript, bzw. mitlerweile Unityscript, zu.
-Wir entschieden uns für C\#, da dies näher an den Sprachen ist, mit denen wir uns bereits auskannten.
+\deleted{Wir entschieden uns für C\#, da dies näher an den Sprachen ist, mit denen wir uns bereits auskannten.}
 
-Da wir beide auf Windows-Rechnern arbeiten und sich Microsoft Visual Studio automatisch öffnete, als wir das erste Mal versuchten ein Skript zu öffnen, blieben wir bei dieser IDE.
+\deleted{Da wir beide auf Windows-Rechnern arbeiten und sich Microsoft Visual Studio automatisch öffnete, als wir das erste Mal versuchten ein Skript zu öffnen, blieben wir bei dieser IDE.}
 
 \section{Umsetzung der AI}
 Wie bereits im Aufbau erwähnt, ist der Kern der AI ein neuronales Netz.
@@ -248,12 +278,25 @@ Dazu suchten wir uns eine Bibliothek [NN-Bib], sodass wir die Struktur nicht sel
 Eine große Hürde bei der Verwendung eines neuronalen Netzes bestand darin, dass das neuronale Netz als Input Floats erwartet und den Output auch in Form von Floats liefert, was uns dazu zwingt den Input auf Floats herunter zu brechen.
 Die Umsetzung in der von uns verwendeten Bibliothek verwendet den Wertebereich null bis eins.
 
-Als Input verwenden wir die eigene Position der Einheit auf der Ebene, die wir einfach linear reskalieren.
+Als Input verwenden wir die eigene Position der Einheit \added{pos.x, pos.y} auf der Ebene, die wir einfach linear reskalieren.
 Dazu kommen die Einheiten, inklusive der Hauptgebäude, im Sichtradius der Einheit, sowohl freundliche als auch feindliche.
 Je ein Inputneuron verwenden wir um zu signalisieren, ob das jeweilige Hauptgebäude (Freund/Feind) zu sehen ist.
 Ist dies der Fall, so gibt ein weiteres Neuron eine ungefähre Entfernungsabschätzung an.
 Zusätzlich verwenden wir noch je ein Neuron um die Anzahl der Freunde bzw. Feinde im Sichtbereich zu codieren; dies geschieht indem wir diese Anzahl durch die maximal mögliche Anzahl teilen.
 Insgesamt kommen wir somit auf acht Inputneuronen.
+
+\begin{equation}
+	\text{Input} = \left( \begin{matrix}
+		\text{pos\_x} \\
+		\text{pos\_y} \\
+	\text{num\_of\_friends} \\
+		\text{num\_of\_enemies} \\
+		\text{found\_friendly\_building} \\
+		\text{found\_enemy\_building} \\
+		\text{dist\_to\_building} \\
+	\end{matrix} \right)
+\end{equation}
+
 
 Um die AI sinnvoll einsetzen zu können, brachen wir zuerst einmal die Entscheidungsmöglichkeiten des Menschen bzw. der AI auf zwei Funktionen herunter: 
 
@@ -264,6 +307,17 @@ Die Einheit läuft dann zum Zielpunkt.
 Solange dieses ''target'' existiert, läuft die Einheit darauf zu und, sollte es feindlich sein, greift es an.
 \end{itemize}
 
+\begin{equation}
+	\text{Output} = \left( \begin{matrix}
+		<\text{SetDestination() | SetTarget()}> \\
+		\text{target\_pos\_x} \\
+		\text{target\_pos\_y} \\
+		\text{is\_friend\_enemy} \\
+		\text{target\_building} \\
+		\text{target} \\
+	\end{matrix} \right)
+\end{equation}
+
 Daraus leitet sich der Output ab.
 Das erste Outputneuron entscheidet darüber welche der beiden Funktionen, SetDestination oder SetTarget, ausgeführt wird.
 Zwei Neuronen bestimmen dann die Position des Zielpunktes; es erfolgt wieder eine lineare Reskalierung.
@@ -272,10 +326,11 @@ Das erste davon legt fest, ob ein Freund oder Feind zum ''target'' wird, das zwe
 Dabei fangen wir natürlich die Fälle ab, bei denen sich ein ''target'' ergeben würde, das nicht existiert.
 Somit kommen wir auf sechs Outputneuronen.
 
-Wir entschieden uns dafür ein Hidden-Layer zu verwenden, da wir es wichtig fanden mindestens ein Hidden-Layer zu haben, allerdings das neuronale Netz nicht unnötig aufblähen wollten.
-Die Entscheidung zehn Neuronen in diesem Layer einzubauen trafen wir, weil aus unserem, zugegebenermaßen beschränkten, Erfahrungsschatz hervorgeht, dass man die Größenordnung der Layer zu einander nicht variiert.
+Wir entschieden uns \replaced{mit einem}{dafür ein} Hidden-Layer \replaced{experimentiert.}{zu verwenden, da wir es wichtig fanden mindestens ein Hidden-Layer zu haben, allerdings das neuronale Netz nicht unnötig aufblähen wollten.}
+Die Entscheidung zehn Neuronen in diesem Layer einzubauen trafen wir, weil aus unserem\deleted{, zugegebenermaßen beschränkten,} Erfahrungsschatz hervorgeht, dass man die Größenordnung der Layer zu einander nicht variiert.
 
 Dadurch kommen wir auf 140 Gewichte ($8 \cdot 10 + 10 \cdot 6$).
+\todo[inline]{Visualisierung des neuronalen Netzes}
 
 Die von uns verwendeten Gewichte liegen im Wertebereich von minus eins bis eins.
 
@@ -288,18 +343,23 @@ Ein Chromosom beinhaltet nun eine Liste von Genen.
 Dies bedeutet explizit, dass wir keine weiteren Informationen im Chromosom speichern.
 Das Individuum wiederum verbindet ein Chromosom mit einem Fitnesswert.
 Verwaltet werden die Individuen von der Klasse PopulationManager.
+\todo[inline]{Also wenn ihr die konkreten Klassen einfuehrt, dann ist es Ratsam ein Klassen Diagramm einzufuehren. So wie es jetzt geschrieben ist, hat wenig Nutzen.}
 Diese Klasse stellt alle wichtigen Funktionen bereit und bildet die Schnittstelle zur Außenwelt.
 
-Der Fitnesswert ergibt sich daraus, dass jedes Individuum der aktuellen Population gegen alle anderen Individuen der selben Population genau ein Match spielt, woraufhin dann über alle Spielergebnisse summiert wird.
+Der Fitnesswert ergibt sich daraus, dass jedes Individuum der aktuellen Population gegen alle anderen Individuen der selben Population genau ein Match spielt, woraufhin dann über alle Spielergebnisse summiert wird \added{(\Cref{eq:fitness})}.
 Ein Spielergebnis berechnet sich aus den eigenen und gegnerischen Einheiten bei Spielende.
 Da die genaue Formel für die Auswertung variiert wurde, werden wir an der Stelle darauf noch genauer eingehen.
 Um sicher zu stellen, dass wir nur positive Fitnesswerte erhalten, verwenden wir ein Offset.
+\begin{equation}\label{eq:fitness}
+	\text{Fitnesswert} = \sum_{i=0}^n{\text{Spielergebnis}_{i}}
+\end{equation}
 
 Die Rekombination verwendet den Fitnesswert zur Auswahl der Eltern.
 Die Auswahl der Eltern erfolgt zufallsbasiert, wobei die Auswahlwahrscheinlichkeit eines Individuums proportional zu seinem Fitnesswert ist.
 Hierbei vermeiden wir explizit, dass ein Individuum mit sich selbst rekombiniert wird.
 Die eigentliche Rekombination erfolgt nun über einen zufälligen Schnitt, dies bedeutet, dass wir eine zufällige Position auswählen, wobei bis zu dieser Position die Gene des ersten Elternteils und nach dieser Position die Gene des zweiten Elternteils übernommen werden.
 Dabei wird sichergestellt, dass von jedem Elternteil mindestens ein Gen übernommen wird.
+\todo[inline]{Abbildung der Rekombination}
 
 Diese neu entstandenen Gensätze werden dann jeweils mit einer gewissen Wahrscheinlichkeit mutiert.
 Erfolgt die Mutation, so wird ein zufällig ausgewähltes Gen durch ein neues Gen ersetzt.
@@ -315,8 +375,8 @@ Startet man nun das Trainingsprogramm, so wird ein neuer PopulationManager erzeu
 Dabei ist zu beachten, dass diese Individuen zuerst bezüglich der Fitness ausgewertet werden, bevor der Algorithmus mit ihnen arbeitet.
 
 Jeweils vor der Erzeugung neuer Individuen wird die aktuelle Population in Textdateien rausgeschrieben.
-Danach werden zweiunddreißig neue Individuen, wie oben beschrieben, erzeugt.
-Damit sind wir bis zur Selektion bei einer Populationsgröße von achtundvierzig Individuen.
+Danach werden \replaced{32}{zweiunddreißig} neue Individuen, wie oben beschrieben, erzeugt.
+Damit sind wir bis zur Selektion bei einer Populationsgröße von \replaced{48}{achtundvierzig} Individuen.
 Dann erfolgen die Auswertung nach dem Fitnesswert sowie die Selektion.
 
 Zu beachten ist hierbei, dass von außen nur die Matches aufgerufen werden, will heißen: Das Ergebnis des letzten Matches wird an den PopulationManager übergeben und die Gewichten des nächsten Matches werden ausgelesen.
@@ -325,25 +385,30 @@ Der PopulationManager achtet dabei selber auf die korrekte Zuordnung der Matches
 \chapter{Auswertung}
 \label{Auswertung}
 Für die Evaluation standen wir vor einem großen Problem: Die Fitness-Funktion bezieht sich nur auf die direkte Konkurrenz und hat keinerlei Abhängigkeit zur einer objektiven, statischen Größe.
-Somit ist ein ansteigen der Fitnessfunktion kein eindeutiges Zeichen für einen Fortschritt, was uns dazu zwingt eine andere Form der Evaluierung anzuwenden.
+Somit ist ein Ansteigen der Fitnessfunktion kein eindeutiges Zeichen für einen Fortschritt, was uns dazu zwingt eine andere Form der Evaluierung anzuwenden.
 Deswegen ließen wir das jeweils beste Individuum jeder Generation (null bis zehn) gegen jedes Individuum der nullten Generation antreten, um dann diese Matches nach Kills und Verlusten auszuwerten.
 
 Insgesammt testeten wir drei Varianten der Fitnessfunktion, um einen Eindruck davon zu erhalten, welche sich am besten eignet.
 Wie erwartet bevorzugen die drei Varianten jeweils ein unterschiedliches Verhalten.
 Im Folgenden werden nun die drei Varianten vorgestellt und ausgewertet.
 
-\section{Variante1: 1zu1}
+\section{Variante 1: 1zu1}
 Diese Variante bewertet verlorene eigene Einheiten genauso schwer wie verwehrte \footnote{Es ist möglich das Hauptgebäude zu zerstören, wodurch keine neuen Einheiten entstehen.
 Gezählt werden die Einheiten bei Spielende, anstatt der getöteten bzw. verlorenen Einheiten, wodurch dieser Effekt den Punktestand beeinflusst.} gegnerische Einheiten.
 Die Motivation dieser Variante war, dass dies uns als natürlichste Bewertung einer KI in diesem Spiel erschien.
+\todo[inline]{Das ist nicht ganz verstaendlich. Koennt ihr ein paar Saetze dazu schreiben, warum es sich um einen natuerlichen Bewertungsstrategie handelt.}
 
 \begin{figure}[h]
 	\includegraphics[width = \textwidth]{Durchschnittskills1zu1.png}
 	\caption{Durchschnittskills1zu1}
 	\label{Durchschnittskills1zu1}
 \end{figure}
+\todo[inline]{In den Graphiken: \\
+(1) Die Punkte mit den Linien zu verbinden ist nicht richtig, z.B. gibt es keine Generation 4,5. \\
+(2) Es gibt 2 Ueberschriften: oben und unten. \\
+(3) Die Ueberschriften sind suboptimal gewaehlt.}
 
-Diese Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation.
+\Cref{Durchschnittskills1zu1} zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation.
 Dabei ist die x-Achse die Generation, aus der das jeweilige Individuum stammt, und die y-Achse der Durchschnittswert, der gegen die nullte Generation erzielten Kills.
 Die Punkte sind dabei die Einzelwerte, während die Gerade eine lineare Regression aller Werte ist, also den Trend anzeigt.
 
@@ -353,27 +418,32 @@ Die Einbrüche innerhalb dessen sind der Fitnessfunktion geschuldet: Ein Individ
 Trotzdem gehen wir davon aus, dass sich auf längere Sicht, sprich mehr Generationen, der Aufwärtstrend fortsetzen würde.
 
 Wir sind bisher nicht auf Verluste eingegangen, da in dieser Variante die nullte Generation keinem Individuum Verluste zufügen konnte.
+\todo[inline]{Namensschema ''1zu1'', ''1zu2'', ''0zu1'' erklaeren.} 
 
-\section{Variante2: 1zu2}
+\section{Variante 2: 1zu2}
 Diese Variante bewertet verwehrte gegnerische Einheiten doppelt so schwer wie verlorene eigene Einheiten.
 Die Motivation dieser Variante war einen aggressiveren Spielstil zu bevorzugen, damit aktive Strategien extrinsisch motiviert werden.
 
-\begin{figure}[h]
-	\includegraphics[width = \textwidth]{Durchschnittskills1zu2.png}
-	\caption{Durchschnittskills1zu2}
-	\label{Durchschnittskills1zu2}
+\begin{figure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Durchschnittskills1zu2.png}
+		\subcaption{Durchschnittskills1zu2}
+		\label{Durchschnittskills1zu2}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Durchschnittsverluste1zu2.png}
+		\subcaption{Durchschnittsverluste1zu2}
+		\label{Durchschnittsverluste1zu2}
+	\end{subfigure}
+	\caption{Trainingsfortschritt}
 \end{figure}
 
-\begin{figure}[h]
-	\includegraphics[width = \textwidth]{Durchschnittsverluste1zu2.png}
-	\caption{Durchschnittsverluste1zu2}
-	\label{Durchschnittsverluste1zu2}
-\end{figure}
+Die \Cref{Durchschnittskills1zu2} zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation, die \Cref{Durchschnittsverluste1zu2} zeigt die durchschnittlichen Verluste.
+%\deleted{Die Achsen entsprechen der \Cref{Durchschnittskills1zu1}.}
 
-Die obere Graphik zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation, die untere zeigt die durchschnittlichen Verluste.
-Die Achsen entsprechen der ersten Abbildung (\ref{Durchschnittskills1zu1}).
-
-Beide Graphiken haben gemeinsam, dass sich kein klarer Gesammttrend herauslesen lässt.
+Beide Graphiken haben gemeinsam, dass sich kein klarer Gesamttrend herauslesen lässt.
 Allerdings ist klar zu erkennen, dass bei dieser Variante die nullte Generation zufälligerweise wesentlich aggressiver als andere nullte Generationen ist.
 Diese Aggressivität bleibt bis zur siebten Generation deutlich sichtbar.
 Wahrscheinlich ringt diese Variante um eine Balance zwischen aggressiver Vernichtung des Gegners und Minimierung eigener Verluste.
@@ -382,7 +452,7 @@ Da Kills, in dieser Variante, mehr zählen als Verluste geht diese aggressive Gr
 Ab der achten Generation scheint die Vermeidung von Verlusten überhand über das Erzielen von Kills zu gewinnen, wodurch sich die Aggressivität senkt.
 Dies hat zur Folge, dass zwar die Kills zurückgehen jedoch die Verluste deutlich stärker abnehmen.
 
-\section{Variante3: 0zu1}
+\section{Variante 3: 0zu1}
 Diese Variante bewertet nur verwehrte gegnerische Einheiten und ignoriert verlorene eigene Einheiten.
 Die Motivation dieser Variante war einen aggressiven Spielstil zu forcieren, um damit eine hohe Aktivität zu schaffen.
 
@@ -432,8 +502,18 @@ Damit könnte sie, unter der Voraussetzung, dass sie ausreichend trainiert wird,
 Zudem macht ja gerade der Aspekt der Schwarmintelligenz die AI skalierbar.
 Damit ist sie prinzipiell auch auf kompliziertere RTS übertragbar.
 
+
 \todo[inline]{Grundlage gelegt, fuer die weitere Entwicklung der AI.
 Diese Arbeit hilft der naechsten Entwickler nicht in die Fallen zu tappen.}
+
+\section{Wie geht's weiter?}
+\todo[inline]{Further Work:\\
+	Wie gehts weiter?\\
+	Wie generiert man mehr genug Daten?\\
+	Welche Arbeitsschritte fehlen noch?\\
+	Wie wuerdet Ihr vorgehen, wenn Ihr das Projekt neubeginnen wuerdet? Z.B. anderen Algorithmus nehmen, von Scratch beginne, nur auf den Kern konzentrieren, \dots\\
+	Was wuerdet Ihr allgemein den naechsten Studenten sagen, die Eure Arbeit fortsetzen?
+}
 
 
 \bibliographystyle{alpha}
