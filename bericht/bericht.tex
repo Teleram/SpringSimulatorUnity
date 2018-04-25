@@ -189,10 +189,10 @@ Wichtig ist bei unserem neuen Ziel vor allem ein ''proof-of-concept'', sprich: W
 
 \added{Dieses Kapitel beschreibt die Entwicklungsumgebung ''Unity'' und die in der Arbeit verwendeten Algorithmen.}
 
-\todo[inline]{Unity}
-\todo[inline]{Biologiesches Vorbild der Gene. Chomosome und Gene etwas beschreiben.}
-\todo[inline]{Neuronale Netze, typischer Trainingsalgorithmen}
-\todo[inline]{Genetischer Algorithm. Was unterscheidet ihn von konventionellen Algorithmen. Wie funktioniert das?}
+\todo[inline]{1. Ein kleiner Paragraph uber Unity, evtl. mit Screenshot.}
+\todo[inline]{2. Biologiesches Vorbild der Gene. Chomosome und Gene etwas beschreiben.}
+\todo[inline]{3. Neuronale Netze, typischer Trainingsalgorithmen}
+\todo[inline]{4. Genetischer Algorithm. Was unterscheidet ihn von konventionellen Algorithmen. Wie funktioniert das?}
 
 \chapter{Aufbau}
 \label{Aufbau}
@@ -237,7 +237,7 @@ Ein kleinerer Radius ($r_{\text{kill}}$)} legt den Bereich fest, indem die Einhe
 \todo[inline]{Visualisierung der Radien}
 
 \section{Aufbau der AI}
-Da bei einem RTS die Anzahl der Einheiten, und damit die Anzahl der Möglichkeiten, variabel ist, entschieden wir uns, auch durch Anraten der Betreuer, dafür, die AI als Schwarmintelligenz zu designen.
+Da bei einem RTS die Anzahl der Einheiten, und damit die Anzahl der Möglichkeiten, variabel ist, \replaced{wurde die Entscheidung getroffen}{ entschieden wir uns, auch durch Anraten der Betreuer, dafür,} die AI als Schwarmintelligenz zu designen.
 
 Jede Einheit hat einen Sichtradius und gibt diese Information als Input an die AI. 
 Diese wiederum generiert daraus über ein neuronales Netz eine Entscheidung. 
@@ -279,23 +279,24 @@ Unity lässt für seine Skripte nur C\# oder Javascpript, bzw. mitlerweile Unity
 
 \section{Umsetzung der AI}
 Wie bereits im Aufbau erwähnt, ist der Kern der AI ein neuronales Netz.
-Dazu suchten wir uns eine Bibliothek \cite{nn-bib}, sodass wir die Struktur nicht selber bauen mussten.
+Dazu suchten wir uns eine \added{passende C\#-Bibliothek} \cite{nn-bib}, \replaced{die uns die notwendige Funktionalität bereitstellt.}{ sodass wir die Struktur nicht selber bauen mussten}.
 
 Eine große Hürde bei der Verwendung eines neuronalen Netzes bestand darin, dass das neuronale Netz als Input Floats erwartet und den Output auch in Form von Floats liefert, was uns dazu zwingt den Input auf Floats herunter zu brechen.
 Die Umsetzung in der von uns verwendeten Bibliothek verwendet den Wertebereich null bis eins.
 
-Als Input verwenden wir die eigene Position der Einheit \added{pos.x, pos.y} auf der Ebene, die wir einfach linear reskalieren.
-Dazu kommen die Einheiten, inklusive der Hauptgebäude, im Sichtradius der Einheit, sowohl freundliche als auch feindliche.
-Je ein Inputneuron verwenden wir um zu signalisieren, ob das jeweilige Hauptgebäude (Freund/Feind) zu sehen ist.
-Ist dies der Fall, so gibt ein weiteres Neuron eine ungefähre Entfernungsabschätzung an.
-Zusätzlich verwenden wir noch je ein Neuron um die Anzahl der Freunde bzw. Feinde im Sichtbereich zu codieren; dies geschieht indem wir diese Anzahl durch die maximal mögliche Anzahl teilen.
+Als Input verwenden wir die eigene Position der Einheit \added{(pos\_x, pos\_y)} auf der Ebene, die wir einfach linear reskalieren.
+Dazu kommen die Einheiten, inklusive der Hauptgebäude, im Sichtradius der Einheit \added{(num\_of\_units)}, sowohl freundliche als auch feindliche.
+Je ein Inputneuron verwenden wir um zu signalisieren, ob das jeweilige Hauptgebäude (Freund/Feind) zu sehen ist \added{(found\_friendly\_building, found\_enemy\_building)}.
+Ist dies der Fall, so gibt ein weiteres Neuron eine ungefähre Entfernungsabschätzung an \added{(dist\_to\_building)}.
+Zusätzlich verwenden wir noch je ein Neuron um die Anzahl der Freunde bzw. Feinde \added{(num\_of\_friends, num\_of\_enemies)} im Sichtbereich zu codieren; dies geschieht indem wir diese Anzahl durch die maximal mögliche Anzahl teilen.
 Insgesamt kommen wir somit auf acht Inputneuronen.
 
 \begin{equation}
 	\text{Input} = \left( \begin{matrix}
 		\text{pos\_x} \\
 		\text{pos\_y} \\
-	\text{num\_of\_friends} \\
+		\text{num\_of\_units} \\
+		\text{num\_of\_friends} \\
 		\text{num\_of\_enemies} \\
 		\text{found\_friendly\_building} \\
 		\text{found\_enemy\_building} \\
@@ -315,20 +316,20 @@ Solange dieses ''target'' existiert, läuft die Einheit darauf zu und, sollte es
 
 \begin{equation}
 	\text{Output} = \left( \begin{matrix}
-		<\text{SetDestination() | SetTarget()}> \\
+		\text{function\_ptr} \\
 		\text{target\_pos\_x} \\
 		\text{target\_pos\_y} \\
-		\text{is\_friend\_enemy} \\
+		\text{friend\_or\_enemy} \\
 		\text{target\_building} \\
 		\text{target} \\
 	\end{matrix} \right)
 \end{equation}
 
 Daraus leitet sich der Output ab.
-Das erste Outputneuron entscheidet darüber welche der beiden Funktionen, SetDestination oder SetTarget, ausgeführt wird.
-Zwei Neuronen bestimmen dann die Position des Zielpunktes; es erfolgt wieder eine lineare Reskalierung.
+Das erste Outputneuron \added{(function\_ptr)} entscheidet darüber welche der beiden Funktionen, SetDestination oder SetTarget, ausgeführt wird.
+Zwei Neuronen \added{(target\_pos\_x, target\_pos\_y)} bestimmen dann die Position des Zielpunktes; es erfolgt wieder eine lineare Reskalierung.
 Drei weitere Neuronen dienen dann zur Bestimmung des ''target''.
-Das erste davon legt fest, ob ein Freund oder Feind zum ''target'' wird, das zweite legt fest ob das jeweilige Hauptgebäude zum ''target'' wird und das dritte legt fest welche Einheit zum ''target'' wird, wenn es nicht das Hauptgebäude ist.
+Das erste davon \added{(friend\_or\_enemy)} legt fest, ob ein Freund oder Feind zum ''target'' wird, das zweite \added{(target\_building)} legt fest ob das jeweilige Hauptgebäude zum ''target'' wird und das dritte \added{(target)} legt fest welche Einheit zum ''target'' wird, wenn es nicht das Hauptgebäude ist.
 Dabei fangen wir natürlich die Fälle ab, bei denen sich ein ''target'' ergeben würde, das nicht existiert.
 Somit kommen wir auf sechs Outputneuronen.
 
@@ -509,7 +510,7 @@ Zudem macht ja gerade der Aspekt der Schwarmintelligenz die AI skalierbar.
 Damit ist sie prinzipiell auch auf kompliziertere RTS übertragbar.
 
 
-\todo[inline]{Grundlage gelegt, für die weitere Entwicklung der AI.
+\todo[inline]{Grundlagen wueden für die weitere Entwicklung der AI wurden gelegt.
 Diese Arbeit hilft der nächsten Entwickler nicht in die Fallen zu tappen.}
 
 \section{Wie geht's weiter?}
