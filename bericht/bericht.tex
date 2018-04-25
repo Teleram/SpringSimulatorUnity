@@ -10,11 +10,11 @@
 	%openright
 ]{scrreprt}
 
-\KOMAoptions{
-	listof=totoc,
-	bibliography=totoc,
-	index=totoc
-}
+%\KOMAoptions{
+	%listof=totoc,
+	%bibliography=totoc,
+	%index=totoc
+%}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -51,6 +51,9 @@
 \WarningFilter{latexfont}{Some font}
 \usepackage{changes}
 \usepackage{lmodern}
+%\usepackage[style=numeric-comp,backend=bibtex]{biblatex}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{literatur.bib}
 
 
 
@@ -129,10 +132,10 @@
 \tableofcontents
 
 \begin{abstract}
-	\todo[inline]{Die Problematik kurz in 1-2 Saetzen beschreiben}
+	\todo[inline]{Die Problematik kurz in 1-2 Sätzen beschreiben}
 	\added{Die konvetionelle AI in Spielen hat einen konstaten Schwierigkeitsgrad.
 	Fuer die Einsteiger, kann sie zu schwer sein, fuer Experten zu einfach.
-Eine neue, lernfaehige AI koennte den Spielspass steigern und die Qualitaet der Spiele erhoehen.}
+Eine neue, lernfähige AI könnte den Spielspass steigern und die Qualität der Spiele erhöhen.}
 
 Dieser Text stellt einen Projektbericht dar. 
 Innerhalb des Projektes bauten wir ein sehr vereinfachtes RTS und eine AI, die erlernen sollte dieses gut zu spielen. 
@@ -153,12 +156,12 @@ Zurzeit sind die meisten AI für beliebige Computerspiele noch fest einprogrammi
 
 \section{Ursprüngliches Projektziel}
 
-Unser ursprüngliches Projektziel bestand darin eine AI zu entwickeln und diese mit Hilfe eines genetischen Algorithmus zu trainieren. Diese AI sollte auf die Spring-RTS-Engine [Spring] angewandt werden. Die Absicht bestand darin zu zeigen, dass eine AI auf diese Weise lernen kann RTS-Spiele gut, eventuell sogar besser als menschliche Spieler, zu spielen.\\
+Unser ursprüngliches Projektziel bestand darin eine AI zu entwickeln und diese mit Hilfe eines genetischen Algorithmus zu trainieren. Diese AI sollte auf die Spring-RTS-Engine \cite{spring} angewandt werden. Die Absicht bestand darin zu zeigen, dass eine AI auf diese Weise lernen kann RTS-Spiele gut, eventuell sogar besser als menschliche Spieler, zu spielen.\\
 
 \section{Gründe Für die Änderung des Projektziels}
 \deleted{Bei der Realisierung dieser Zielsetzung trafen wir allerdings auf unlösbare Probleme.}
 \added{
-	Das Projektziel wurde im Laufe des Projekts angepasst aus den folgendne Gruenden.}
+	Das Projektziel wurde im Laufe des Projekts angepasst aus den folgendne Gründen.}
 \begin{enumerate}
 	\item Eines der Probleme lag im unübersichtlichen Aufbau der Spring-Engine [Spring] selbst. 
 		Zwar bietet die Spring-Engine eine Lobby an, jedoch lassen sich nur wenige Spiele tatsächlich starten und selbst bei diesen lassen sich keine externen AI's einbinden. 
@@ -173,9 +176,9 @@ Da die Auseinandersetzung mit dem Aufbau eines Spieles für die Spring-Engine un
 
 \section{Neues Projektziel}
 \added{Prinzipiell ist es irrelevant im welchen Spiel man die AI entwickelt.
-Spring hat sich legedlich angeboten, weil es ein OpenSource Projekt ist und theoretisch, wir unseren Code leicht einschleusen koennen.
-Die Komplexitaet des Projekt macht es dennoch schwierig es umzusetzen.
-Deshalb haben wir haben den Konzept, das wir umsetzen wollten, aus dem urspruenglichen Ziel extrahiert und und auf einer anderen Weise umgesetzt, d.h., statt ihn im Spring umzusetzen haben wir beschlossen unser eigenes Spielfeld zu bauen und dort 
+Spring hat sich lediglich angeboten, weil es ein OpenSource Projekt ist und theoretisch, wir unseren Code leicht einschleusen können.
+Die Komplexität des Projekt macht es dennoch schwierig es umzusetzen.
+Deshalb haben wir haben den Konzept, das wir umsetzen wollten, aus dem ursprünglichen Ziel extrahiert und und auf einer anderen Weise umgesetzt, d.h., statt ihn im Spring umzusetzen haben wir beschlossen unser eigenes Spielfeld zu bauen und dort 
 }
 
 \deleted{Da eine AI für die Spring-Engine selber nicht möglich war, beschlossen wir eine Simulation, also eine vereinfachte Version eines Spiels auf Basis der Spring-Engine, zu bauen. 
@@ -184,7 +187,7 @@ Wichtig ist bei unserem neuen Ziel vor allem ein ''proof-of-concept'', sprich: W
 \chapter{Grundlagen}
 \label{basics}
 
-\added{Dieses Kapitel beschreibt die Entwicklungsumgebung "Unitity" und die in der Arbeit verwendeten Algorithmen.}
+\added{Dieses Kapitel beschreibt die Entwicklungsumgebung ''Unity'' und die in der Arbeit verwendeten Algorithmen.}
 
 \todo[inline]{Unity}
 \todo[inline]{Biologiesches Vorbild der Gene. Chomosome und Gene etwas beschreiben.}
@@ -205,27 +208,30 @@ In diesem Kapitel beschreiben wir kurz den Aufbau der wichtigsten Bausteine des 
 \section{Aufbau der Simulation}
 Die Simulation ist ein sehr einfaches RTS. 
 Sie ist ausgelegt auf genau zwei Spieler. 
-Jeder der Spieler hat ein Hauptgebäude \added{(repraesentiert durch grosse, farbige Quadrate in den Spielfeldecken)}, dass in regelmäßigen Zeitabständen Einheiten \added{(kleine, farbige Quadrate)} erstellt \added{(\Cref{Spielfeld})}. 
-Diese Einheiten können zu Positionen auf dem Spielfeld laufen und, wenn sie dicht genug dran sind, Schaden an gegnerischen Einheiten verursachen. 
-\todo[inline]{Was heisst dicht genug?}
+Jeder der Spieler hat ein Hauptgebäude \added{(repräsentiert durch die grossen Quadrate in den Spielfeldecken)}, dass in regelmäßigen Zeitabständen Einheiten \added{(kleine Quadrate)} erstellt \added{(\Cref{Spielfeld})}. 
+
+Es gibt genau einen Einheitentyp. 
+\replaced{Die}{Diese} Einheiten können zu Positionen auf dem Spielfeld laufen und, wenn sie dicht genug dran sind, Schaden an gegnerischen Einheiten verursachen. 
+%\todo[inline]{Was heisst dicht genug?}
 Fallen die Lebenspunkte einer Einheit auf null, so wird diese gelöscht.
-
-Es gibt genau einen Einheitentyp. Die Simulation beinhaltet keinerlei Mechaniken, die Ressourcen in irgendeiner Form verwenden.
-
-Ein Match dauert zehn Minuten.
-\todo[inline]{Warum zehn Minuten? Denkt and die Leute, die eure Arbeit evtl. fortsetzen wollen.
-Die wuerden gerne wissen warum ausgerechnet diese Zeit.}
+Die Simulation beinhaltet keinerlei Mechaniken, die Ressourcen in irgendeiner Form verwenden.
+Ein Match \added{findet auf einem planen Spielfeld statt} und dauert zehn Minuten.
+%\todo[inline]{Warum zehn Minuten? Denkt and die Leute, die eure Arbeit evtl. fortsetzen wollen.
+%Die wuerden gerne wissen warum ausgerechnet diese Zeit.}
+\added{
+Die beiden Gegner starten in gegenüberliegenden Ecken.}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width = 0.5\textwidth]{Spielfeld.png}
-	\caption{Ein Screenshot vom Spielfeld. Es besteht nur aus einer planen Ebene. Die beiden Gegner starten in gegenüberliegenden Ecken. Die grossen Rechteecke repreasentieren Gebaeude, und die kleinen, die Einheiten.}
+	\caption{Ein Screenshot vom Spielfeld.}
 	\label{Spielfeld}
-\end{figure}
+\end{figure} 
 
-\added{Die Einheiten haben eine Sichtweite ($r_{\text{view}}$) in der sie sowohl die gegnerische als auch freundliche Einheiten sehenn koennen.
+
+\added{Die Einheiten haben eine Sichtweite ($r_{\text{view}}$) in der sie sowohl die gegnerische als auch freundliche Einheiten sehen können.
 Ein kleinerer Radius ($r_{\text{kill}}$)} legt den Bereich fest, indem die Einheiten einander auslöschen können.
-\todo[inline]{Wenn alle Einheiten den gleichen kill-Radius haben, wer toetet zuerst?}
+\todo[inline]{Wenn alle Einheiten den gleichen kill-Radius haben, wer tötet zuerst?}
 \todo[inline]{Bewegung der Einheiten}
 
 \todo[inline]{Visualisierung der Radien}
@@ -260,10 +266,10 @@ In diesem Kapitel beschreiben wir kurz die Umsetzung der wichtigsten Bausteine d
 \bigskip
 
 \section{Umsetzung der Simulation}
-\todo[inline]{Unity wuerde ich oben beschreiben. Hier geht es eher um die Umsetzung des Konzeptes. 
+\todo[inline]{Unity würde ich oben beschreiben. Hier geht es eher um die Umsetzung des Konzeptes. 
 Dass es in Unity gemacht wurde, spielt eher keine Rolle.}
 
-Die Simulation entwickelten wir in Unity [Unity].
+Die Simulation entwickelten wir in Unity \cite{unity}.
 \deleted{Wir entschieden uns für Unity, da wir Unity für unser Projekt kostenlos nutzen können und da Unity allgemein sehr bekannt ist, weswegen es viele Onlinetutorials gibt.}
 
 Unity lässt für seine Skripte nur C\# oder Javascpript, bzw. mitlerweile Unityscript, zu.
@@ -273,7 +279,7 @@ Unity lässt für seine Skripte nur C\# oder Javascpript, bzw. mitlerweile Unity
 
 \section{Umsetzung der AI}
 Wie bereits im Aufbau erwähnt, ist der Kern der AI ein neuronales Netz.
-Dazu suchten wir uns eine Bibliothek [NN-Bib], sodass wir die Struktur nicht selber bauen mussten.
+Dazu suchten wir uns eine Bibliothek \cite{nn-bib}, sodass wir die Struktur nicht selber bauen mussten.
 
 Eine große Hürde bei der Verwendung eines neuronalen Netzes bestand darin, dass das neuronale Netz als Input Floats erwartet und den Output auch in Form von Floats liefert, was uns dazu zwingt den Input auf Floats herunter zu brechen.
 Die Umsetzung in der von uns verwendeten Bibliothek verwendet den Wertebereich null bis eins.
@@ -343,7 +349,7 @@ Ein Chromosom beinhaltet nun eine Liste von Genen.
 Dies bedeutet explizit, dass wir keine weiteren Informationen im Chromosom speichern.
 Das Individuum wiederum verbindet ein Chromosom mit einem Fitnesswert.
 Verwaltet werden die Individuen von der Klasse PopulationManager.
-\todo[inline]{Also wenn ihr die konkreten Klassen einfuehrt, dann ist es Ratsam ein Klassen Diagramm einzufuehren. So wie es jetzt geschrieben ist, hat wenig Nutzen.}
+\todo[inline]{Also wenn ihr die konkreten Klassen einführt, dann ist es Ratsam ein Klassen Diagramm einzuführen. So wie es jetzt geschrieben ist, hat wenig Nutzen.}
 Diese Klasse stellt alle wichtigen Funktionen bereit und bildet die Schnittstelle zur Außenwelt.
 
 Der Fitnesswert ergibt sich daraus, dass jedes Individuum der aktuellen Population gegen alle anderen Individuen der selben Population genau ein Match spielt, woraufhin dann über alle Spielergebnisse summiert wird \added{(\Cref{eq:fitness})}.
@@ -396,7 +402,7 @@ Im Folgenden werden nun die drei Varianten vorgestellt und ausgewertet.
 Diese Variante bewertet verlorene eigene Einheiten genauso schwer wie verwehrte \footnote{Es ist möglich das Hauptgebäude zu zerstören, wodurch keine neuen Einheiten entstehen.
 Gezählt werden die Einheiten bei Spielende, anstatt der getöteten bzw. verlorenen Einheiten, wodurch dieser Effekt den Punktestand beeinflusst.} gegnerische Einheiten.
 Die Motivation dieser Variante war, dass dies uns als natürlichste Bewertung einer KI in diesem Spiel erschien.
-\todo[inline]{Das ist nicht ganz verstaendlich. Koennt ihr ein paar Saetze dazu schreiben, warum es sich um einen natuerlichen Bewertungsstrategie handelt.}
+\todo[inline]{Das ist nicht ganz verständlich. Könnt ihr ein paar Sätze dazu schreiben, warum es sich um einen natuerlichen Bewertungsstrategie handelt.}
 
 \begin{figure}[h]
 	\includegraphics[width = \textwidth]{Durchschnittskills1zu1.png}
@@ -406,7 +412,7 @@ Die Motivation dieser Variante war, dass dies uns als natürlichste Bewertung ei
 \todo[inline]{In den Graphiken: \\
 (1) Die Punkte mit den Linien zu verbinden ist nicht richtig, z.B. gibt es keine Generation 4,5. \\
 (2) Es gibt 2 Ueberschriften: oben und unten. \\
-(3) Die Ueberschriften sind suboptimal gewaehlt.}
+(3) Die Ueberschriften sind suboptimal gewählt.}
 
 \Cref{Durchschnittskills1zu1} zeigt die durchschnittlichen Kills des jeweiligen Individuums gegen die nullte Generation.
 Dabei ist die x-Achse die Generation, aus der das jeweilige Individuum stammt, und die y-Achse der Durchschnittswert, der gegen die nullte Generation erzielten Kills.
@@ -418,7 +424,7 @@ Die Einbrüche innerhalb dessen sind der Fitnessfunktion geschuldet: Ein Individ
 Trotzdem gehen wir davon aus, dass sich auf längere Sicht, sprich mehr Generationen, der Aufwärtstrend fortsetzen würde.
 
 Wir sind bisher nicht auf Verluste eingegangen, da in dieser Variante die nullte Generation keinem Individuum Verluste zufügen konnte.
-\todo[inline]{Namensschema ''1zu1'', ''1zu2'', ''0zu1'' erklaeren.} 
+\todo[inline]{Namensschema ''1zu1'', ''1zu2'', ''0zu1'' erklären.} 
 
 \section{Variante 2: 1zu2}
 Diese Variante bewertet verwehrte gegnerische Einheiten doppelt so schwer wie verlorene eigene Einheiten.
@@ -503,34 +509,34 @@ Zudem macht ja gerade der Aspekt der Schwarmintelligenz die AI skalierbar.
 Damit ist sie prinzipiell auch auf kompliziertere RTS übertragbar.
 
 
-\todo[inline]{Grundlage gelegt, fuer die weitere Entwicklung der AI.
-Diese Arbeit hilft der naechsten Entwickler nicht in die Fallen zu tappen.}
+\todo[inline]{Grundlage gelegt, für die weitere Entwicklung der AI.
+Diese Arbeit hilft der nächsten Entwickler nicht in die Fallen zu tappen.}
 
 \section{Wie geht's weiter?}
 \todo[inline]{Further Work:\\
 	Wie gehts weiter?\\
 	Wie generiert man mehr genug Daten?\\
 	Welche Arbeitsschritte fehlen noch?\\
-	Wie wuerdet Ihr vorgehen, wenn Ihr das Projekt neubeginnen wuerdet? Z.B. anderen Algorithmus nehmen, von Scratch beginne, nur auf den Kern konzentrieren, \dots\\
-	Was wuerdet Ihr allgemein den naechsten Studenten sagen, die Eure Arbeit fortsetzen?
+	Wie würdet Ihr vorgehen, wenn Ihr das Projekt neubeginnen würdet? Z.B. anderen Algorithmus nehmen, von Scratch beginne, nur auf den Kern konzentrieren, \dots\\
+	Was würdet Ihr allgemein den nächsten Studenten sagen, die Eure Arbeit fortsetzen?
 }
 
 
-\bibliographystyle{alpha}
-\bibliography{literatur}
+%\bibliographystyle{alpha}
+%\bibliography{literatur}
 
 \appendix
 \appendixpage
 
-\chapter{Quellen}
+%\chapter{Quellen}
 
-\begin{itemize}
-	\item[Spring] https://springrts.com/
-	\item[Unity] https://unity3d.com/
-	\item[NN-Bib] http://franck.fleurey.free.fr/NeuralNetwork/
-\end{itemize}
+%\begin{itemize}
+%  \item[Spring] https://springrts.com/
+%  \item[Unity] https://unity3d.com/
+%  \item[NN-Bib] http://franck.fleurey.free.fr/NeuralNetwork/
+%\end{itemize}
 
 \listoffigures
-
+\printbibliography
 
 \end{document}
