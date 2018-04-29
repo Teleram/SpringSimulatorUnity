@@ -51,6 +51,9 @@
 \WarningFilter{latexfont}{Some font}
 \usepackage{changes}
 \usepackage{lmodern}
+%\usepackage[style=numeric-comp,backend=bibtex]{biblatex}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{literatur.bib}
 
 
 
@@ -132,7 +135,8 @@
 Konventionelle AI's in Spielen haben jeweils einen konstanten Schwierigkeitsgrad. Nicht nur können erfahrene Spieler diese AI's überlisten, viele Spieler erreichen irgendwann eine Spielstärke, die über jeder AI liegt. In der Konsequenz wird jede AI auf Dauer langweilig. Eine neue, lernfähige AI könnte den Spielspaß steigern und die Qualität der Spiele erhöhen.\\
 Dieser Text stellt den Bericht zu einem Projekt, das genau dieses Problem angeht, dar. 
 Innerhalb des Projektes bauten wir ein sehr vereinfachtes RTS und eine AI, die erlernen sollte dieses gut zu spielen. 
-Der AI liegt ein neuronales Netz zugrunde; das Training erfolgte über einen genetischen Algorithmus.
+Der AI liegt ein neuronales Netz zugrunde; das Training erfolgte über einen genetischen Algorithmus.\\
+Diese Arbeit macht die ersten Schritte in die Entwicklung einer anpassungsfähigen AI und untersucht 3 Bewertungsmethoden des Lernfortschritts der AI's.
 \end{abstract}
 
 
@@ -209,8 +213,16 @@ In diesem Kapitel beschreiben wir kurz den Aufbau der wichtigsten Bausteine des 
 \section{Aufbau der Simulation}
 Die Simulation ist ein sehr einfaches RTS. 
 Sie ist ausgelegt auf genau zwei Spieler. 
-Jeder der Spieler hat ein Hauptgebäude (repräsentiert durch große, farbige Quadrate in den Spielfeldecken), dass in regelmäßigen Zeitabständen Einheiten (kleine, farbige Kapseln) erstellt (\Cref{Spielfeld}). 
-Diese Einheiten können zu Positionen auf dem Spielfeld laufen. Übergeben wird dabei nur die Zielposition, die eigentliche Bewegung übernimmt Unity.\\
+Jeder der Spieler hat ein Hauptgebäude (repräsentiert durch große, farbige Quadrate in den Spielfeldecken), dass in regelmäßigen Zeitabständen Einheiten (kleine, farbige Kapseln) erstellt (\Cref{Spielfeld}).\\
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{Spielfeld.png}
+	\caption{Ein Screenshot vom Spielfeld.}
+	\label{Spielfeld}
+\end{figure}
+
+Die Einheiten können zu Positionen auf dem Spielfeld laufen. Übergeben wird dabei nur die Zielposition, die eigentliche Bewegung übernimmt Unity.\\
 Sind Einheiten dicht genug an gegnerischen dran, also innerhalb eines vordefinierten Radius ($r_{\text{kill}}$), so können sie Schaden an diesen verursachen. Wenn Schaden verursacht wurde, so benötigt die Einheit eine vordefinierte Menge Zeit, bis sie wieder Schaden verursachen kann, andere Funktionen sind dadurch nicht eingeschränkt. Wichtig ist hierbei, dass beliebig viele Einheiten gleichzeitig angreifen können, genauer alle Einheiten, die zu einem Zeitpunkt angreifen können und wollen greifen gleichzeitig an. Dadurch ist es möglich, dass sich zwei Einheiten gegenseitig töten.
 Fallen die Lebenspunkte einer Einheit auf oder unter null, so wird diese gelöscht.\\
 Die Einheiten haben eine Sichtweite ($r_{\text{view}}$) in der sie sowohl die gegnerische als auch freundliche Einheiten sehen können.\\
@@ -218,21 +230,13 @@ Es gibt genau einen Einheitentyp. Die Simulation beinhaltet keinerlei Mechaniken
 
 Da wir kein Spielende durch Sieg eines Spielers garantieren konnten, beschlossen wir jedem Match eine feste Zeitdauer zu geben. Diese musste lang genug für das Entfalten einer Taktik sein ohne dabei das Match unnötig in die Länge zu ziehen. Als Kompromiss wählten wir zehn Minuten pro Match.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width = 0.5\textwidth]{Spielfeld.png}
-	\caption{Ein Screenshot vom Spielfeld. Es besteht nur aus einer planen Ebene. Die beiden Gegner starten in gegenüberliegenden Ecken. Die großen Rechteecke repräsentieren Gebäude und die kleinen Kapseln die Einheiten.}
-	\label{Spielfeld}
-\end{figure}
 
 
 \section{Aufbau der AI}
-Da bei einem RTS die Anzahl der Einheiten, und damit die Anzahl der Möglichkeiten, variabel ist, entschieden wir uns, auch durch Anraten der Betreuer, dafür, die AI als Schwarmintelligenz zu designen.
-
+Da bei einem RTS die Anzahl der Einheiten, und damit die Anzahl der Möglichkeiten, variabel ist, wurde die Entscheidung getroffen die AI als Schwarmintelligenz zu designen.
 Jede Einheit hat einen Sichtradius und gibt diese Information als Input an die AI. 
 Diese wiederum generiert daraus über ein neuronales Netz eine Entscheidung. 
-Damit verhalten sich alle Einheiten gleich bei gleicher Eingabe. 
-
+Damit verhalten sich alle Einheiten gleich bei gleicher Eingabe.
 Durch den Aufbau als Schwarmintelligenz ist die AI problemlos skalierbar. 
 Zudem benötigen wir keinerlei Koordination der Einheiten, da diese sich aus der Schwarmintelligenz von alleine ergibt.
 
@@ -266,23 +270,23 @@ Das Hauptgebäude erzeugt jede Minute eine Einheit, die erste davon bei Spielbeg
 
 \section{Umsetzung der AI}
 Wie bereits im Aufbau erwähnt, ist der Kern der AI ein neuronales Netz.
-Dazu suchten wir uns eine Bibliothek [NN-Bib], sodass wir die Struktur nicht selber bauen mussten.
+Dazu suchten wir uns eine passende C\#-Bibliothek \cite{nn-bib}, die uns die notwendige Funktionalität bereitstellt.\\
 
 Eine große Hürde bei der Verwendung eines neuronalen Netzes bestand darin, dass das neuronale Netz als Input Floats erwartet und den Output auch in Form von Floats liefert, was uns dazu zwingt den Input auf Floats herunter zu brechen.
-Die Umsetzung in der von uns verwendeten Bibliothek verwendet den Wertebereich null bis eins.
+Die Umsetzung in der von uns verwendeten Bibliothek verwendet den Wertebereich null bis eins.\\
 
-Als Input verwenden wir die eigene Position der Einheit pos.x, pos.y auf der Ebene, die wir einfach linear reskalieren.
-Dazu kommen die Einheiten, inklusive der Hauptgebäude, im Sichtradius der Einheit, sowohl freundliche als auch feindliche.
-Je ein Inputneuron verwenden wir um zu signalisieren, ob das jeweilige Hauptgebäude (Freund/Feind) zu sehen ist.
-Ist dies der Fall, so gibt ein weiteres Neuron eine ungefähre Entfernungsabschätzung an.
-Zusätzlich verwenden wir noch je ein Neuron um die Anzahl der Freunde bzw. Feinde im Sichtbereich zu codieren; dies geschieht indem wir diese Anzahl durch die maximal mögliche Anzahl teilen.
+Als Input verwenden wir die eigene Position der Einheit (pos\_x, pos\_y) auf der Ebene, die wir einfach linear reskalieren.
+Dazu kommen die Einheiten, inklusive der Hauptgebäude, im Sichtradius der Einheit, sowohl freundliche als auch feindliche, deren genaue Zuordnung wir im Folgenden aufschlüsseln:
+Je ein Inputneuron verwenden wir um zu signalisieren, ob das jeweilige Hauptgebäude (Freund/Feind) zu sehen ist (found\_friendly\_building, found\_enemy\_building).
+Ist dies der Fall, so gibt ein weiteres Neuron eine ungefähre Entfernungsabschätzung an (dist\_to\_friendly\_building, dist\_to\_enemy\_building).
+Zusätzlich verwenden wir noch je ein Neuron um die Anzahl der Freunde (num\_of\_friends) bzw. Feinde (num\_of\_enemies) im Sichtbereich zu codieren; dies geschieht indem wir diese Anzahl durch die maximal mögliche Anzahl teilen.
 Insgesamt kommen wir somit auf acht Inputneuronen.
 
 \begin{equation}
 	\text{Input} = \left( \begin{matrix}
 		\text{pos\_x} \\
 		\text{pos\_y} \\
-	\text{num\_of\_friends} \\
+		\text{num\_of\_friends} \\
 		\text{num\_of\_enemies} \\
 		\text{found\_friendly\_building} \\
 		\text{found\_enemy\_building} \\
@@ -511,28 +515,31 @@ Damit ist sie prinzipiell auch auf kompliziertere RTS übertragbar.\\
 In Summe haben wir eine einfache AI für ein sehr einfaches Spiel geschaffen, die sowohl gemeinsam als auch nahezu unabhängig voneinander erweiterbar sind.
 
 
-\section{Wie geht es weiter?}
+\chapter{Wie geht es weiter?}
+\label{Wie geht es weiter?}
+
 Letztendlich war unsere Zeit doch sehr begrenzt für den Umfang, den wir dem Projekt gerne verliehen hätten. Wir verloren viel Zeit damit Grundlagen zu schaffen auf denen wir eigentlich hätten aufbauen wollen. Wir hätten sowohl mehr Tiefe im Spiel (z.B. Ressourcen) haben als auch die AI erweitern (z.B. detaillierterer Input) wollen. Besonders wichtig hierbei wäre eine Spielmechanik, die etwas beinhaltet, worum man kämpfen muss (z.B. Kontrollpunkte). Dies hätte der AI eine intrinsische Motivation gegeben aktiv zu spielen. Mit einer solchen intrinsischen Motivation wäre es auch leichter möglich gewesen die Testspiele zu reduzieren (statt jeder gegen jeden z.B. jeder gegen 5 zufällige) ohne dabei die Testdaten durch extremes Übergewicht des Zufalls zu korrumpieren.\\
 Sollte man dieses Projekt erweitern bzw. fortsetzen, so empfehlen wir Testdaten zu generieren, während im Hintergrund bereits die Weiterentwicklung fortgesetzt wird. Damit würde nicht so viel Zeit für etwas verloren gehen, das eigentlich im Hintergrund laufen kann. Zudem würde es einem auch laufend Hinweise geben in welche Richtung weiterzuarbeiten ist.\\
 Würden wir dieses Projekt nochmal von vorne angehen, so würden wir Spring schneller verwerfen. Dies würde uns mehr am Ende Zeit geben uns auf die AI zu konzentrieren. Eventuell würden wir auch kein lauffähiges Spiel mehr bauen sondern eine reine Simulation. Dies würde uns zwar mehr Zeit für die AI geben, jedoch nimmt es Möglichkeiten den Fortschritt nach zu vollziehen und den Spielumfang zu erweitern. Im Sinne der Fertigstellung des Projektes wäre das also sehr sinnvoll, in Hinblick auf eine Erweiterung oder Fortsetzung des Projektes durch andere wäre es sehr hinderlich.\\
 An und für sich haben wir die Basis geschaffen, auf der man unser Projekt, im Sinne der ursprünglichen Intention, erst sinnvoll durchführen kann. Wir mussten eine Basis schaffen, um die AI auf irgendetwas anwenden zu können. Sollte jemand unsere Arbeit fortsetzen wollen, so empfehlen wir auf der von uns geschaffenen Basis (und dem Code) aufzusetzen und tatsächlich die Arbeit fortzuführen, statt sie nur mit unseren Erkenntnissen neu zu beginnen.
 
 
-\bibliographystyle{alpha}
-\bibliography{literatur}
+%\bibliographystyle{alpha}
+%\bibliography{literatur}
 
 \appendix
 \appendixpage
 
-\chapter{Quellen}
+%\chapter{Quellen}
 
-\begin{itemize}
-	\item[Spring] https://springrts.com/
-	\item[Unity] https://unity3d.com/
-	\item[NN-Bib] http://franck.fleurey.free.fr/NeuralNetwork/
-\end{itemize}
+%\begin{itemize}
+%  \item[Spring] https://springrts.com/
+%  \item[Unity] https://unity3d.com/
+%  \item[NN-Bib] http://franck.fleurey.free.fr/NeuralNetwork/
+%\end{itemize}
 
 \listoffigures
+\printbibliography
 
 
 \end{document}
