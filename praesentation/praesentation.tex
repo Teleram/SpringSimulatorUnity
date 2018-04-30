@@ -1,0 +1,303 @@
+\documentclass[compress]{beamer}
+
+\usetheme{Hamburg}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{lmodern}
+
+%\usepackage[english]{babel}
+\usepackage[ngerman]{babel}
+
+\usepackage{eurosym}
+\usepackage{listings}
+\usepackage{lstautogobble}
+\usepackage{microtype}
+\usepackage{textcomp}
+\usepackage{units}
+
+\lstset{
+	basicstyle=\ttfamily\footnotesize,
+	frame=single,
+	numbers=left,
+	language=C,
+	breaklines=true,
+	breakatwhitespace=true,
+	postbreak=\hbox{$\hookrightarrow$ },
+	showstringspaces=false,
+	autogobble=true,
+	upquote=true,
+	tabsize=4,
+	captionpos=b,
+	morekeywords={int8_t,uint8_t,int16_t,uint16_t,int32_t,uint32_t,int64_t,uint64_t,size_t,ssize_t,off_t,intptr_t,uintptr_t,mode_t}
+}
+
+\title{Gaming AI}
+\subtitle{Projekt Big Data}
+\author{Friedrich Braun, Valentin Krön\\
+Betreuer: Eugen Betke, Julian Kunkel}
+\institute{Arbeitsbereich Wissenschaftliches Rechnen\\Fachbereich Informatik\\Fakultät für Mathematik, Informatik und Naturwissenschaften\\Universität Hamburg}
+\date{2017-03-19}
+
+\titlegraphic{\includegraphics[width=0.75\textwidth]{logo}}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gliederung (Agenda)}
+
+	\tableofcontents[hidesubsections]
+\end{frame}
+
+\section{Projektziel}
+\subsection{Altes Projektziel}
+
+\begin{frame}
+	\frametitle{Altes Projektziel}
+
+	\begin{itemize}
+		\item AI-Bot für RTS
+		\begin{itemize}
+			\item genauer: Spring-Engine
+		\end{itemize}
+		\item Training via Genetischem Algorithmus
+		\item Sprache C oder C++
+		\item Orientierung an bestehenden AI's
+		\begin{itemize}
+			\item gegen bestehende AI's spielen
+		\end{itemize}
+		\item AI gleichmächtig wie Mensch
+		\begin{itemize}
+			\item[$\rightarrow$] besserer Spieler
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Warum Änderung des Ziels?}
+
+	\begin{itemize}
+		\item Spring ist unübersichtlich aufgebaut
+		\begin{itemize}
+			\item nicht nachvollziehbare Probleme beim Starten von Spring
+			\item nicht modspezifische AI's ließen sich nicht einbinden
+		\end{itemize}
+		\item Mods mit eigener Lobby
+		\begin{itemize}
+			\item funktioniert in sich gut
+			\item nicht von außen zu erweitern
+			\item Mod um AI erweitern (Lua) zu aufwendig
+		\end{itemize}
+		\item Ziele nicht im Projektzeitraum erreichbar
+	\end{itemize}
+\end{frame}
+
+\subsection{Neues Projektziel}
+
+\begin{frame}
+	\frametitle{Neues Projektziel}
+
+	\begin{itemize}
+		\item Proof-of-concept
+		\begin{itemize}
+			\item AI für RTS
+			\item Training mit genetischem Algorithmus
+		\end{itemize}
+		\item[$\Rightarrow$] Vereinfachtes RTS selber bauen
+		\begin{itemize}
+			\item Spieleengine Unity [1]
+		\end{itemize}
+		\item Beibehaltung des direkten Vergleiches mit Mensch
+	\end{itemize}
+\end{frame}
+
+
+
+\section{Spiel}
+\subsection{Unity}
+
+\begin{frame}
+	\frametitle{Warum Unity?}
+
+	\begin{itemize}
+		\item Sollte Spiel bleiben
+		\item AI weiterhin gleichmächtig wie Mensch
+		\item bekannt
+		\begin{itemize}
+			\item umfassende Dokumentation
+			\item viele (kostenlose) Online-Tutorien
+		\end{itemize}
+		\item kostenlos für Uniprojekte
+		
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Schwierigkeiten mit Unity}
+
+	\begin{itemize}
+		\item Unity handhabt Codestrukturen anders
+		\begin{itemize}
+			\item[$\Rightarrow$] viele Konventionen nicht anwendbar
+			\item[$\Rightarrow$] unintuitiv
+		\end{itemize}
+		\item Multiplayer (Unity Networking)
+		\begin{itemize}
+			\item jeder Wert muss explizit übertragen werden
+			\item Fehler durch verzögerte Übertragung
+			\item Objekt-Referenzen nicht übertragbar
+			\item netId-Component für uns nicht zugreifbar
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{C\# und Microsoft Visual Studio}
+
+\begin{frame}
+	\frametitle{Warum C\# ? Warum Visual Studio?}
+
+	\begin{itemize}
+		\item C\#
+		\begin{itemize}
+			\item Aktuelle Unityversion unterstüzt C\# und Javascript
+			\item bewusst gegen Javascript und für C\# entschieden
+			\item C\# relativ nah an bisher Gelerntem
+		\end{itemize}
+		
+		\item Visual Studio
+		\begin{itemize}
+			\item direkte Verbindung mit Unity
+			\item unkompliziert und einfach
+			\item keine Suche nach anderer IDE
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Neurales Netzwerk}
+
+\begin{frame}
+	\frametitle{Neuronales Netzwerk}
+
+	\begin{itemize}
+		\item Warum Verwendung eines NN
+		\begin{itemize}
+			\item Schwarmintelligenz
+			\begin{itemize}
+				\item viele Teilprobleme geringer Koplexität
+				\item Teilprobleme können dieselbe Lösung haben
+			\end{itemize}
+			\item skalierbare Komplexität
+			\item Erweiterbarkeit um neue Funktionalitäten
+			\item generieren von Entscheidungen
+		\end{itemize}
+		\item Umsetzung
+		\begin{itemize}
+			\item Bibliothek eingebunden
+			\begin{itemize}
+				\item C\# Neural Network Library [2]
+				\item nur Übernahme der Struktur
+			\end{itemize}
+		\end{itemize}	
+	\end{itemize}
+\end{frame}
+
+\subsection{Genetischer Algorithmus}
+
+\begin{frame}
+	\frametitle{Aufbau}
+
+	\begin{itemize}
+		\item selbstgebaut in C\#
+		\item Gene sind die Gewichte des NN
+		\item Genotyp = Phänotyp		
+		\item Fitnesswert
+		\begin{itemize}
+			\item eigene Einheiten - Gegnereinheiten
+		\end{itemize}
+		\item zufällige Initialisierung
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Kennfunktionen}
+
+	\begin{itemize}
+		\item Rekombination
+		\begin{itemize}
+			\item random cut
+		\end{itemize}
+		\item Mutation
+		\begin{itemize}
+			\item pro Individuum ob mutiert
+			\item wenn, dann genau ein Gen zufällig neu
+		\end{itemize}
+		\item Selektion
+		\begin{itemize}
+			\item die Fittesten überleben
+		\end{itemize}
+		
+		
+	\end{itemize}
+\end{frame}
+
+\section{Fazit}
+\subsection*{}
+
+\begin{frame}
+	\frametitle{Was erreicht?}
+
+	\begin{itemize}
+		\item Spiel im lokalen Netzwerk voll funktionsfähig
+		\begin{itemize}
+			\item genau zwei Spieler
+		\end{itemize}
+		\item Gleichmächtigkeit erfüllt
+		\item unterschiedliche Individuen erzeugen\\
+		 unterschiedliche Verhaltensweisen
+		\item der genetische Algorithmus funktioniert
+		\begin{itemize}
+			\item Kommunikation von Gewichten und Fitness funktioniert
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection*{}
+
+\begin{frame}
+	\frametitle{Ausblick}
+
+	\begin{itemize}
+		\item Spiel startet nicht vollautomatisch
+		\begin{itemize}
+			\item[$\Rightarrow$] Training nicht vollautomatisch
+			\item[$\Rightarrow$] keine Trainingserfolge
+		\end{itemize}
+		\item Training parallelisieren
+		\begin{itemize}
+			\item Unity kann nicht im Background laufen
+		\end{itemize}
+		\item Erweiterung der Komplexität des Spieles
+	\end{itemize}
+\end{frame}
+
+\section{Quellen}
+\subsection*{}
+
+\begin{frame}
+	\frametitle{Quellen}
+
+	\bibliographystyle{alpha}
+	\bibliography{literatur}
+	\begin{enumerate}
+		\item \url{https://unity3d.com/}
+		\item \url{http://franck.fleurey.free.fr/NeuralNetwork/}
+		\item \url{https://msdn.microsoft.com/library/}
+	\end{enumerate}
+\end{frame}
+
+\end{document}

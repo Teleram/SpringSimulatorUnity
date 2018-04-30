@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {ngerman}
+\beamer@sectionintoc {1}{Projektziel}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Altes Projektziel}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Neues Projektziel}{5}{0}{1}
+\beamer@sectionintoc {2}{Spiel}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Unity}{6}{0}{2}
+\beamer@subsectionintoc {2}{2}{C\# und Microsoft Visual Studio}{8}{0}{2}
+\beamer@subsectionintoc {2}{3}{Neurales Netzwerk}{9}{0}{2}
+\beamer@subsectionintoc {2}{4}{Genetischer Algorithmus}{10}{0}{2}
+\beamer@sectionintoc {3}{Fazit}{12}{0}{3}
+\beamer@sectionintoc {4}{Quellen}{14}{0}{4}
