@@ -153,16 +153,16 @@ Zurzeit sind die meisten AI für beliebige Computerspiele noch fest einprogrammi
 
 \section{Ursprüngliches Projektziel}
 
-Unser ursprüngliches Projektziel bestand darin eine AI zu entwickeln und diese mit Hilfe eines genetischen Algorithmus zu trainieren. Diese AI sollte auf die Spring-RTS-Engine [Spring] angewandt werden. Die Absicht bestand darin zu zeigen, dass eine AI auf diese Weise lernen kann RTS-Spiele gut, eventuell sogar besser als menschliche Spieler, zu spielen.\\
+Unser ursprüngliches Projektziel bestand darin eine AI zu entwickeln und diese mit Hilfe eines genetischen Algorithmus zu trainieren. Diese AI sollte auf die Spring-RTS-Engine \cite{Spring} angewandt werden. Die Absicht bestand darin zu zeigen, dass eine AI auf diese Weise lernen kann RTS-Spiele gut, eventuell sogar besser als menschliche Spieler, zu spielen.\\
 
 \section{Gründe Für die Änderung des Projektziels}
 
 Das Projektziel wurde im Laufe des Projekts aus den folgenden Gründen angepasst:
 \begin{enumerate}
-	\item Einer der Gründe lag im unübersichtlichen Aufbau der Spring-Engine [Spring] selbst. 
+	\item Einer der Gründe lag im unübersichtlichen Aufbau der Spring-Engine \cite{Spring} selbst. 
 		Zwar bietet die Spring-Engine eine Lobby an, jedoch lassen sich nur wenige Spiele tatsächlich starten und selbst bei diesen lassen sich keine externen AI's einbinden. 
 
-	\item	Dadurch fehlte uns eine Vorlage, auf der wir unsere AI hätten aufbauen können; insbesondere fehlte uns Wissen zu den Schnittstellen zwischen unserer AI und der Spring-Engine [Spring].
+	\item	Dadurch fehlte uns eine Vorlage, auf der wir unsere AI hätten aufbauen können; insbesondere fehlte uns Wissen zu den Schnittstellen zwischen unserer AI und der Spring-Engine \cite{Spring}.
 		Einige Spiele haben im Code für das Spiel direkt eingebundene AI's, die auch lauffähig sind. 
 		Diese AI's halfen uns jedoch auch nicht weiter, gerade da sie direkt ins Spiel hineinkompiliert sind. 
 		Dies bedeutet nämlich nicht nur, dass die AI selber kaum zu Debuggen ist, man muss auch direkt am Spiel selber mit der Sprache lua arbeiten. 
@@ -183,7 +183,7 @@ Deshalb haben wir haben das Konzept, das wir umsetzen wollten, aus dem ursprüng
 Dieses Kapitel beschreibt die Entwicklungsumgebung "Unity" und die in der Arbeit verwendeten Algorithmen.}
 
 \section{Unity}
-Unity [Unity] ist eine Spieleentwicklungsumgebung, die für nicht kommerzielle Zwecke, wie z.B. Forschung und Lehre, kostenlos nutzbar ist. Unity setzt kein großes Vorwissen voraus und bietet, wegen großer Bekanntheit, auch viele Onlinetutorials.\\
+Unity \cite{Unity} ist eine Spieleentwicklungsumgebung, die für nicht kommerzielle Zwecke, wie z.B. Forschung und Lehre, kostenlos nutzbar ist. Unity setzt kein großes Vorwissen voraus und bietet, wegen großer Bekanntheit, auch viele Onlinetutorials.\\
 Das wichtigste in Unity sind GameObjects. Aus diesen wird die ganze Spielwelt aufgebaut. Während Unity viele Komponenten für die GameObjects vorgefertigt bereitstellt, decken diese jedoch nicht jeden Spezialfall ab. Hierzu kann man eigene Skripte in C\# oder Javascpript, bzw. mitlerweile Unityscript, schreiben.
 
 
@@ -261,7 +261,7 @@ In diesem Kapitel beschreiben wir kurz die Umsetzung der wichtigsten Bausteine d
 
 \section{Umsetzung der Simulation}
 
-Die Simulation entwickelten wir in Unity [Unity], die Skripte in C\# .\\
+Die Simulation entwickelten wir in Unity \cite{Unity}, die Skripte in C\# .\\
 Im Folgenden werden wir viele der Werte und unsere Entscheidung dazu etwas genauer erläutern.\\
 Die Einheiten haben 100 Lebenspunkte, ein Angriff verursacht 25 Schaden und nach einem Angriff muss 10 Sekunden gewartet werden. Dieses 1-zu-4-Verhältnis erschien uns ein guter Kompromiss daraus, dass Einheiten weder zu schnell noch zu langsam sterben sollten. Das Hauptgebäude sollte deutlich schwieriger zu töten sein und hat deswegen 1000 Lebenspunkte.\\
 Das Spielfeld hat eine Größe von 500 mal 500. Die Angriffsreichweite ($r_{\text{kill}}$) beträgt 50. Dies ist wieder ein Kompromiss dazwischen, dass die Einheiten sich finden müssen sollen und auch finden können. Aus der gleichen Überlegung heraus wählten wir einen Sichtradius ($r_{\text{view}}$) von 100, also das Doppelte des Angriffsradius. Wichtig war uns beim Sichtradius, dass Einheiten sich sehen können bevor sie sich angreifen können.\\
